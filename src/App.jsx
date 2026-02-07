@@ -19,6 +19,7 @@ import Nav from "./components/Nav";
 import Cursor from "./components/Cursor";
 import Home from "./pages/Home";
 import NavSvgPath from "./components/NavSvgPath";
+import HeroSvgPath from "./components/HeroSvgPath";
 
 const App = () => {
 
@@ -54,6 +55,7 @@ const App = () => {
       
       <Nav />
       <NavSvgPath />
+      <HeroSvgPath />
       <div style={{ display: isTouchScreenSize ? "none" : "block" }}>
         <Cursor />
       </div>
