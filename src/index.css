@@ -1,0 +1,55 @@
+@import "tailwindcss";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  @apply bg-black overflow-x-hidden h-full;
+  padding-left: clamp(2.5px, 1vw, 12px);
+  padding-right: clamp(2.5px, 2vw, 16.5px);
+}
+::-webkit-scrollbar {
+  display: none;
+}
+@theme {
+  --color-dark-primary: black;
+  --color-light-primary: white;
+  --color-dark-red-primary: oklch(38% 0.336 25.1);
+}
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .col-center {
+    @apply flex flex-col justify-center items-center;
+  }
+
+  .abs-center {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .general-title {
+    @apply xl:text-[8.5rem] md:text-8xl text-5xl font-bold uppercase leading-[9vw] tracking-[-.35vw];
+  }
+}
+
+@layer components {
+  .custom-cursor {
+    @apply fixed rounded-full pointer-events-none z-100 mix-blend-difference flex items-center justify-center bg-light-primary select-none;
+  }
+
+  nav {
+    @apply w-full h-25 bg-dark-primary text-dark-primary fixed top-0 left-0 right-0;
+    clip-path: url(#wave-container);
+    -webkit-clip-path: url(#wave-container);
+  }
+
+  .hero {
+    @apply h-dvh;
+    div:nth-child(1) {
+      @apply bg-amber-300 h-dvh rounded-lg;
+    }
+  }
+}
