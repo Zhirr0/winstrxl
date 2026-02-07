@@ -7,17 +7,22 @@
 }
 body {
   @apply bg-dark-primary overflow-x-hidden h-full;
-  padding-left:  12px;
-  padding-right: 16.5px;
+  padding-left: clamp(5px, 1vw, 12px);
+  padding-right: clamp(8.5px, 1.5vw, 19.5px);
   font-family: "Alfa Slab One", serif;
   font-weight: 400;
   font-style: normal;
+}
+@media (max-width: 600px) {
+  body {
+    padding-right: clamp(8.5px, 2.3vw, 19.5px);
+  }
 }
 ::-webkit-scrollbar {
   display: none;
 }
 @theme {
-  --color-dark-primary: oklch(14.0% 0.006 173.6);
+  --color-dark-primary: oklch(14% 0.006 173.6);
   --color-light-primary: oklch(86.4% 0.017 2.4);
   --color-dark-red-primary: oklch(38% 0.336 25.1);
 }
@@ -56,13 +61,139 @@ body {
       }
     }
   }
+  .hamburger-btn {
+    @apply fixed top-5 right-10 w-15 z-10000000 h-15 bg-transparent border-none rounded-xl cursor-pointer flex flex-col justify-center items-end gap-1.5 p-3.75 transition-all duration-300 ease-in-out;
+
+    &:hover {
+      @apply scale-105;
+
+      /* HOVER ANIMATIONS
+           On hover, lines 2 and 3 expand to full width
+           and their internal segments redistribute proportionally */
+
+      /* Second line hover: 60% → 100% */
+      .line-container:nth-child(2) {
+        @apply w-full;
+
+        .line-segment:nth-child(1) {
+          @apply w-[20%]; /* Left segment shrinks */
+        }
+
+        .line-segment:nth-child(2) {
+          @apply w-[80%]; /* Right segment expands */
+        }
+      }
+
+      /* Third line hover: 45% → 100% */
+      .line-container:nth-child(3) {
+        @apply w-full;
+
+        .line-segment:nth-child(1) {
+          @apply w-[80%]; /* Left segment expands */
+        }
+
+        .line-segment:nth-child(2) {
+          @apply w-[20%]; /* Right segment shrinks */
+        }
+      }
+    }
+
+    &:active {
+      @apply scale-95;
+    }
+
+    /* ACTIVE STATE (CLICKED) - TRANSFORMS TO X
+       Top line: Moves down and rotates to form top diagonal of X
+       Middle line: Fades out completely
+       Bottom line: Moves up and rotates to form bottom diagonal of X */
+    &.active {
+      .line-container:nth-child(1) .line {
+        @apply translate-y-2.25 rotate-45;
+      }
+
+      .line-container:nth-child(2) {
+        @apply opacity-0 -translate-x-5;
+      }
+
+      .line-container:nth-child(3) {
+        @apply -translate-y-2.25 -rotate-45;
+      }
+    }
+
+    /* LINE CONTAINER & SEGMENT BASE STYLES */
+    .line-container {
+      @apply w-full flex gap-0.5 transition-all duration-300 ease-in-out; /* 2px gap between segments within each line */
+
+      /* FIRST LINE (TOP LINE)
+           Default: 100% width (longest line)
+           Hover: Stays at 100%
+           Active (clicked): Moves down 9px and rotates 45deg to form top part of X */
+      &:nth-child(1) {
+        .line {
+          @apply w-full;
+        }
+      }
+
+      /* SECOND LINE (MIDDLE LINE)
+           Default: 60% total width, split into 2 segments:
+             - Left segment: 45% of button width (75% of line container)
+             - Right segment: 15% of button width (25% of line container)
+           
+           Hover: Expands to 100% width with segments redistributed:
+             - Left segment: 20% of button width
+             - Right segment: 80% of button width
+           
+           Active (clicked): Fades out (opacity 0) and slides left */
+      &:nth-child(2) {
+        @apply w-[60%];
+
+        .line-segment:nth-child(1) {
+          @apply w-[75%]; /* 45% of 60% = 75% */
+        }
+
+        .line-segment:nth-child(2) {
+          @apply w-[25%]; /* 15% of 60% = 25% */
+        }
+      }
+
+      /* THIRD LINE (BOTTOM LINE)
+           Default: 45% total width, split into 2 segments:
+             - Left segment: 15% of button width (33.33% of line container)
+             - Right segment: 30% of button width (66.67% of line container)
+           
+           Hover: Expands to 100% width with segments redistributed:
+             - Left segment: 80% of button width
+             - Right segment: 20% of button width
+           
+           Active (clicked): Moves up 9px and rotates -45deg to form bottom part of X */
+      &:nth-child(3) {
+        @apply w-[45%];
+
+        .line-segment:nth-child(1) {
+          @apply w-[33.33%]; /* 15% of 45% ≈ 33.33% */
+        }
+
+        .line-segment:nth-child(2) {
+          @apply w-[66.67%]; /* 30% of 45% ≈ 66.67% */
+        }
+      }
+    }
+
+    .line,
+    .line-segment {
+      @apply h-0.75 rounded-[3px] transition-all duration-300 ease-in-out bg-light-primary;
+    }
+  }
 
   .hero {
     @apply h-dvh;
+    h3 {
+      @apply absolute uppercase sm:text-sm max-[800px]:text-[16px] lg:text-xl top-[95%] left-1/2 -translate-x-[52%] -translate-y-1/2 text-light-primary;
+    }
     div:nth-child(1) {
-      @apply bg-amber-300 h-dvh rounded-lg;
-    clip-path: url(#hero-container);
-    -webkit-clip-path: url(#hero-container);
+      @apply bg-dark-red-primary h-dvh rounded-[50px];
+      clip-path: url(#hero-container);
+      -webkit-clip-path: url(#hero-container);
     }
   }
 }
