@@ -203,7 +203,7 @@ body {
   }
 
   .hero {
-    @apply h-dvh;
+    @apply h-dvh relative;
     h3 {
       @apply absolute 
          left-1/2 
@@ -218,10 +218,21 @@ body {
          max-[940px]:text-sm 
          max-[1160px]:text-[16px];
     }
-    div:nth-child(1) {
+    .bg-image {
       @apply bg-dark-red-primary h-dvh rounded-xl;
       clip-path: url(#hero-container);
       -webkit-clip-path: url(#hero-container);
+    }
+    .hero-text-block {
+      @apply max-[1024px]:left-5 max-[1024px]:bottom-15
+ text-light-primary text-left z-2 absolute left-15 bottom-15 w-fit;
+      .hero-paragraph {
+        @apply text-xl;
+      }
+      .hero-header {
+        @apply text-7xl max-[768px]:text-5xl;
+        line-height: 0.85;
+      }
     }
   }
 }

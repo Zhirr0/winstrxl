@@ -21,13 +21,21 @@ import Home from "./pages/Home";
 import NavSvgPath from "./components/NavSvgPath";
 import HeroSvgPath from "./components/HeroSvgPath";
 import MenuButton from "./components/MenuButton";
-
+import { useGSAP } from "@gsap/react";
 const App = () => {
 
   const location = useLocation();
   const lenisRef = useRef();
   const isTouchScreenSize = useMediaQuery({ maxWidth: 1024 });
+useGSAP(() => {
+    gsap.from('.hero, .hamburger-btn, nav', {
+      yPercent: -15,
+      opacity: 0,
+      duration: 1.5,
+      ease: 'expo.out'
+    })
 
+}, [])
   useEffect(() => {
     window.scrollTo(0, 0);
     if (lenisRef.current?.lenis) {
