@@ -7,17 +7,14 @@
 }
 body {
   @apply bg-dark-primary overflow-x-hidden h-full;
-  padding-left: clamp(5px, 1vw, 12px);
-  padding-right: clamp(8.5px, 1.5vw, 19.5px);
   font-family: "Alfa Slab One", serif;
+
+  margin-left: clamp(3px, 1vw, 12.4px);
+  margin-right: clamp(3px, 1vw, 12.4px);
   font-weight: 400;
   font-style: normal;
 }
-@media (max-width: 600px) {
-  body {
-    padding-right: clamp(8.5px, 2.3vw, 19.5px);
-  }
-}
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -51,7 +48,7 @@ body {
   }
 
   nav {
-    @apply w-full h-25 z-100 bg-dark-primary text-light-primary fixed top-0 left-0 right-0 flex justify-center items-center;
+    @apply w-full h-15 z-100 bg-dark-primary text-light-primary fixed top-0 left-0 right-0 flex justify-center items-center;
     clip-path: url(#wave-container);
     -webkit-clip-path: url(#wave-container);
     .nav-content {
@@ -189,10 +186,10 @@ body {
   .hero {
     @apply h-dvh;
     h3 {
-      @apply absolute uppercase sm:text-sm max-[800px]:text-[16px] lg:text-xl top-[95%] left-1/2 -translate-x-[52%] -translate-y-1/2 text-light-primary;
+      @apply absolute uppercase sm:text-sm max-[800px]:text-[16px] lg:text-xl top-[97%] left-1/2 -translate-x-[52%] -translate-y-1/2 text-light-primary;
     }
     div:nth-child(1) {
-      @apply bg-dark-red-primary h-dvh rounded-[50px];
+      @apply bg-dark-red-primary h-dvh rounded-xl;
       clip-path: url(#hero-container);
       -webkit-clip-path: url(#hero-container);
     }
