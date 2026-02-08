@@ -21,6 +21,7 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
 @theme {
   --color-dark-primary: oklch(14% 0.006 173.6);
   --color-light-primary: oklch(86.4% 0.017 2.4);
@@ -62,7 +63,7 @@ body {
     }
   }
   .hamburger-btn {
-    @apply fixed top-5 right-10 w-15 z-10000000 h-15 bg-transparent border-none rounded-xl cursor-pointer flex flex-col justify-center items-end gap-1.5 p-3.75 transition-all duration-300 ease-in-out;
+    @apply fixed top-8 right-10 w-10 z-10000000 h-10 bg-transparent border-none rounded-xl cursor-pointer flex flex-col justify-center items-end gap-1.5 p-3.75 transition-all duration-300 ease-in-out;
 
     &:hover {
       @apply scale-105;
