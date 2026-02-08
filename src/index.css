@@ -186,7 +186,18 @@ body {
   .hero {
     @apply h-dvh;
     h3 {
-      @apply absolute uppercase sm:text-sm max-[800px]:text-[16px] lg:text-xl top-[97%] left-1/2 -translate-x-[52%] -translate-y-1/2 text-light-primary;
+      @apply absolute 
+         left-1/2 
+         top-[97%] 
+         -translate-x-[52%] 
+         -translate-y-1/2 
+         uppercase 
+         text-light-primary
+         max-[400px]:text-[16px]
+         max-[600px]:text-[20px]
+         max-[800px]:text-[12px]
+         max-[940px]:text-sm 
+         max-[1160px]:text-[16px];
     }
     div:nth-child(1) {
       @apply bg-dark-red-primary h-dvh rounded-xl;
