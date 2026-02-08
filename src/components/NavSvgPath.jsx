@@ -1,7 +1,7 @@
 import { useMediaQuery } from "react-responsive";
 
 const NavSvgPath = () => {
-  const isMiniIpad = useMediaQuery({ maxWidth: 600 });
+  const isMiniIpad = useMediaQuery({ maxWidth: 1024 });
 
   const pathData = isMiniIpad
     ? `
@@ -39,11 +39,10 @@ C0.99212 0.95893 0.99035 1 1 1
 V0
 H0
 Z
-
     `;
 
   return (
-    <svg width="0" height="0" viewBox="0 0 1269 200" aria-hidden="true">
+    <svg width="0" height="0" viewBox="0 0 1 1" aria-hidden="true">
       <defs>
         <clipPath id="wave-container" clipPathUnits="objectBoundingBox">
           <path d={pathData.trim()} />

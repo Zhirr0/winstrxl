@@ -1,7 +1,7 @@
 import { useMediaQuery } from "react-responsive";
 
 const HeroSvgPath = () => {
-  const isMiniIpad = useMediaQuery({ maxWidth: 650 });
+  const isMiniIpad = useMediaQuery({ maxWidth: 1024 });
   const pathData = isMiniIpad
     ? `
 M0 0

@@ -55,7 +55,6 @@ const App = () => {
     >
       
       <Nav />
-      <NavSvgPath />
       <HeroSvgPath />
       <MenuButton />
       <div style={{ display: isTouchScreenSize ? "none" : "block" }}>
