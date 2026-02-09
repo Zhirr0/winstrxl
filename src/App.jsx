@@ -29,10 +29,10 @@ const App = () => {
   const isTouchScreenSize = useMediaQuery({ maxWidth: 1024 });
 useGSAP(() => {
     gsap.from('.hero, .hamburger-btn, nav', {
-      yPercent: -15,
+      yPercent: -10,
       opacity: 0,
-      duration: 1.5,
-      ease: 'expo.out'
+      duration: 2,
+      ease: 'power3.out'
     })
 
 }, [])

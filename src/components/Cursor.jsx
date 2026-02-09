@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
+import { useMediaQuery } from "react-responsive";
 gsap.registerPlugin(Observer);
 
 const size = 40;
@@ -11,8 +12,9 @@ const Cursor = () => {
   const lastMoveTimeRef = useRef(null);
   const resetTimeoutRef = useRef(null);
   const inactivityIntervalRef = useRef(null);
-
+  const isNotAllowed = useMediaQuery({maxWidth: 1024})
   useEffect(() => {
+    if (isNotAllowed) return ;
     lastMoveTimeRef.current = Date.now();
     const cursor = cursorRef.current;
     const links = document.querySelectorAll(
@@ -261,7 +263,7 @@ const Cursor = () => {
         clearInterval(inactivityIntervalRef.current);
       observer.kill();
     };
-  }, []);
+  }, [isNotAllowed]);
 
   return (
     <div

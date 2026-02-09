@@ -15,7 +15,11 @@ const Hero = () => {
       });
       const paraSplit = SplitText.create(".hero-paragraph", {
         type: "lines",
-        mask: 'lines'
+        mask: "lines",
+      });
+      const scrollSplit = SplitText.create(".hero-scroll-text", {
+        type: "chars",
+        mask: "chars",
       });
 
       gsap.from(paraSplit.lines, {
@@ -31,6 +35,14 @@ const Hero = () => {
         duration: 1,
         delay: 0.3,
         stagger: 0.05, // Stagger each character
+      });
+
+      gsap.from(scrollSplit.chars, {
+        yPercent: 100,
+        ease: "power3.out",
+        duration: 1,
+        delay: 0.3,
+        stagger: 0.05,
       });
     });
   }, []);
@@ -55,7 +67,7 @@ const Hero = () => {
           </h1>
         </div>
       </div>
-      <h3>{isSmall ? "SCROLL" : "SCROLL DOWN"}</h3>
+      <h3 className="hero-scroll-text">{isSmall ? "SCROLL" : "SCROLL DOWN"}</h3>
     </section>
   );
 };
