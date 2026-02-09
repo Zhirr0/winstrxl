@@ -18,7 +18,6 @@ import { useMediaQuery } from "react-responsive";
 import Nav from "./components/Nav";
 import Cursor from "./components/Cursor";
 import Home from "./pages/Home";
-import NavSvgPath from "./components/NavSvgPath";
 import HeroSvgPath from "./components/HeroSvgPath";
 import MenuButton from "./components/MenuButton";
 import { useGSAP } from "@gsap/react";
@@ -42,7 +41,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const update = (time) => lenisRef.current?.lenis?.raf(time * 800);
+    const update = (time) => lenisRef.current?.lenis?.raf(time * 700);
     gsap.ticker.add(update);
     return () => gsap.ticker.remove(update);
   }, []);
@@ -70,8 +69,6 @@ const App = () => {
           <Route index element={<Home />} />
         </Routes>
       </AnimatePresence>
-
-      <div className="h-screen"></div>
     </ReactLenis>
   );
 };

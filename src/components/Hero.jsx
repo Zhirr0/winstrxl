@@ -47,7 +47,7 @@ const Hero = () => {
 
       ScrollTrigger.create({
         trigger: ".hero-text-block",
-        start: "top center",
+        start: "top 50%",
         end: "top top",
         onUpdate(self) {
           const progress = self.progress;
@@ -72,7 +72,7 @@ const Hero = () => {
   const isSmall = useMediaQuery({ maxWidth: 768 });
 
   return (
-    <section className="hero">
+    <section style={{ marginBottom: "25vh"}} className="hero">
       <div className="bg-image"></div>
       <div className="hero-text-block">
         <div className="hero-paragraph">
