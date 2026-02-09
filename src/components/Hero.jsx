@@ -2,6 +2,7 @@ import { useMediaQuery } from "react-responsive";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(SplitText);
 
@@ -9,7 +10,7 @@ const Hero = () => {
   useGSAP(() => {
     document.fonts.ready.then(() => {
       // Split the text
-      const split = new SplitText(".hero-header", {
+      const split = SplitText.create(".hero-header", {
         type: "lines",
         mask: "lines",
       });
@@ -28,13 +29,12 @@ const Hero = () => {
         ease: "power2",
       });
 
-      // Animate the chars
       gsap.from(split.lines, {
         yPercent: 100,
         ease: "power2",
         duration: 1,
         delay: 0.3,
-        stagger: 0.05, // Stagger each character
+        stagger: 0.05,
       });
 
       gsap.from(scrollSplit.chars, {
@@ -43,6 +43,28 @@ const Hero = () => {
         duration: 1,
         delay: 0.3,
         stagger: 0.05,
+      });
+
+      ScrollTrigger.create({
+        trigger: ".hero-text-block",
+        start: "top center",
+        end: "top top",
+        onUpdate(self) {
+          const progress = self.progress;
+          gsap.to(split.lines, {
+            yPercent: progress * 200 * -1,
+            opacity: 1 - progress,
+            ease: "power3.out",
+            overwrite: "auto", 
+          });
+
+          gsap.to(paraSplit.lines, {
+            yPercent: progress * 300 * -1,
+            opacity: 1 - progress,
+            ease: "power3.out",
+            overwrite: "auto",
+          });
+        },
       });
     });
   }, []);

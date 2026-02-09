@@ -23,19 +23,17 @@ import HeroSvgPath from "./components/HeroSvgPath";
 import MenuButton from "./components/MenuButton";
 import { useGSAP } from "@gsap/react";
 const App = () => {
-
   const location = useLocation();
   const lenisRef = useRef();
   const isTouchScreenSize = useMediaQuery({ maxWidth: 1024 });
-useGSAP(() => {
-    gsap.from('.hero, .hamburger-btn, nav', {
+  useGSAP(() => {
+    gsap.from(".hero, .hamburger-btn, nav", {
       yPercent: -10,
       opacity: 0,
       duration: 2,
-      ease: 'power3.out'
-    })
-
-}, [])
+      ease: "power3.out",
+    });
+  }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
     if (lenisRef.current?.lenis) {
@@ -44,7 +42,7 @@ useGSAP(() => {
   }, []);
 
   useEffect(() => {
-    const update = (time) => lenisRef.current?.lenis?.raf(time * 900);
+    const update = (time) => lenisRef.current?.lenis?.raf(time * 800);
     gsap.ticker.add(update);
     return () => gsap.ticker.remove(update);
   }, []);
@@ -61,7 +59,6 @@ useGSAP(() => {
       }}
       ref={lenisRef}
     >
-      
       <Nav />
       <HeroSvgPath />
       <MenuButton />
