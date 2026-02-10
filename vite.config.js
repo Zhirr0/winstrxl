@@ -8,7 +8,7 @@ export default defineConfig({
     include: ["motion", "framer-motion", "motion/react"],
   },
   server: {
-    allowedHosts: ["bite-distinction-cadillac-jul.trycloudflare.com"],
+    allowedHosts: ["draft-explain-calculator-gourmet.trycloudflare.com"],
   },
   plugins: [
     react({
