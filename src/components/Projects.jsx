@@ -49,7 +49,7 @@ const Projects = () => {
         trigger: item,
         markers: true,
         start: "top bottom",
-        end: "top 20%",
+        end: "top top",
         onUpdate(self) {
           const progress = self.progress;
           const yPercent = gsap.utils.interpolate(40, 0, progress);
