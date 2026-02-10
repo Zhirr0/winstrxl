@@ -1,6 +1,8 @@
+
 const ProjectsDescription = ({ number, label, title, description, index }) => {
+  
   return (
-    <div className={`projects-description projects-description-${index}`}>
+    <div style={{paddingTop: '10px'}} className={`projects-description projects-description-${index}`}>
       <p className="project-label">{label}</p>
       <h2 className="project-number">{number}</h2>
       <div
