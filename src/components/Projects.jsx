@@ -3,7 +3,7 @@ import ProjectsCard from "./ProjectsCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useRef, useEffect, useState } from "react";
+import { useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,50 +11,26 @@ gsap.registerPlugin(ScrollTrigger);
 const Projects = () => {
   const projectsSectionRef = useRef(null);
   const notAllowed = useMediaQuery({ maxWidth: 1024 });
-  const [shouldRefresh, setShouldRefresh] = useState(0);
-
-  // resize handler to detect breakpoint changes
-  useEffect(() => {
-    let timeoutId;
-    const handleResize = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        // kill all ScrollTriggers and refresh
-        ScrollTrigger.getAll().forEach((st) => st.kill());
-        gsap.set(".projects", { clearProps: "all" });
-        gsap.set(".projects-description-1, .projects-description-2, .projects-description-3", { clearProps: "all" });
-        gsap.set(".projects-card-1, .projects-card-2, .projects-card-3", { clearProps: "all" });
-        
-        // trigger useGSAP to re-run
-        setShouldRefresh(prev => prev + 1);
-      }, 150);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   useGSAP(() => {
     const projectsItem = gsap.utils.toArray(".project-item");
     gsap.set(projectsItem, {
-      yPercent: 40,
+      yPercent: 20,
+      opacity: 0.4
     });
 
     projectsItem.forEach((item) => {
       ScrollTrigger.create({
         trigger: item,
-        markers: true,
         start: "top bottom",
         end: "top top",
         onUpdate(self) {
           const progress = self.progress;
-          const yPercent = gsap.utils.interpolate(40, 0, progress);
+          const yPercent = gsap.utils.interpolate(20, 0, progress);
+          const opacity = gsap.utils.interpolate(0.4, 1, progress)
           gsap.set(item, {
             yPercent,
+            opacity
           });
         },
       });
@@ -193,7 +169,7 @@ const Projects = () => {
         }
       },
     });
-  }, [notAllowed, shouldRefresh]);
+  }, [notAllowed]);
 
   const projectsData = [
     {

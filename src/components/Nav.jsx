@@ -9,7 +9,7 @@ gsap.registerPlugin(SplitText);
 
 const Nav = () => {
   const [isCompressed, setIsCompressed] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+  const [isDesktop] = useState(window.innerWidth >= 1024);
   const lastScrollY = useRef(0);
   const navRef = useRef(null);
   const pathRef = useRef(null);
@@ -43,37 +43,6 @@ Z
   const compressedPath = `
 M0 0V1C0.00435 1 0.0078799917 1 0.0078799917 0.9107142857C0.0078799917 0.7909321429 0.0078833333 0.7720982143 0.0078833333 0.5498348214C0.0078833333 0.3276991071 0.04125 0.3276991071 0.064 0.3276991071H0.4258333333C0.4675 0.3276991071 0.4425 1 0.4675 1H0.5208333333C0.5445833333 1 0.5208333333 0.3276991071 0.5625 0.3276991071H0.930700000 C0.9579166667 0.3276991071 0.9917833333 0.3276991071 0.9917833333 0.5511142857C0.9917833333 0.7099154464 0.9921166667 0.7436250000 0.9921166667 0.9107142857C0.9921166667 0.9589285714 0.9903500000 1 1 1V0H0.5H0Z
   `.trim();
-
-  // Handle resize - force reset when crossing 1024px breakpoint
-  useEffect(() => {
-    let resizeTimeout;
-
-    const handleResize = () => {
-      clearTimeout(resizeTimeout);
-
-      resizeTimeout = setTimeout(() => {
-        const wasDesktop = isDesktop;
-        const nowDesktop = window.innerWidth >= 1024;
-
-        // Only update if breakpoint changed
-        if (wasDesktop !== nowDesktop) {
-          setIsDesktop(nowDesktop);
-
-          // Force expanded state when transitioning to desktop
-          if (nowDesktop) {
-            setIsCompressed(false);
-          }
-        }
-      }, 150);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(resizeTimeout);
-    };
-  }, [isDesktop]);
 
   // Initialize/reinitialize SplitText based on desktop state
   useEffect(() => {
