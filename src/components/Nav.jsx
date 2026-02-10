@@ -41,23 +41,7 @@ Z
 
   // Compressed path (scroll down)
   const compressedPath = `
-M0 0
-V1
-C0.00435 1 0.00788 1 0.00788 0.9107
-C0.00788 0.7909 0.00788 0.772 0.00788 0.5498
-C0.00788 0.3277 0.04125 0.3277 0.064 0.3277
-H0.4383
-C0.48 0.3277 0.455 1 0.48 1
-H0.5083
-C0.5321 1 0.5083 0.3277 0.55 0.3277
-H0.9307
-C0.9571 0.3277 0.9918 0.3277 0.9918 0.5510
-C0.9918 0.7099 0.9921 0.7436 0.9921 0.9107
-C0.9921 0.9589 0.9904 1 1 1
-V0
-H0.5
-H0
-Z
+M0 0V1C0.00435 1 0.0078799917 1 0.0078799917 0.9107142857C0.0078799917 0.7909321429 0.0078833333 0.7720982143 0.0078833333 0.5498348214C0.0078833333 0.3276991071 0.04125 0.3276991071 0.064 0.3276991071H0.4258333333C0.4675 0.3276991071 0.4425 1 0.4675 1H0.5208333333C0.5445833333 1 0.5208333333 0.3276991071 0.5625 0.3276991071H0.930700000 C0.9579166667 0.3276991071 0.9917833333 0.3276991071 0.9917833333 0.5511142857C0.9917833333 0.7099154464 0.9921166667 0.7436250000 0.9921166667 0.9107142857C0.9921166667 0.9589285714 0.9903500000 1 1 1V0H0.5H0Z
   `.trim();
 
   // Handle resize - force reset when crossing 1024px breakpoint
@@ -66,15 +50,15 @@ Z
 
     const handleResize = () => {
       clearTimeout(resizeTimeout);
-      
+
       resizeTimeout = setTimeout(() => {
         const wasDesktop = isDesktop;
         const nowDesktop = window.innerWidth >= 1024;
-        
+
         // Only update if breakpoint changed
         if (wasDesktop !== nowDesktop) {
           setIsDesktop(nowDesktop);
-          
+
           // Force expanded state when transitioning to desktop
           if (nowDesktop) {
             setIsCompressed(false);
@@ -84,7 +68,7 @@ Z
     };
 
     window.addEventListener("resize", handleResize);
-    
+
     return () => {
       window.removeEventListener("resize", handleResize);
       clearTimeout(resizeTimeout);
@@ -253,7 +237,7 @@ Z
             each: 0.02,
             from: "center",
           },
-        }
+        },
       );
     }
   }, [isCompressed, isDesktop, compressedPath, expandedPath]);
@@ -266,9 +250,14 @@ Z
           <h3 ref={headerRef} className="nav-header">
             Winstrxl
           </h3>
-          <h3 ref={logoRef} className="nav-logo">
-            logo
-          </h3>
+          <div className="logo-container absolute -translate-x-[56%] max-[1024px]:w-26 max-[1024px]:-translate-y-[55%] max-[1024px]:-translate-x-[50%] max-[700px]:w-25 max-[600px]:w-20 max-[500px]:w-18 max-[430px]:w-16 max-[430px]:-translate-y-[30%] max-[370px]:w-15 -translate-y-1/2 top-9 left-[50%] max-[1115px]:w-17 max-[1115px]:-translate-y-[30%] max-[1300px]:-translate-y-[40%] max-[1300px]:w-20 w-25 h-auto">
+            <img
+              alt="logo"
+              src="/svg/Logowin.svg"
+              ref={logoRef}
+              className="nav-logo w-full h-auto object-contain"
+            />
+          </div>
         </div>
       </nav>
     </>

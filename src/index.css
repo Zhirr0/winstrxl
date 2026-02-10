@@ -62,20 +62,16 @@ body {
       max-[1023px]:hidden;
       }
 
-      .nav-logo {
-        @apply absolute left-[47.3%] top-[18px] -translate-x-0 translate-y-1/2 text-lg tracking-[3px] uppercase
+      /* .nav-logo {
+        @apply w-[20px] h-[20px] absolute left-[47.3%] top-[18px] -translate-x-0 translate-y-1/2 text-lg tracking-[3px] uppercase
         max-[1024px]:left-[46.5%]
         max-[820px]:left-[46%]
         max-[700px]:left-[45%]
         max-[600px]:left-[44%]
         max-[500px]:left-[43%]
         max-[450px]:left-[42%]
-      max-[1300px]:text-[16px]
-      max-[1150px]:text-[14px]
-      max-[1100px]:text-[12px]
-      max-[1000px]:text-xl
       max-[1023px]:opacity-100 max-[1023px]:block;
-      }
+      } */
     }
   }
   .hamburger-btn {
@@ -212,10 +208,7 @@ body {
          -translate-y-1/2 
          uppercase 
          text-light-primary
-         max-[400px]:text-[16px]
-         max-[600px]:text-[20px]
-         max-[800px]:text-[12px]
-         max-[940px]:text-sm 
+          max-[400px]:text-sm
          max-[1160px]:text-[16px];
     }
     .bg-image {

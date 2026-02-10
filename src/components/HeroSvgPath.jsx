@@ -39,8 +39,6 @@ Z
         </clipPath>
       </defs>
     </svg>
-
-
   );
 };
 

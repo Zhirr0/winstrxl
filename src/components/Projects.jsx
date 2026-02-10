@@ -44,102 +44,116 @@ const Projects = () => {
       },
     });
     console.log(projectsSectionRef.current.scrollHeight);
-gsap.set(".projects-description-3, .projects-card-3", { 
-  yPercent: -110, 
-}); 
+    gsap.set(".projects-description-3, .projects-card-3", {
+      yPercent: -110,
+    });
 
-ScrollTrigger.create({ 
-  trigger: ".projects", 
-  pin: true, 
-  pinSpacing: true, 
-  start: "top top", 
-  end: () => `+=${projectsSectionRef.current.scrollHeight}px`, 
-  onUpdate(s) { 
-    const progress = s.progress * 100; 
+    ScrollTrigger.create({
+      trigger: ".projects",
+      pin: true,
+      pinSpacing: true,
+      start: "top top",
+      end: () => `+=${projectsSectionRef.current.scrollHeight}px`,
+      onEnter: () => {
+        gsap.to(".project-item", {
+          marginRight: ".5px",
+          ease: "power3.out",
+          duration: 0.2,
+        });
+      },
+      onEnterBack: () => {
+        gsap.to(".project-item", {
+          marginRight: ".5px",
+          ease: "power3.out",
+          duration: 0.2,
+        });
+      },
+      onUpdate(s) {
+        const progress = s.progress * 100;
 
-    // Phase 1: First card visible (0-20%)
-    if (progress < 20) { 
-      gsap.set(".projects-description-1", { 
-        yPercent: 0, 
-        opacity: 1, 
-      }); 
-      
-      gsap.set([".projects-description-2", ".projects-card-2"], { 
-        yPercent: 0, 
-      });
-      
-      gsap.set([".projects-description-3", ".projects-card-3"], { 
-        yPercent: -110, 
-      });
-    } 
-    // Phase 2: First transition - Card 1 out, Card 2 in (20-50%)
-    else if (progress < 50) { 
-      const phaseProgress = (progress - 20) / 30; 
+        // Phase 1: First card visible (0-20%)
+        if (progress < 20) {
+          gsap.set(".projects-description-1", {
+            yPercent: 0,
+            opacity: 1,
+          });
 
-      gsap.set(".projects-description-1", { 
-        yPercent: -100 * phaseProgress, 
-        opacity: 1 - phaseProgress, 
-      }); 
+          gsap.set([".projects-description-2", ".projects-card-2"], {
+            yPercent: 0,
+          });
 
-      gsap.set([".projects-description-2", ".projects-card-2"], { 
-        yPercent: -110 * phaseProgress, 
-      }); 
-      
-      gsap.set([".projects-description-3", ".projects-card-3"], { 
-        yPercent: -110, 
-      });
-    } 
-    // Phase 3: Second card visible (50-70%)
-    else if (progress < 70) {
-      gsap.set(".projects-description-1", { 
-        yPercent: -100, 
-        opacity: 0, 
-      }); 
-      
-      gsap.set([".projects-description-2", ".projects-card-2"], { 
-        yPercent: -110, 
-      }); 
-      
-      gsap.set([".projects-description-3", ".projects-card-3"], { 
-        yPercent: -110, 
-      });
-    }
-    // Phase 4: Second transition - Card 2 out, Card 3 in (70-90%)
-    else if (progress < 90) { 
-      const phaseProgress = (progress - 70) / 20; 
+          gsap.set([".projects-description-3", ".projects-card-3"], {
+            yPercent: -110,
+          });
+        }
+        // Phase 2: First transition - Card 1 out, Card 2 in (20-50%)
+        else if (progress < 50) {
+          const phaseProgress = (progress - 20) / 30;
 
-      gsap.set(".projects-description-1", { 
-        yPercent: -100, 
-        opacity: 0, 
-      }); 
+          gsap.set(".projects-description-1", {
+            yPercent: -200 * phaseProgress,
+            opacity: 1 - phaseProgress * 2.5,
+          });
 
-      gsap.set(".projects-description-2", { 
-        yPercent: -110 - 100 * phaseProgress, 
-        opacity: 1 - phaseProgress, 
-      }); 
+          gsap.set([".projects-description-2", ".projects-card-2"], {
+            yPercent: -110 * phaseProgress,
+          });
 
-      gsap.set([".projects-description-3", ".projects-card-3"], { 
-        yPercent: -110 - 125 * phaseProgress, 
-      }); 
-    } 
-    // Phase 5: Third card visible (90-100%)
-    else {
-      gsap.set(".projects-description-1", { 
-        yPercent: -100, 
-        opacity: 0, 
-      }); 
-      
-      gsap.set(".projects-description-2", { 
-        yPercent: -210, 
-        opacity: 0, 
-      }); 
-      
-      gsap.set([".projects-description-3", ".projects-card-3"], { 
-        yPercent: -235, 
-      }); 
-    }
-  }, 
-});
+          gsap.set([".projects-description-3", ".projects-card-3"], {
+            yPercent: -110,
+          });
+        }
+        // Phase 3: Second card visible (50-70%)
+        else if (progress < 70) {
+          gsap.set(".projects-description-1", {
+            yPercent: -100,
+            opacity: 0,
+          });
+
+          gsap.set([".projects-description-2", ".projects-card-2"], {
+            yPercent: -110,
+          });
+
+          gsap.set([".projects-description-3", ".projects-card-3"], {
+            yPercent: -110,
+          });
+        }
+        // Phase 4: Second transition - Card 2 out, Card 3 in (70-90%)
+        else if (progress < 90) {
+          const phaseProgress = (progress - 70) / 20;
+
+          gsap.set(".projects-description-1", {
+            yPercent: -100,
+            opacity: 0,
+          });
+
+          gsap.set(".projects-description-2", {
+            yPercent: -110 - 100 * phaseProgress,
+            opacity: 1 - phaseProgress * 1.5,
+          });
+
+          gsap.set([".projects-description-3", ".projects-card-3"], {
+            yPercent: -110 - 125 * phaseProgress,
+          });
+        }
+        // Phase 5: Third card visible (90-100%)
+        else {
+          gsap.set(".projects-description-1", {
+            yPercent: -100,
+            opacity: 0,
+          });
+
+          gsap.set(".projects-description-2", {
+            yPercent: -210,
+            opacity: 0,
+          });
+
+          gsap.set([".projects-description-3", ".projects-card-3"], {
+            yPercent: -235,
+          });
+        }
+      },
+    });
   }, []);
   const projectsData = [
     {
