@@ -66,7 +66,7 @@ const Projects = () => {
     ScrollTrigger.create({
       trigger: ".projects",
       pin: true,
-      pinSpacing: true,
+      pinSpacing: false,
       start: "top top",
       end: () => `+=${projectsSectionRef.current.scrollHeight}px`,
       onEnter: () => {

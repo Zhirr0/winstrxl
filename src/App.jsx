@@ -45,7 +45,7 @@ const App = () => {
     gsap.ticker.add(update);
     return () => gsap.ticker.remove(update);
   }, []);
-
+  
   return (
     <ReactLenis
       root
