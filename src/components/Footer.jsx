@@ -1,6 +1,7 @@
 import { useMediaQuery } from "react-responsive";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 const HrSpecialDesign = ({ className, top, bottom }) => {
   return (
     <div
@@ -19,6 +20,35 @@ export default function Footer() {
   const secondBreakPoint = useMediaQuery({ minWidth: 1024 });
   const thirdBreakPoint = useMediaQuery({ maxWidth: 700 });
   useGSAP(() => {
+    gsap.set(".slidein-contact-left", {
+      xPercent: -100,
+    });
+    gsap.set(".slidein-contact-right", {
+      xPercent: 100,
+    });
+    gsap.set(".slidein-clients-left", {
+      xPercent: -100,
+    });
+    gsap.set(".slidein-clients-right", {
+      xPercent: 100,
+    });
+    gsap.set(".contact-center", {
+      yPercent: 100,
+    });
+    gsap.set(".contact-header", {
+      yPercent: 20,
+    });
+    gsap.set(".clients-center", {
+      yPercent: 100,
+    });
+    gsap.set(".clients-bottom", {
+      yPercent: 100,
+    });
+    gsap.set(".clients-header", {
+      yPercent: 20,
+    });
+  }, []);
+  useGSAP(() => {
     if (firstBreakPoint) return;
     const cards = gsap.utils.toArray(".footer-card-outer");
 
@@ -33,6 +63,8 @@ export default function Footer() {
             scale: 0.6,
             y: "-40%",
             opacity: 0,
+            filter: "blur(10px)",
+            ease: "power1.out",
             scrollTrigger: {
               trigger: cards[i + 1],
               start: "top 100%",
@@ -46,6 +78,76 @@ export default function Footer() {
       }
     });
   }, [firstBreakPoint]);
+  useGSAP(() => {
+    ScrollTrigger.create({
+      trigger: "#contact",
+      start: "top 50%",
+      end: "top top",
+
+      markers: true,
+      onUpdate(self) {
+        const progress = self.progress;
+        const xPercentLeft = gsap.utils.interpolate(-100, 0, progress);
+        const xPercentRight = gsap.utils.interpolate(100, 0, progress);
+        const yPercentCenter = gsap.utils.interpolate(100, 0, progress);
+        const yPercentHeader = gsap.utils.interpolate(20, 0, progress);
+
+        gsap.to(".slidein-contact-left", {
+          xPercent: xPercentLeft,
+          ease: "power3.out",
+        });
+        gsap.to(".slidein-contact-right", {
+          xPercent: xPercentRight,
+          ease: "power3.out",
+        });
+        gsap.to(".contact-center", {
+          yPercent: yPercentCenter,
+          ease: "power3.out",
+        });
+        gsap.to(".contact-header", {
+          yPercent: yPercentHeader,
+          ease: "power3.out",
+        });
+      },
+    });
+  }, []);
+  useGSAP(() => {
+    ScrollTrigger.create({
+      trigger: "#clients",
+      start: "top 75%",
+      end: "top top",
+
+      markers: true,
+      onUpdate(self) {
+        const progress = self.progress;
+        const xPercentLeft = gsap.utils.interpolate(-100, 0, progress);
+        const xPercentRight = gsap.utils.interpolate(100, 0, progress);
+        const yPercentCenter = gsap.utils.interpolate(100, 0, progress);
+        const yPercentHeader = gsap.utils.interpolate(20, 0, progress);
+
+        gsap.to(".slidein-clients-left", {
+          xPercent: xPercentLeft,
+          ease: "power3.out",
+        });
+        gsap.to(".slidein-clients-right", {
+          xPercent: xPercentRight,
+          ease: "power3.out",
+        });
+        gsap.to(".clients-center", {
+          yPercent: yPercentCenter,
+          ease: "power3.out",
+        });
+        gsap.to(".clients-bottom", {
+          yPercent: yPercentCenter,
+          ease: "power3.out",
+        });
+        gsap.to(".clients-header", {
+          yPercent: yPercentHeader,
+          ease: "power3.out",
+        });
+      },
+    });
+  }, []);
   return (
     // Main footer container
     <footer className="min-h-screen">
@@ -144,8 +246,9 @@ export default function Footer() {
           id="clients"
         >
           <div className="clients-header">
-            <HrSpecialDesign className={`w-full`} /> <h1>CLIENTS</h1>{" "}
-            <HrSpecialDesign className={`w-full`} />
+            <HrSpecialDesign className={`w-full slidein-clients-left`} />
+            <h1>CLIENTS</h1>
+            <HrSpecialDesign className={`w-full slidein-clients-right`} />
           </div>
           <div className="clients-center">
             <h1>logo1</h1>
@@ -188,8 +291,9 @@ export default function Footer() {
             }}
             className="contact-header"
           >
-            <HrSpecialDesign className={`w-full`} /> <h1>Let's connect</h1>{" "}
-            <HrSpecialDesign className={"w-full"} />
+            <HrSpecialDesign className={`w-full slidein-contact-left`} />
+            <h1>Let's connect</h1>
+            <HrSpecialDesign className={"w-full slidein-contact-right"} />
           </div>
           <div className="contact-center">
             <p>
