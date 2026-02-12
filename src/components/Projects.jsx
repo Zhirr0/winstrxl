@@ -11,20 +11,7 @@ const Projects = () => {
   const projectsSectionRef = useRef(null);
   const isNotDesktop = useMediaQuery({ maxWidth: 1024 });
   const isDesktop = useMediaQuery({ minWidth: 1024 });
-  // reading from docs you can refresh the page with using window.location.reload()
-  useEffect(() => {
-    let wasDesktop = window.innerWidth >= 1024;
 
-    const handleResize = () => {
-      const isNowDesktop = window.innerWidth >= 1024;
-      if (wasDesktop !== isNowDesktop) {
-        window.location.reload();
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
   // should always be running
   useGSAP(() => {
     const projectsItem = gsap.utils.toArray(".project-item");

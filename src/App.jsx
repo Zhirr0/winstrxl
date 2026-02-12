@@ -40,6 +40,21 @@ const App = () => {
     }
   }, []);
 
+    // reading from docs you can refresh the page with using window.location.reload()
+  useEffect(() => {
+    let wasDesktop = window.innerWidth >= 1024;
+
+    const handleResize = () => {
+      const isNowDesktop = window.innerWidth >= 1024;
+      if (wasDesktop !== isNowDesktop) {
+        window.location.reload();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     const update = (time) => lenisRef.current?.lenis?.raf(time * 700);
     gsap.ticker.add(update);
