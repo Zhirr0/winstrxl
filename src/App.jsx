@@ -40,7 +40,7 @@ const App = () => {
     }
   }, []);
 
-    // reading from docs you can refresh the page with using window.location.reload()
+  // reading from docs you can refresh the page with using window.location.reload()
   useEffect(() => {
     let wasDesktop = window.innerWidth >= 1024;
 
@@ -60,7 +60,7 @@ const App = () => {
     gsap.ticker.add(update);
     return () => gsap.ticker.remove(update);
   }, []);
-  
+
   return (
     <ReactLenis
       root

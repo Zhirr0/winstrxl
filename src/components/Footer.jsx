@@ -2,6 +2,7 @@ import { useMediaQuery } from "react-responsive";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import CardBackground from "./CardBackground";
 const HrSpecialDesign = ({ className, top, bottom }) => {
   return (
     <div
@@ -46,6 +47,9 @@ export default function Footer() {
     });
     gsap.set(".clients-header", {
       yPercent: 20,
+    });
+    gsap.set(".story-header", {
+      yPercent: 0,
     });
   }, []);
   useGSAP(() => {
@@ -146,6 +150,24 @@ export default function Footer() {
       },
     });
   }, []);
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 1025px)", () => {
+      ScrollTrigger.create({
+        trigger: "#story",
+        start: "top 50%",
+        end: "top top",
+        onUpdate(self) {
+          const progress = self.progress;
+          const yPercent = gsap.utils.interpolate(0, 50, progress);
+          gsap.to(".story-header", {
+            yPercent,
+            ease: "power3.out",
+          });
+        },
+      });
+    });
+  }, []);
   return (
     // Main footer container
     <footer className="min-h-screen">
@@ -157,6 +179,8 @@ export default function Footer() {
           className="footer-card"
           id="story"
         >
+
+          <CardBackground />
           <img
             style={{ marginBottom: "5px" }}
             src="/svg/bottom-right-arrow.svg"
@@ -239,10 +263,12 @@ export default function Footer() {
       </div>
       <div className="footer-card-outer">
         <section
+
           style={{ padding: "50px 30px" }}
           className="footer-card"
           id="clients"
         >
+          <CardBackground />
           <div className="clients-header">
             <HrSpecialDesign className={`w-full slidein-clients-left`} />
             <h1>CLIENTS</h1>
@@ -273,10 +299,12 @@ export default function Footer() {
 
       <div className="footer-card-outer">
         <section
+
           style={{ padding: "50px 30px" }}
           className="footer-card"
           id="contact"
         >
+          <CardBackground />
           <div
             style={{
               marginTop: thirdBreakPoint

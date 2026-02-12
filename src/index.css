@@ -303,7 +303,7 @@ body {
   footer {
     @apply bg-dark-primary text-light-primary min-h-screen w-full flex flex-col max-[1024px]:gap-[10vh]  max-[1024px]:justify-between;
     .footer-card {
-      @apply min-h-dvh overflow-hidden rounded-lg relative bg-dark-red-primary translate-x-0 flex flex-col;
+      @apply min-h-dvh overflow-hidden rounded-lg relative translate-x-0 flex flex-col;
       .hr-block {
         @apply bg-light-primary w-1 h-1;
       }
