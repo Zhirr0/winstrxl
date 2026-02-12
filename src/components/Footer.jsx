@@ -1,5 +1,6 @@
 import { useMediaQuery } from "react-responsive";
-
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 const HrSpecialDesign = ({ className, top, bottom }) => {
   return (
     <div
@@ -15,136 +16,202 @@ const HrSpecialDesign = ({ className, top, bottom }) => {
 
 export default function Footer() {
   const firstBreakPoint = useMediaQuery({ maxWidth: 1024 });
+  const secondBreakPoint = useMediaQuery({ minWidth: 1024 });
+  const thirdBreakPoint = useMediaQuery({ maxWidth: 700 });
+  useGSAP(() => {
+    if (firstBreakPoint) return;
+    const cards = gsap.utils.toArray(".footer-card-outer");
+
+    cards.forEach((c, i) => {
+      if (i < cards.length - 1) {
+        const cardInner = c.querySelector(".footer-card");
+
+        gsap.fromTo(
+          cardInner,
+          { scale: 1, y: "0%", opacity: 1 },
+          {
+            scale: 0.6,
+            y: "-40%",
+            opacity: 0,
+            scrollTrigger: {
+              trigger: cards[i + 1],
+              start: "top 100%",
+              end: "top -70%",
+              scrub: true,
+              pin: c,
+              pinSpacing: false,
+            },
+          },
+        );
+      }
+    });
+  }, [firstBreakPoint]);
   return (
     // Main footer container
     <footer className="min-h-screen">
       {/* Story section */}
-      <section
-        style={{ padding: "50px 30px" }}
-        className="footer-card"
-        id="story"
-      >
-        <img
-          style={{ marginBottom: "5px" }}
-          src="/svg/bottom-right-arrow.svg"
-          className="bottom-right-svg"
-          alt=""
-        />
 
-        {/* Story header - contains "my story" title */}
-        <div
-          style={{ marginBottom: firstBreakPoint ? "0px" : "100px" }}
-          className="story-header"
+      <div className="footer-card-outer">
+        <section
+          style={{ padding: "50px 30px" }}
+          className="footer-card"
+          id="story"
         >
-          <h1 className="">my story</h1>
           <img
-            style={{ marginLeft: "auto" }}
-            className=""
-            src="/svg/bottom-left-arrow.svg"
-            alt=""
-          />
-        </div>
-
-        {/* Story subheader - contains name, role, and location */}
-        <div className="story-subheader">
-          <p>winstrxl</p>
-          <p>Designer / 3d artist / creative consultant</p>
-          <p className="">riga.lativia</p>
-        </div>
-
-        <HrSpecialDesign top={20} bottom={20} className={`hr-story`} />
-
-        {/* Story bottom section - contains main content */}
-        <div style={{}} className="story-bottom">
-          <img
-            src="/svg/triangle.svg"
-            className="right-triangle-story"
+            style={{ marginBottom: "5px" }}
+            src="/svg/bottom-right-arrow.svg"
+            className="bottom-right-svg"
             alt=""
           />
 
-          {/* Story content container - two column layout */}
-          {/* Left side content - about text and services button */}
-          <div style={{ marginTop: "3%" }} className="left-side top-side">
-            <p>
-              Fueled by curiosity, I blend fashion, product design, and 3D
-              technology to craft concepts that push beyond conventional
-              boundaries. For me, design is a journey of exploration — a process
-              of ideas, experimentation, and storytelling that turns imagination
-              into reality.
-            </p>
-            <button style={{ padding: "8px" }} className="story-button">
-              <span className="">
-                <img className="w-4" src="/svg/rotating-icon.svg" alt="" />
-                <p>learn about my services</p>
-              </span>
-            </button>
-          </div>
-
-          {/* Right side content - additional description paragraphs */}
+          {/* Story header - contains "my story" title */}
           <div
-            style={{ marginTop: firstBreakPoint ? "0%" : "3%" }}
-            className="right-side bottom-side"
+            style={{ marginBottom: firstBreakPoint ? "0px" : "100px" }}
+            className="story-header"
           >
+            <h1 className="">my story</h1>
+            <img
+              style={{ marginLeft: "auto" }}
+              className=""
+              src="/svg/bottom-left-arrow.svg"
+              alt=""
+            />
+          </div>
+
+          {/* Story subheader - contains name, role, and location */}
+          <div className="story-subheader">
+            <p>winstrxl</p>
+            <p>Designer / 3d artist / creative consultant</p>
+            <p className="">riga.lativia</p>
+          </div>
+
+          <HrSpecialDesign top={20} bottom={20} className={`hr-story`} />
+
+          {/* Story bottom section - contains main content */}
+          <div style={{}} className="story-bottom">
+            <img
+              src="/svg/triangle.svg"
+              className="right-triangle-story"
+              alt=""
+            />
+
+            {/* Story content container - two column layout */}
+            {/* Left side content - about text and services button */}
+            <div style={{ marginTop: "3%" }} className="left-side top-side">
+              <p>
+                Fueled by curiosity, I blend fashion, product design, and 3D
+                technology to craft concepts that push beyond conventional
+                boundaries. For me, design is a journey of exploration — a
+                process of ideas, experimentation, and storytelling that turns
+                imagination into reality.
+              </p>
+              <button style={{ padding: "8px" }} className="story-button">
+                <span className="">
+                  <img className="w-4" src="/svg/rotating-icon.svg" alt="" />
+                  <p>learn about my services</p>
+                </span>
+              </button>
+            </div>
+
+            {/* Right side content - additional description paragraphs */}
+            <div
+              style={{ marginTop: firstBreakPoint ? "0%" : "3%" }}
+              className="right-side bottom-side"
+            >
+              <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo
+                in voluptate, magnam id, vero necessitatibus officiis enim
+                accusamus, illum molestiae amet quam fuga laudantium praesentium
+                omnis mollitia cupiditate ut vel! Lorem, ipsum dolor sit amet
+                consectetur adipisicing elit. Officiis minus magni molestias
+                labore similique repellat, exercitationem vitae itaque
+                excepturi, consequuntur sed ipsam cum voluptate, unde voluptatem
+                quaerat doloribus dicta atque?
+              </p>
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum
+                voluptates beatae eveniet repellat animi sit harum voluptatem
+                distinctio saepe. Ratione.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div className="footer-card-outer">
+        <section
+          style={{ padding: "50px 30px" }}
+          className="footer-card"
+          id="clients"
+        >
+          <div className="clients-header">
+            <HrSpecialDesign className={`w-full`} /> <h1>CLIENTS</h1>{" "}
+            <HrSpecialDesign className={`w-full`} />
+          </div>
+          <div className="clients-center">
+            <h1>logo1</h1>
+            <h1>logo2</h1>
+            <h1>logo3</h1>
+            <h1>logo4</h1>
+            <h1>logo5</h1>
+            <h1>logo6</h1>
+          </div>
+          <div className="clients-bottom">
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo in
-              voluptate, magnam id, vero necessitatibus officiis enim accusamus,
-              illum molestiae amet quam fuga laudantium praesentium omnis
-              mollitia cupiditate ut vel! Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Officiis minus magni molestias
-              labore similique repellat, exercitationem vitae itaque excepturi,
-              consequuntur sed ipsam cum voluptate, unde voluptatem quaerat
-              doloribus dicta atque?
-            </p>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum
-              voluptates beatae eveniet repellat animi sit harum voluptatem
-              distinctio saepe. Ratione.
+              it has been a privilage Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Harum placeat molestias accusantium
+              necessitatibus explicabo, sunt ipsam doloribus quidem asperiores
+              quasi facilis repellat facere exercitationem impedit voluptatibus
+              eos eum delectus qui quos? Corporis totam, eum quod fuga pariatur
+              perspiciatis cupiditate fugit quisquam atque repellendus sunt
+              excepturi enim doloremque animi dolorum placeat neque minus
+              repudiandae dolores unde. Culpa ad in sed? Ex?
             </p>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <section
-        style={{ padding: "50px 30px" }}
-        className="footer-card"
-        id="clients"
-      >
-        <div className="clients-header">
-          <HrSpecialDesign /> <h1>CLIENTS</h1> <HrSpecialDesign />
-        </div>
-        <div className="clients-center"></div>
-        <div className="clients-bottom">
-          <p>it has been a privilage ...</p>
-        </div>
-      </section>
-
-      <section
-        style={{ padding: "50px 30px" }}
-        className="footer-card"
-        id="contact"
-      >
-        <div className="contact-header">
-          <HrSpecialDesign /> <h1>Let's connect</h1> <HrSpecialDesign />
-        </div>
-        <div className="contact-center">
-          <p>
-            every collaboration begins with an idea. if you're looking for a
-            creative partner to help bring your to life, feel free to get in
-            touch with me
-          </p>
-          <div className="contact-email">
-            <img src="/svg/right-arrow.svg" alt="" /> info@gmail.com
+      <div className="footer-card-outer">
+        <section
+          style={{ padding: "50px 30px" }}
+          className="footer-card"
+          id="contact"
+        >
+          <div
+            style={{
+              marginTop: thirdBreakPoint
+                ? "10%"
+                : secondBreakPoint
+                  ? "3%"
+                  : firstBreakPoint
+                    ? "1%"
+                    : "0%",
+            }}
+            className="contact-header"
+          >
+            <HrSpecialDesign className={`w-full`} /> <h1>Let's connect</h1>{" "}
+            <HrSpecialDesign className={"w-full"} />
           </div>
-        </div>
-        <HrSpecialDesign />
-        <div className="contact-bottom">
-          <p>
-            copyright <br />
-            @wintrxl.com 2026
-          </p>
-          <p>all rights reserved</p>
-        </div>
-      </section>
+          <div className="contact-center">
+            <p>
+              every collaboration begins with an idea. if you're looking for a
+              creative partner to help bring your to life, feel free to get in
+              touch with me
+            </p>
+            <div className="contact-email">
+              <img src="/svg/right-arrow.svg" alt="" />
+              <a href="">info@gmail.com</a>
+            </div>
+          </div>
+          <HrSpecialDesign className={"w-full translate-y-0"} />
+          <div className="contact-bottom">
+            <p>
+              copyright <br />
+              @wintrxl.com 2026
+            </p>
+            <p>all rights reserved</p>
+          </div>
+        </section>
+      </div>
     </footer>
   );
 }
