@@ -5,18 +5,20 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { useMediaQuery } from "react-responsive";
+import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
   const projectsSectionRef = useRef(null);
-  const notAllowed = useMediaQuery({ maxWidth: 1024 });
+  const isNotDesktop = useMediaQuery({ maxWidth: 1024 });
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   useGSAP(() => {
     const projectsItem = gsap.utils.toArray(".project-item");
     gsap.set(projectsItem, {
       yPercent: 20,
-      opacity: 0.4
+      opacity: 0.4,
     });
 
     projectsItem.forEach((item) => {
@@ -27,10 +29,10 @@ const Projects = () => {
         onUpdate(self) {
           const progress = self.progress;
           const yPercent = gsap.utils.interpolate(20, 0, progress);
-          const opacity = gsap.utils.interpolate(0.4, 1, progress)
+          const opacity = gsap.utils.interpolate(0.4, 1, progress);
           gsap.set(item, {
             yPercent,
-            opacity
+            opacity,
           });
         },
       });
@@ -50,7 +52,7 @@ const Projects = () => {
       },
     });
 
-    if (notAllowed) {
+    if (isNotDesktop) {
       ScrollTrigger.getAll().forEach((st) => {
         if (st.vars.trigger === ".projects" && st.vars.pin) {
           st.kill();
@@ -169,7 +171,406 @@ const Projects = () => {
         }
       },
     });
-  }, [notAllowed]);
+  }, [isNotDesktop]);
+
+  useGSAP(() => {
+    if (isDesktop) return;
+    const descriptionContainer1 = document.querySelector(
+      ".projects-description-1",
+    );
+    const label1 = document.querySelector(".project-lable-1");
+    const number1 = document.querySelector(".project-number-1");
+    const expand1 = document.querySelector(".project-expnad-1");
+    const title1 = document.querySelector(".project-title-1");
+    const description1 = document.querySelector(".project-description-1");
+
+    const descriptionContainer2 = document.querySelector(
+      ".projects-description-2",
+    );
+    const label2 = document.querySelector(".project-lable-2");
+    const number2 = document.querySelector(".project-number-2");
+    const expand2 = document.querySelector(".project-expnad-2");
+    const title2 = document.querySelector(".project-title-2");
+    const description2 = document.querySelector(".project-description-2");
+
+    const descriptionContainer3 = document.querySelector(
+      ".projects-description-3",
+    );
+    const label3 = document.querySelector(".project-lable-3");
+    const number3 = document.querySelector(".project-number-3");
+    const expand3 = document.querySelector(".project-expnad-3");
+    const title3 = document.querySelector(".project-title-3");
+    const description3 = document.querySelector(".project-description-3");
+
+    const configStagger = {
+      labelStaggerAmount: 0.3,
+      numberStaggerAmount: 0.2,
+      titleStaggerAmount: 0.3,
+      descriptionStaggerAmount: 0.2,
+    };
+
+    const configDuration = {
+      labelDurationAmount: 1,
+      numberDurationAmount: 1,
+      expandDurationAmount: 2,
+      titleDurationAmount: 1,
+      descriptionDurationAmount: 1.5,
+    };
+
+    document.fonts.ready.then(() => {
+      SplitText.create(label1, {
+        type: "words",
+        mask: "words",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.words, {
+            yPercent: 100,
+            duration: configDuration.labelDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.labelStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer1,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(number1, {
+        type: "chars",
+        mask: "chars",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.chars, {
+            yPercent: 100,
+            duration: configDuration.numberDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.numberStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer1,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(expand1, {
+        type: "lines",
+        mask: "lines",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.lines, {
+            yPercent: 100,
+            rotation: 360,
+            duration: configDuration.expandDurationAmount,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: descriptionContainer1,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(title1, {
+        type: "words",
+        mask: "words",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.words, {
+            yPercent: 100,
+            duration: configDuration.titleDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.titleStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer1,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(description1, {
+        type: "lines",
+        mask: "lines",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.lines, {
+            yPercent: 100,
+            duration: configDuration.descriptionDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.descriptionStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer1,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+
+    document.fonts.ready.then(() => {
+      SplitText.create(label2, {
+        type: "words",
+        mask: "words",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.words, {
+            yPercent: 100,
+            duration: configDuration.labelDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.labelStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer2,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(number2, {
+        type: "chars",
+        mask: "chars",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.chars, {
+            yPercent: 100,
+            duration: configDuration.numberDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.numberStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer2,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(expand2, {
+        type: "lines",
+        mask: "lines",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.lines, {
+            yPercent: 100,
+            rotation: 360,
+            duration: configDuration.expandDurationAmount,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: descriptionContainer2,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(title2, {
+        type: "words",
+        mask: "words",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.words, {
+            yPercent: 100,
+            duration: configDuration.titleDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.titleStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer2,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(description2, {
+        type: "lines",
+        mask: "lines",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.lines, {
+            yPercent: 100,
+            duration: configDuration.descriptionDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.descriptionStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer2,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+
+    document.fonts.ready.then(() => {
+      SplitText.create(label3, {
+        type: "words",
+        mask: "words",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.words, {
+            yPercent: 100,
+            duration: configDuration.labelDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.labelStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer3,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(number3, {
+        type: "chars",
+        mask: "chars",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.chars, {
+            yPercent: 100,
+            duration: configDuration.numberDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.numberStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer3,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(expand3, {
+        type: "lines",
+        mask: "lines",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.lines, {
+            yPercent: 100,
+            rotation: 360,
+            duration: configDuration.expandDurationAmount,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: descriptionContainer3,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(title3, {
+        type: "words",
+        mask: "words",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.words, {
+            yPercent: 100,
+            duration: configDuration.titleDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.titleStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer3,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+    document.fonts.ready.then(() => {
+      SplitText.create(description3, {
+        type: "lines",
+        mask: "lines",
+        autoSplit: true,
+        onSplit: (self) => {
+          gsap.from(self.lines, {
+            yPercent: 100,
+            duration: configDuration.descriptionDurationAmount,
+            ease: "power3.out",
+            stagger: {
+              amount: configStagger.descriptionStaggerAmount,
+              from: "start",
+            },
+            scrollTrigger: {
+              trigger: descriptionContainer3,
+              start: `top 75%`,
+              emd: "top center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        },
+      });
+    });
+  }, [isDesktop]);
 
   const projectsData = [
     {
@@ -200,11 +601,11 @@ const Projects = () => {
 
   return (
     <section ref={projectsSectionRef} className="projects">
-      {projectsData.map((project, i) => {
+      {projectsData.map(({ id, number, label, title, description }, i) => {
         const index = i + 1;
         return (
           <div
-            key={project.id}
+            key={id}
             className="project-item"
             style={{
               marginBottom: index === projectsData.length - 1 ? "25vh" : "10vh",
@@ -212,10 +613,10 @@ const Projects = () => {
           >
             <div className="project-item-inner">
               <ProjectsDescription
-                number={project.number}
-                label={project.label}
-                title={project.title}
-                description={project.description}
+                number={number}
+                label={label}
+                title={title}
+                description={description}
                 index={index}
               />
               <ProjectsCard index={index} />

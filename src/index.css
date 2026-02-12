@@ -64,7 +64,7 @@ body {
     }
   }
   .hamburger-btn {
-    @apply fixed top-6 right-6 w-10 z-10000000 h-10 bg-transparent border-none rounded-xl cursor-pointer flex flex-col justify-center items-end gap-1.5 p-3.75 transition-all duration-300 ease-in-out;
+    @apply fixed top-6 right-6 w-10 z-10000000 h-10 bg-transparent mix-blend-difference border-none rounded-xl cursor-pointer flex flex-col justify-center items-end gap-1.5 p-3.75 transition-all duration-300 ease-in-out;
 
     &:hover {
       @apply scale-105;
@@ -303,7 +303,7 @@ body {
   footer {
     @apply bg-dark-primary text-light-primary min-h-screen w-full flex flex-col max-[1024px]:gap-[30vh]  max-[1024px]:justify-between;
     .footer-card {
-      @apply rounded-lg bg-dark-primary flex flex-col;
+      @apply rounded-lg min-h-dvh relative bg-dark-red-primary translate-x-0 flex flex-col;
       .hr-block {
         @apply bg-light-primary w-1 h-1;
       }
@@ -312,7 +312,6 @@ body {
       }
     }
     #story {
-      @apply min-h-screen relative bg-dark-red-primary translate-x-0;
       .bottom-right-svg {
         @apply  min-[1024px]:hidden ;
         height: clamp(20px , 5vw , 60vw);  
@@ -341,7 +340,7 @@ body {
       }
 
       .story-bottom {
-        @apply relative h-[400px] max-[1024px]:h-auto gap-10 max-[1024px]:gap-0;
+        @apply relative h-[300px] max-[1024px]:h-auto gap-10 max-[1024px]:gap-0;
         /* max 400px */
 
         

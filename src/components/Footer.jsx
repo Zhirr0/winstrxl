@@ -14,7 +14,7 @@ const HrSpecialDesign = ({ className, top, bottom }) => {
 };
 
 export default function Footer() {
-  const firstBreakPoint = useMediaQuery({maxWidth: 1024})
+  const firstBreakPoint = useMediaQuery({ maxWidth: 1024 });
   return (
     // Main footer container
     <footer className="min-h-screen">
@@ -32,7 +32,10 @@ export default function Footer() {
         />
 
         {/* Story header - contains "my story" title */}
-        <div className="story-header">
+        <div
+          style={{ marginBottom: firstBreakPoint ? "0px" : "100px" }}
+          className="story-header"
+        >
           <h1 className="">my story</h1>
           <img
             style={{ marginLeft: "auto" }}
@@ -61,7 +64,7 @@ export default function Footer() {
 
           {/* Story content container - two column layout */}
           {/* Left side content - about text and services button */}
-          <div style={{ marginTop: '3%' }} className="left-side top-side">
+          <div style={{ marginTop: "3%" }} className="left-side top-side">
             <p>
               Fueled by curiosity, I blend fashion, product design, and 3D
               technology to craft concepts that push beyond conventional
@@ -78,7 +81,10 @@ export default function Footer() {
           </div>
 
           {/* Right side content - additional description paragraphs */}
-          <div style={{ marginTop: firstBreakPoint ? "0%" : "3%" }} className="right-side bottom-side">
+          <div
+            style={{ marginTop: firstBreakPoint ? "0%" : "3%" }}
+            className="right-side bottom-side"
+          >
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo in
               voluptate, magnam id, vero necessitatibus officiis enim accusamus,
@@ -98,7 +104,11 @@ export default function Footer() {
         </div>
       </section>
 
-      <section className="footer-card" id="clients">
+      <section
+        style={{ padding: "50px 30px" }}
+        className="footer-card"
+        id="clients"
+      >
         <div className="clients-header">
           <HrSpecialDesign /> <h1>CLIENTS</h1> <HrSpecialDesign />
         </div>
@@ -108,7 +118,11 @@ export default function Footer() {
         </div>
       </section>
 
-      <section className="footer-card" id="contact">
+      <section
+        style={{ padding: "50px 30px" }}
+        className="footer-card"
+        id="contact"
+      >
         <div className="contact-header">
           <HrSpecialDesign /> <h1>Let's connect</h1> <HrSpecialDesign />
         </div>

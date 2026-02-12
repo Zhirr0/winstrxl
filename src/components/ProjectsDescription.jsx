@@ -3,11 +3,11 @@ const ProjectsDescription = ({ number, label, title, description, index }) => {
   
   return (
     <div style={{paddingTop: '10px'}} className={`projects-description projects-description-${index}`}>
-      <p className="project-label">{label}</p>
-      <h2 className="project-number">{number}</h2>
+      <p className={`project-label project-lable-${index}`}>{label}</p>
+      <h2 className={`project-number project-number-${index}`}>{number}</h2>
       <div
         style={{ paddingTop: "20px", paddingBottom: "20px" }}
-        className="project-expand"
+        className={`project-expand project-expnad-${index}`}
       >
         <svg
           width="20"
@@ -22,10 +22,10 @@ const ProjectsDescription = ({ number, label, title, description, index }) => {
           />
         </svg>
       </div>
-      <h3 style={{ paddingBottom: "5px" }} className="project-title">
+      <h3 style={{ paddingBottom: "5px" }} className={`project-title project-title-${index}`}>
         {title}
       </h3>
-      <p className="project-description">{description}</p>
+      <p className={`project-description project-description-${index}`}>{description}</p>
     </div>
   );
 };
