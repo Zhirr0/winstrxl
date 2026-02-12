@@ -188,6 +188,7 @@ const Projects = () => {
   }, [isNotDesktop]);
   // should only be running on less than 1024
   useGSAP(() => {
+    // i ain't going to clean this up for now
     if (isDesktop) return;
     const descriptionContainer1 = document.querySelector(
       ".projects-description-1",
