@@ -3,7 +3,7 @@ import ProjectsCard from "./ProjectsCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useEffect, useRef } from "react";
+import {  useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 import { SplitText } from "gsap/SplitText";
 
