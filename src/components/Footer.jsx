@@ -84,7 +84,6 @@ export default function Footer() {
       start: "top 50%",
       end: "top top",
 
-      markers: true,
       onUpdate(self) {
         const progress = self.progress;
         const xPercentLeft = gsap.utils.interpolate(-100, 0, progress);
@@ -117,7 +116,6 @@ export default function Footer() {
       start: "top 75%",
       end: "top top",
 
-      markers: true,
       onUpdate(self) {
         const progress = self.progress;
         const xPercentLeft = gsap.utils.interpolate(-100, 0, progress);
