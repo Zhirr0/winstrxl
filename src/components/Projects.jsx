@@ -3,7 +3,7 @@ import ProjectsCard from "./ProjectsCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import {  useRef } from "react";
+import { useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 import { SplitText } from "gsap/SplitText";
 
@@ -11,13 +11,22 @@ const Projects = () => {
   const projectsSectionRef = useRef(null);
   const isNotDesktop = useMediaQuery({ maxWidth: 1024 });
   const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const buttonRef = useRef(null);
 
   // should always be running
+  // three things happening
+  // the projects item appearing from opacity and ypercent
+  // the hero section being opacity out
+  // the button appearing when in the projects sections
   useGSAP(() => {
     const projectsItem = gsap.utils.toArray(".project-item");
     gsap.set(projectsItem, {
       yPercent: 20,
       opacity: 0.4,
+    });
+
+    gsap.set(buttonRef.current, {
+      yPercent: 100,
     });
 
     projectsItem.forEach((item) => {
@@ -47,6 +56,91 @@ const Projects = () => {
           opacity: 1 - progress,
           ease: "power3.out",
           overwrite: "auto",
+        });
+      },
+    });
+
+    let buttonChars;
+
+    document.fonts.ready.then(() => {
+      const split = SplitText.create(buttonRef.current, {
+        type: "chars",
+        mask: "chars",
+      });
+
+      buttonChars = split.chars;
+
+      // initial state
+      gsap.set(buttonChars, {
+        rotateX: 90,
+        transformOrigin: "50% 50% -10",
+      });
+    });
+
+    ScrollTrigger.create({
+      trigger: ".projects",
+      start: "top center",
+      end: "bottom center",
+
+      onEnter: () => {
+        gsap.to(buttonRef.current, {
+          yPercent: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
+
+        gsap.to(buttonChars, {
+          delay: 0.2,
+          rotateX: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.03,
+        });
+      },
+
+      onEnterBack: () => {
+        gsap.to(buttonRef.current, {
+          yPercent: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
+
+        gsap.to(buttonChars, {
+          delay: 0.2,
+          rotateX: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.03,
+        });
+      },
+
+      onLeave: () => {
+        gsap.to(buttonRef.current, {
+          yPercent: 100,
+          duration: 1,
+          ease: "power3.in",
+        });
+
+        gsap.to(buttonChars, {
+          rotateX: 90,
+          duration: 0.4,
+          ease: "power3.in",
+          stagger: 0.02,
+        });
+      },
+
+      onLeaveBack: () => {
+        gsap.to(buttonRef.current, {
+          yPercent: 100,
+          duration: 1,
+          ease: "power3.in",
+        });
+
+        gsap.to(buttonChars, {
+          rotateX: 90,
+          duration: 0.4,
+          ease: "power3.in",
+          stagger: 0.02,
         });
       },
     });
@@ -603,6 +697,7 @@ const Projects = () => {
 
   return (
     <section ref={projectsSectionRef} className="projects">
+      <button className="all-projects-button" ref={buttonRef}>All of the works</button>
       {projectsData.map(({ id, number, label, title, description }, i) => {
         const index = i + 1;
         return (

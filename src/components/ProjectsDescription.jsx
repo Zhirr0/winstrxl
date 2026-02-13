@@ -2,7 +2,8 @@
 const ProjectsDescription = ({ number, label, title, description, index }) => {
   
   return (
-    <div style={{paddingTop: '10px'}} className={`projects-description projects-description-${index}`}>
+    <div style={{paddingTop: '10px'}} className={`projects-description relative projects-description-${index}`}>
+
       <p className={`project-label project-lable-${index}`}>{label}</p>
       <h2 className={`project-number project-number-${index}`}>{number}</h2>
       <div
@@ -26,6 +27,7 @@ const ProjectsDescription = ({ number, label, title, description, index }) => {
         {title}
       </h3>
       <p className={`project-description project-description-${index}`}>{description}</p>
+      <button className="button-projects-desktop"></button>
     </div>
   );
 };

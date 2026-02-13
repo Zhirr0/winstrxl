@@ -220,6 +220,17 @@ body {
 
   .projects {
     @apply bg-dark-primary text-light-primary;
+    .all-projects-button {
+      @apply fixed bg-light-primary text-dark-primary -translate-x-1/2 w-[200px] h-[30px] z-10  bottom-0 left-1/2;
+      clip-path: url(#button-container);
+      -webkit-clip-path: url(#button-container);
+    }
+
+    .button-projects-desktop {
+      @apply absolute top-5 left-5 bg-light-primary w-[150px] h-[30px] text-dark-primary;
+      clip-path: url(#button-container-description);
+      -webkit-clip-path: url(#button-container-description);
+    }
   }
 
   .project-item {
@@ -395,7 +406,7 @@ body {
       }
     }
     #contact {
-      @apply  justify-between translate-x-0 flex flex-col gap-10;
+      @apply justify-between translate-x-0 flex flex-col gap-10;
       .contact-header {
         @apply flex gap-3 flex-row items-center justify-center;
         h1 {
@@ -408,12 +419,12 @@ body {
         @apply flex max-[768px]:flex-col max-[768px]:justify-center items-center flex-row justify-between gap-30;
         p {
           @apply w-1/2 max-[768px]:w-[95%];
-          font-size: 14px ;
+          font-size: 14px;
         }
         div {
           @apply flex flex-row gap-20 justify-center items-center;
           img {
-            width: clamp(80px, 10vw, 200px)
+            width: clamp(80px, 10vw, 200px);
           }
           a {
             @apply uppercase;
@@ -423,11 +434,9 @@ body {
       }
 
       .contact-bottom {
-        @apply w-full whitespace-nowrap gap-16 flex flex-row justify-between items-center opacity-30 uppercase; 
+        @apply w-full whitespace-nowrap gap-16 flex flex-row justify-between items-center opacity-30 uppercase;
         font-size: 10px;
-
       }
-
     }
   }
 }
