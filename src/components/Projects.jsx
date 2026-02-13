@@ -60,7 +60,7 @@ const Projects = () => {
       },
     });
 
-    let buttonChars;
+        let buttonChars;
 
     document.fonts.ready.then(() => {
       const split = SplitText.create(buttonRef.current, {
@@ -86,6 +86,7 @@ const Projects = () => {
         gsap.to(buttonRef.current, {
           yPercent: 0,
           duration: 1,
+          opacity: 1,
           ease: "power3.out",
         });
 
@@ -102,6 +103,7 @@ const Projects = () => {
         gsap.to(buttonRef.current, {
           yPercent: 0,
           duration: 1,
+          opacity: 1,
           ease: "power3.out",
         });
 
@@ -117,6 +119,7 @@ const Projects = () => {
       onLeave: () => {
         gsap.to(buttonRef.current, {
           yPercent: 100,
+          opacity: 0,
           duration: 1,
           ease: "power3.in",
         });
@@ -134,6 +137,7 @@ const Projects = () => {
           yPercent: 100,
           duration: 1,
           ease: "power3.in",
+          opacity: 0
         });
 
         gsap.to(buttonChars, {
@@ -144,6 +148,7 @@ const Projects = () => {
         });
       },
     });
+
   }, []);
   // should only be running on desktop
   useGSAP(() => {

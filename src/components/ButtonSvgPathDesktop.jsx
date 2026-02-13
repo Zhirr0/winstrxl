@@ -2,12 +2,13 @@ import React from 'react'
 
 const ButtonSvgPathDesktop = () => {
     const pathData = `
-    M1 0
+M1 0
 H0
-C0.164179 0 0.164179 1 0 1
+C0.044776 0 0.044776 1 0 1
 H1
-C0.832104 1 0.832090 0 1 0
+C0.936590 1 0.951493 0 1 0
 Z
+
 `
   return (
     <svg width="0" height="0" viewBox="0 0 1 1" aria-hidden="true">

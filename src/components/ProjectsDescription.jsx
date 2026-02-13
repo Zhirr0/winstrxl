@@ -27,7 +27,7 @@ const ProjectsDescription = ({ number, label, title, description, index }) => {
         {title}
       </h3>
       <p className={`project-description project-description-${index}`}>{description}</p>
-      <button className="button-projects-desktop"></button>
+      <button className="button-projects-desktop">View The work</button>
     </div>
   );
 };

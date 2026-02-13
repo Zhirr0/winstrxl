@@ -227,7 +227,7 @@ body {
     }
 
     .button-projects-desktop {
-      @apply absolute top-5 left-5 bg-light-primary w-[150px] h-[30px] text-dark-primary;
+      @apply max-[1024px]:hidden absolute bottom-6 left-0 bg-light-primary w-[200px] h-[50.67px] text-dark-primary;
       clip-path: url(#button-container-description);
       -webkit-clip-path: url(#button-container-description);
     }
