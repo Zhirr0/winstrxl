@@ -202,11 +202,10 @@ body {
         left: 0;
         width: 100%;
         height: 100%;
-        mix-blend-mode: difference;
       }
 
       .object {
-        @apply max-[768px]:text-sm;
+        @apply max-[768px]:text-sm text-dark-red-primary opacity-70;
         position: absolute;
         width: max-content;
         height: 130px;
@@ -215,7 +214,6 @@ body {
         align-items: center;
         text-align: center;
         font-size: 150px;
-        color: white;
         cursor: grab;
         user-select: none;
         pointer-events: auto;

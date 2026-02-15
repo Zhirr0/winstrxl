@@ -4,7 +4,13 @@ const MenuButton = () => {
     const [isActive, setIsActive] = useState(false);
 
     const handleClick = () => {
-        setIsActive(!isActive);
+        const newState = !isActive;
+        setIsActive(newState);
+
+        // Dispatch custom event for MenuSection to listen to
+        window.dispatchEvent(new CustomEvent('menuToggle', {
+            detail: { isActive: newState }
+        }));
     };
 
     return (
