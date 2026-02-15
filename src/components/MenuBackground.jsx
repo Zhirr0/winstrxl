@@ -12,44 +12,26 @@ const FRAG = `
   uniform vec2  iResolution;
   uniform float iTime;
 
-  #define BRIGHTNESS      0.2
-  #define BASE_WHITE      0.1
-  #define WAVE_STRENGTH_1 1.0
-  #define WAVE_STRENGTH_2 0.0
-  #define WAVE_STRENGTH_3 0.6
-  #define SPEED_1         1.0
-  #define SPEED_2         1.5
-  #define SPEED_3         0.5
-  #define RIPPLES_1       2.0
-  #define RIPPLES_2       2.0
-  #define RIPPLES_3       3.0
-  #define VERTICAL_1      4.0
-  #define VERTICAL_2      6.0
-  #define VERTICAL_3      3.0
-  #define REACH           1.0
-
-  void mainImage(out vec4 fragColor, in vec2 fragCoord) {
-    vec2  uv   = fragCoord / iResolution.xy;
+void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+    vec2 uv = fragCoord/iResolution.xy;
+    vec3 col = vec3(0.0);
     float dist = uv.x;
+    float phase = iTime * 1.5;
+    float wave1 = sin(dist * 10.0 - phase);
+    float wave2 = sin(dist * 10.0 - phase + 2.094);
+    float wave3 = sin(dist * 10.0 - phase + 4.189);
+wave1 *= sin((1.0 - uv.y) * 5.0 + phase * 0.3);
+wave2 *= sin((1.0 - uv.y) * 5.0 + phase * 0.3 + 2.094);
+wave3 *= sin((1.0 - uv.y) * 5.0 + phase * 0.3 + 4.189);
 
-    float wave1 = sin(dist * RIPPLES_1 - iTime * SPEED_1);
-    float wave2 = sin(dist * RIPPLES_2 - iTime * SPEED_2 + 1.0);
-    float wave3 = sin(dist * RIPPLES_3 - iTime * SPEED_3 + 2.5);
+    float waves = wave1 * 0.3 + wave2 * 0.3 + wave3 * 0.3;
+    waves *= smoothstep(1.0, 0.2, dist);
+    waves = waves * 0.23 + 0.04;
+    waves = max(0.0, waves);
+    col = vec3(waves);
+    fragColor = vec4(col, 1.0);
+}
 
-    wave1 *= sin(uv.y * VERTICAL_1 + iTime * 0.5);
-    wave2 *= sin(uv.y * VERTICAL_2 - iTime * 0.3);
-    wave3 *= sin(uv.y * VERTICAL_3 + iTime * 0.7);
-
-    float waves = wave1 * WAVE_STRENGTH_1
-                + wave2 * WAVE_STRENGTH_2
-                + wave3 * WAVE_STRENGTH_3;
-
-    waves *= smoothstep(REACH, 0.2, dist);
-    waves  = waves * BRIGHTNESS + BASE_WHITE;
-    waves  = max(0.0, waves);
-
-    fragColor = vec4(vec3(waves), 1.0);
-  }
 
   void main() {
     mainImage(gl_FragColor, gl_FragCoord.xy);
@@ -60,10 +42,17 @@ function compile(gl, type, src) {
   const s = gl.createShader(type);
   gl.shaderSource(s, src);
   gl.compileShader(s);
+
+  // small compile log to help debugging if shader fails
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+    const msg = gl.getShaderInfoLog(s);
+    console.error("Shader compile error:", msg);
+  }
+
   return s;
 }
 
-export default function CardBackground() {
+export default function MenuBackground() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -92,8 +81,6 @@ export default function CardBackground() {
     const uRes  = gl.getUniformLocation(prog, "iResolution");
     const uTime = gl.getUniformLocation(prog, "iTime");
 
-    // Use the parent element's size — it's stable during GSAP pin
-    // because GSAP doesn't change the parent's layout dimensions
     const setSize = () => {
       const parent = canvas.parentElement;
       const w = Math.round(parent.offsetWidth  * devicePixelRatio);
@@ -105,8 +92,6 @@ export default function CardBackground() {
     };
 
     setSize();
-
-    // window resize = real viewport change only, never fires on GSAP pin
     window.addEventListener("resize", setSize);
 
     let rafId;

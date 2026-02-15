@@ -20,7 +20,9 @@ import Cursor from "./components/Cursor";
 import Home from "./pages/Home";
 import HeroSvgPath from "./components/HeroSvgPath";
 import MenuButton from "./components/MenuButton";
+import MenuSection from "./components/MenuSection";
 import { useGSAP } from "@gsap/react";
+
 const App = () => {
   const location = useLocation();
   const lenisRef = useRef();
@@ -76,6 +78,7 @@ const App = () => {
       <Nav />
       <HeroSvgPath />
       <MenuButton />
+      <MenuSection />
       <div style={{ display: isTouchScreenSize ? "none" : "block" }}>
         <Cursor />
       </div>
