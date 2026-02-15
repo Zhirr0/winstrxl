@@ -41,7 +41,7 @@ const LeftMenuContainer = () => {
       maxDragVelocity: 20, // Max velocity when dragging
 
       // Top wall
-      topWallDelay: breakPoint ? 10000 : 3000, // When to add top wall (ms)
+      topWallDelay: breakPoint ? 10000000 : 3000, // When to add top wall (ms)
 
       // Engine iterations (higher = more accurate but slower)
       constraintIterations: 10,
