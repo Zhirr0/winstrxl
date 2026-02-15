@@ -205,15 +205,15 @@ body {
       }
 
       .object {
-        @apply max-[768px]:text-sm text-dark-red-primary opacity-70;
+        @apply text-dark-red-primary opacity-70;
         position: absolute;
         width: max-content;
         height: 130px;
+        font-size: clamp(150px, 5vw, 10px);
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
-        font-size: 150px;
         cursor: grab;
         user-select: none;
         pointer-events: auto;
@@ -551,11 +551,21 @@ body {
 @media (max-width: 1024px) {
   .menu-section {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr .5fr;
+  }
+}
+@media (max-width: 1024px) {
+  .object {
+    font-size: 100px;
   }
 }
 @media (max-width: 768px) {
   .object {
-    font-size: 70px;
+    font-size: 50px;
+  }
+}
+@media (max-width: 450px) {
+  .object {
+    font-size: 30px;
   }
 }

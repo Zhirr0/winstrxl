@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import Matter from "matter-js";
+import { useMediaQuery } from "react-responsive";
 
 const LeftMenuContainer = () => {
   const containerRef = useRef(null);
@@ -8,7 +9,7 @@ const LeftMenuContainer = () => {
   const bodiesRef = useRef([]);
   const mouseConstraintRef = useRef(null);
   const animationFrameRef = useRef(null);
-
+  const breakPoint = useMediaQuery({maxWidth: 1024})
   useEffect(() => {
     // ============================================
     // CONFIGURATION - Adjust these values easily
@@ -40,7 +41,7 @@ const LeftMenuContainer = () => {
       maxDragVelocity: 20, // Max velocity when dragging
 
       // Top wall
-      topWallDelay: 3000, // When to add top wall (ms)
+      topWallDelay: breakPoint ? 10000 : 3000, // When to add top wall (ms)
 
       // Engine iterations (higher = more accurate but slower)
       constraintIterations: 10,
