@@ -207,7 +207,7 @@ body {
       }
 
       .object {
-        @apply text-dark-red-primary opacity-70;
+        @apply text-dark-red-primary;
         position: absolute;
         width: fit-content;
         margin: 0;
