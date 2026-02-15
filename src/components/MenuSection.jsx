@@ -17,7 +17,6 @@ const MenuSection = () => {
     
     headersSplitRef.current = new SplitText(headers, {
       type: 'chars',
-      mask: 'char'
     });
     
     fromBottomSplitRef.current = new SplitText(fromBottom, {
