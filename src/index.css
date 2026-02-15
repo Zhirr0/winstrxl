@@ -193,7 +193,9 @@ body {
     grid-template-columns: 0.7fr 1fr;
     grid-template-rows: 1fr;
     gap: 20px;
-
+    img {
+      @apply opacity-50;
+    }
     .left-menu {
       @apply overflow-hidden relative;
       .object-container {
@@ -207,8 +209,11 @@ body {
       .object {
         @apply text-dark-red-primary opacity-70;
         position: absolute;
-        width: max-content;
-        height: 130px;
+        width: fit-content;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        height: fit-content;
         font-size: clamp(150px, 5vw, 10px);
         display: flex;
         justify-content: center;
@@ -218,6 +223,13 @@ body {
         user-select: none;
         pointer-events: auto;
         z-index: 2;
+      }
+
+      .object p {
+       
+        margin: 0;
+        padding: 0;
+        line-height: 0.7;
       }
 
       .object:active {
@@ -559,13 +571,13 @@ body {
     font-size: 100px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .object {
-    font-size: 50px;
+    font-size: 80px;
   }
 }
-@media (max-width: 450px) {
+@media (max-width: 768px) {
   .object {
-    font-size: 30px;
+    font-size: 70px;
   }
 }

@@ -132,8 +132,8 @@ const LeftMenuContainer = () => {
         bodies.push({
           body,
           element: object,
-          width: objRect.width,
-          height: objRect.height,
+          width: objRect.width * 0.9,
+          height: objRect.height * 0.9,
           index: index,
         });
 
@@ -289,7 +289,7 @@ const LeftMenuContainer = () => {
         Matter.Engine.clear(engineRef.current);
       }
     };
-  }, []);
+  }, [breakPoint]);
 
   return (
     <div className="object-container" ref={containerRef}>
