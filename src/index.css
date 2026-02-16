@@ -207,7 +207,7 @@ body {
       }
 
       .object {
-        @apply text-dark-red-primary;
+        @apply text-light-primary;
         position: absolute;
         width: fit-content;
         margin: 0;
@@ -267,13 +267,13 @@ body {
           @apply w-3;
         }
         .socials {
-          @apply flex flex-row justify-center items-start gap-15 max-[768px]:gap-3;
+          @apply flex flex-row justify-center items-start gap-23 max-[768px]:gap-11;
           .seperate-container {
             @apply flex flex-col gap-3;
           }
         }
         .contacts-email {
-          @apply flex flex-row justify-center  items-start gap-15 max-[768px]:gap-3;
+          @apply flex flex-row justify-center  items-start gap-23 max-[768px]:gap-5;
           div {
             @apply flex flex-col gap-3;
           }

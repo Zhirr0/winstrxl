@@ -32,10 +32,9 @@ const MenuSection = () => {
         gsap.killTweensOf(header)
         gsap.to(header, {
           scale: 1.2,
-          opacity: 1,
           duration: 1,
-          ease: "power4.out",
-          color: "oklch(38% 0.336 25.1)",
+          opacity: 1,
+          ease: "power3.out",
         });
       };
 
@@ -43,10 +42,9 @@ const MenuSection = () => {
         gsap.killTweensOf(header)
         gsap.to(header, {
           scale: 1,
-          opacity: 0.5,
           duration: 1,
-          ease: "power2.out",
-          color: "oklch(86.4% 0.017 2.4)", // revert to original color
+          opacity: 0.5,
+          ease: "power3.out",
         });
       };
 

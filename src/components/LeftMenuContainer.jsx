@@ -11,9 +11,7 @@ const LeftMenuContainer = () => {
   const animationFrameRef = useRef(null);
   const breakPoint = useMediaQuery({maxWidth: 1024})
   useEffect(() => {
-    // ============================================
-    // CONFIGURATION - Adjust these values easily
-    // ============================================
+    
     const config = {
       // Physics properties
       gravity: { x: 0, y: 1 },
