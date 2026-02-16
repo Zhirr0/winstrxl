@@ -267,13 +267,13 @@ body {
           @apply w-3;
         }
         .socials {
-          @apply flex flex-row justify-center items-start gap-23 max-[768px]:gap-11;
+          @apply flex flex-row justify-center items-start gap-15 max-[768px]:gap-3;
           .seperate-container {
             @apply flex flex-col gap-3;
           }
         }
         .contacts-email {
-          @apply flex flex-row justify-center  items-start gap-23 max-[768px]:gap-5;
+          @apply flex flex-row justify-center  items-start gap-15 max-[768px]:gap-3;
           div {
             @apply flex flex-col gap-3;
           }
