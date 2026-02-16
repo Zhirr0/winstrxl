@@ -23,6 +23,13 @@ body {
   --color-light-primary: oklch(86.4% 0.017 2.4);
   --color-dark-red-primary: oklch(38% 0.336 25.1);
 }
+
+::selection {
+  @apply bg-light-primary text-dark-primary;
+}
+::-moz-selection {
+  @apply bg-light-primary text-dark-primary;
+}
 @layer utilities {
   .flex-center {
     @apply flex justify-center items-center;
