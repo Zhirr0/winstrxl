@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import NavSvgPath from "./NavSvgPath";
 
-gsap.registerPlugin(SplitText);
 
 const Nav = () => {
   const [isCompressed, setIsCompressed] = useState(false);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const MenuButton = () => {
     const [isActive, setIsActive] = useState(false);
@@ -7,11 +7,19 @@ const MenuButton = () => {
         const newState = !isActive;
         setIsActive(newState);
 
-        // Dispatch custom event for MenuSection to listen to
         window.dispatchEvent(new CustomEvent('menuToggle', {
             detail: { isActive: newState }
         }));
     };
+
+    useEffect(() => {
+        const handleMenuToggle = (e) => {
+            setIsActive(e.detail.isActive);
+        };
+
+        window.addEventListener('menuToggle', handleMenuToggle);
+        return () => window.removeEventListener('menuToggle', handleMenuToggle);
+    }, []);
 
     return (
         <button 

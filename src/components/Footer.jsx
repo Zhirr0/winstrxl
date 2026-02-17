@@ -76,6 +76,8 @@ export default function Footer() {
               scrub: true,
               pin: c,
               pinSpacing: false,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
             },
           },
         );
@@ -179,7 +181,6 @@ export default function Footer() {
           className="footer-card"
           id="story"
         >
-
           <CardBackground />
           <img
             style={{ marginBottom: "5px" }}
@@ -263,7 +264,6 @@ export default function Footer() {
       </div>
       <div className="footer-card-outer">
         <section
-
           style={{ padding: "50px 30px" }}
           className="footer-card"
           id="clients"
@@ -299,7 +299,6 @@ export default function Footer() {
 
       <div className="footer-card-outer">
         <section
-
           style={{ padding: "50px 30px" }}
           className="footer-card"
           id="contact"

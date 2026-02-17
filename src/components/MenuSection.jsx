@@ -4,6 +4,7 @@ import MenuBackground from "./MenuBackground";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import closeMenu from "../utils/closeMenu";
 
 const MenuSection = () => {
   const menuSection = useRef(null);
@@ -159,13 +160,15 @@ const MenuSection = () => {
         <LeftMenuContainer key={leftMenuKey} />
       </div>
       <div style={{ padding: "0px 30px" }} className="right-menu bottom-menu">
-        <div className="about-container right-container">
-          <div>
-            <p>01</p>
-            <h3 className="menu-animated-headers">ABOUT</h3>
+        <a href="#story" onClick={(e) => closeMenu(e, 'story')} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div className="about-container right-container">
+            <div>
+              <p>01</p>
+              <h3 className="menu-animated-headers">ABOUT</h3>
+            </div>
+            <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
           </div>
-          <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
-        </div>
+        </a>
         <hr style={{ margin: "20px 0px" }} />
         <div className="projects-container right-container">
           <div>
@@ -175,21 +178,25 @@ const MenuSection = () => {
           <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
         </div>
         <hr style={{ margin: "20px 0px" }} />
-        <div className="clients-container right-container">
-          <div>
-            <p>03</p>
-            <h3 className="menu-animated-headers">CLIENTS</h3>
+        <a href="#clients" onClick={(e) => closeMenu(e, 'clients')} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div className="clients-container right-container">
+            <div>
+              <p>03</p>
+              <h3 className="menu-animated-headers">CLIENTS</h3>
+            </div>
+            <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
           </div>
-          <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
-        </div>
+        </a>
         <hr style={{ margin: "20px 0px" }} />
-        <div className="contacts-container right-container">
-          <div>
-            <p>04</p>
-            <h3 className="menu-animated-headers">CONTACT</h3>
+        <a href="#contact" onClick={(e) => closeMenu(e, 'contact')} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <div className="contacts-container right-container">
+            <div>
+              <p>04</p>
+              <h3 className="menu-animated-headers">CONTACT</h3>
+            </div>
+            <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
           </div>
-          <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
-        </div>
+        </a>
         <hr style={{ margin: "20px 0px" }} />
         <div className="menu-contacts">
           <div className="socials">

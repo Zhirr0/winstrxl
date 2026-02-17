@@ -233,7 +233,6 @@ body {
       }
 
       .object p {
-       
         margin: 0;
         padding: 0;
         line-height: 0.7;
@@ -254,6 +253,9 @@ body {
       }
       p {
         @apply tracking-[2px] max-[1024px]:tracking-[1px];
+      }
+      a {
+        @apply w-full no-underline text-inherit;
       }
       .right-container {
         @apply w-full flex flex-row justify-between;
@@ -570,7 +572,7 @@ body {
 @media (max-width: 1024px) {
   .menu-section {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr .5fr;
+    grid-template-rows: 1fr 0.5fr;
   }
 }
 @media (max-width: 1024px) {
