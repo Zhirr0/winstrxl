@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import closeMenu from "../utils/closeMenu";
+import { Link } from "react-router-dom";
 
 const MenuSection = () => {
   const menuSection = useRef(null);
@@ -30,7 +31,7 @@ const MenuSection = () => {
     // Add hover animation to each header
     headers.forEach((header) => {
       const handleMouseEnter = () => {
-        gsap.killTweensOf(header)
+        gsap.killTweensOf(header);
         gsap.to(header, {
           scale: 1.2,
           duration: 1,
@@ -40,7 +41,7 @@ const MenuSection = () => {
       };
 
       const handleMouseLeave = () => {
-        gsap.killTweensOf(header)
+        gsap.killTweensOf(header);
         gsap.to(header, {
           scale: 1,
           duration: 1,
@@ -160,7 +161,11 @@ const MenuSection = () => {
         <LeftMenuContainer key={leftMenuKey} />
       </div>
       <div style={{ padding: "0px 30px" }} className="right-menu bottom-menu">
-        <a href="#story" onClick={(e) => closeMenu(e, 'story')} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <a
+          href="#story"
+          onClick={(e) => closeMenu(e, "story")}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <div className="about-container right-container">
             <div>
               <p>01</p>
@@ -170,15 +175,23 @@ const MenuSection = () => {
           </div>
         </a>
         <hr style={{ margin: "20px 0px" }} />
+
         <div className="projects-container right-container">
           <div>
             <p>02</p>
-            <h3 className="menu-animated-headers">PROJECTS</h3>
+            <Link onClick={() => closeMenu()} to={"/projects"}>
+              <h3 className="menu-animated-headers">PROJECTS</h3>
+            </Link>
           </div>
           <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
         </div>
+
         <hr style={{ margin: "20px 0px" }} />
-        <a href="#clients" onClick={(e) => closeMenu(e, 'clients')} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <a
+          href="#clients"
+          onClick={(e) => closeMenu(e, "clients")}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <div className="clients-container right-container">
             <div>
               <p>03</p>
@@ -188,7 +201,11 @@ const MenuSection = () => {
           </div>
         </a>
         <hr style={{ margin: "20px 0px" }} />
-        <a href="#contact" onClick={(e) => closeMenu(e, 'contact')} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <a
+          href="#contact"
+          onClick={(e) => closeMenu(e, "contact")}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <div className="contacts-container right-container">
             <div>
               <p>04</p>

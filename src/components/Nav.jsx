@@ -4,7 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import NavSvgPath from "./NavSvgPath";
-
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const [isCompressed, setIsCompressed] = useState(false);
@@ -250,12 +250,14 @@ M0 0V1C0.00435 1 0.0078799917 1 0.0078799917 0.9107142857C0.0078799917 0.7909321
             Winstrxl
           </h3>
           <div className="logo-container absolute -translate-x-[56%] max-[1024px]:w-26 max-[1024px]:-translate-y-[55%] max-[1024px]:-translate-x-[50%] max-[700px]:w-25 max-[600px]:w-20 max-[500px]:w-18 max-[430px]:w-16 max-[430px]:-translate-y-[30%] max-[370px]:w-15 -translate-y-1/2 top-9 left-[50%] max-[1115px]:w-17 max-[1115px]:-translate-y-[30%] max-[1300px]:-translate-y-[40%] max-[1300px]:w-20 w-25 h-auto">
-            <img
-              alt="logo"
-              src="/svg/Logowin.svg"
-              ref={logoRef}
-              className="nav-logo w-full h-auto object-contain"
-            />
+            <Link to="/">
+              <img
+                alt="logo"
+                src="/svg/Logowin.svg"
+                ref={logoRef}
+                className="nav-logo w-full h-auto object-contain"
+              />
+            </Link>
           </div>
         </div>
       </nav>

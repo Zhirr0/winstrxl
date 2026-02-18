@@ -22,6 +22,7 @@ import HeroSvgPath from "./components/HeroSvgPath";
 import MenuButton from "./components/MenuButton";
 import MenuSection from "./components/MenuSection";
 import { useGSAP } from "@gsap/react";
+import Projects from "./pages/Projects";
 
 const App = () => {
   const location = useLocation();
@@ -85,6 +86,7 @@ const App = () => {
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route index element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
         </Routes>
       </AnimatePresence>
     </ReactLenis>

@@ -3,6 +3,9 @@ import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import Projects from '../components/Projects'
 import ButtonSvgPathDesktop from '../components/ButtonSvgPathDesktop'
+import Transition from '../components/Transition'
+
+// eslint-disable-next-line react-refresh/only-export-components
 const Home = () => {
   return (
     <section>
@@ -16,4 +19,5 @@ const Home = () => {
   )
 }
 
-export default Home
+// eslint-disable-next-line react-refresh/only-export-components
+export default Transition(Home)
