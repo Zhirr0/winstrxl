@@ -67,13 +67,7 @@
   z-index: 2;
 }
 
-/* ══════════════════════════════════════════════════════════════════════
-   RESPONSIVE BREAKPOINTS
-   Each step scales down thumbnails, repositions elements, and shrinks
-   the ghost column so nothing overflows on narrow viewports.
-══════════════════════════════════════════════════════════════════════ */
 
-/* ── ≤ 1024px  (small laptops / large tablets landscape) ─────────── */
 @media (max-width: 1024px) {
   .gallery-for-images {
     left: 6%;
@@ -93,7 +87,6 @@
 
 }
 
-/* ── ≤ 850px  (tablets portrait / small laptops) ─────────────────── */
 @media (max-width: 850px) {
   .gallery-for-images {
     left: 4%;
@@ -120,7 +113,6 @@
 
 }
 
-/* ── ≤ 768px  (tablets portrait) ─────────────────────────────────── */
 @media (max-width: 768px) {
   .gallery-for-images {
     left: 3%;
@@ -148,7 +140,6 @@
 
 }
 
-/* ── ≤ 600px  (large phones landscape / small tablets) ───────────── */
 @media (max-width: 600px) {
   .gallery-for-images {
     display: none;
@@ -166,7 +157,6 @@
 
 }
 
-/* ── ≤ 400px  (small phones) ─────────────────────────────────────── */
 @media (max-width: 400px) {
   .img-previews-list {
     top: 10%;
