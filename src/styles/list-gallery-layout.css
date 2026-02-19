@@ -1,0 +1,177 @@
+/* ── Image sizing inside gallery wrapper ───────────────────────────── */
+.gallery-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Gallery container ─────────────────────────────────────────────── */
+.gallery-wrapper {
+  width: 100%;
+  height: 100%;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+}
+
+/* ── Thumbnail strip (fixed, driven upward by GSAP on scroll) ──────── */
+.gallery-for-images {
+  padding-top: 0.5em;
+  position: fixed;
+  top: 25%;
+  left: 10%;
+}
+
+.gallery-for-images .images-wrapper {
+  width: 75px;
+  height: 100px;
+  margin-bottom: 1em;
+}
+
+/* ── Ghost scroll column ───────────────────────────────────────────── */
+.img-previews-list {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  pointer-events: none;
+}
+
+.img-previews-list img {
+  width: 100%;
+  height: 100%;
+  padding: 1em 0;
+  display: block;
+}
+
+/* ── Minimap ───────────────────────────────────────────────────────── */
+.minimap {
+  position: fixed;
+  top: 25%;
+  left: 12.2%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 2px;
+  border: 1px solid #fff;
+  z-index: 2;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   Each step scales down thumbnails, repositions elements, and shrinks
+   the ghost column so nothing overflows on narrow viewports.
+══════════════════════════════════════════════════════════════════════ */
+
+/* ── ≤ 1024px  (small laptops / large tablets landscape) ─────────── */
+@media (max-width: 1024px) {
+  .gallery-for-images {
+    left: 6%;
+  }
+
+  .gallery-for-images .images-wrapper {
+    width: 62px;
+    height: 82px;
+    margin-bottom: 0.85em;
+  }
+
+  .minimap {
+    left: 8%;
+    width: 100px;
+    height: 100px;
+  }
+
+}
+
+/* ── ≤ 850px  (tablets portrait / small laptops) ─────────────────── */
+@media (max-width: 850px) {
+  .gallery-for-images {
+    left: 4%;
+    top: 20%;
+  }
+
+  .gallery-for-images .images-wrapper {
+    width: 54px;
+    height: 70px;
+    margin-bottom: 0.75em;
+  }
+
+  .minimap {
+    left: 6%;
+    top: 20%;
+    width: 88px;
+    height: 88px;
+  }
+
+  .img-previews-list {
+    top: 20%;
+    width: 50%;
+  }
+
+}
+
+/* ── ≤ 768px  (tablets portrait) ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .gallery-for-images {
+    left: 3%;
+    top: 15%;
+  }
+
+  .gallery-for-images .images-wrapper {
+    width: 46px;
+    height: 60px;
+    margin-bottom: 0.65em;
+  }
+
+  .minimap {
+    left: 5%;
+    top: 15%;
+    width: 76px;
+    height: 76px;
+  }
+
+  .img-previews-list {
+    top: 15%;
+    width: 60%;
+  }
+
+
+}
+
+/* ── ≤ 600px  (large phones landscape / small tablets) ───────────── */
+@media (max-width: 600px) {
+  .gallery-for-images {
+    display: none;
+  }
+
+  .minimap {
+    display: none;
+  }
+
+  .img-previews-list {
+    top: 12%;
+    width: 70%;
+  }
+
+
+}
+
+/* ── ≤ 400px  (small phones) ─────────────────────────────────────── */
+@media (max-width: 400px) {
+  .img-previews-list {
+    top: 10%;
+    width: 80%;
+  }
+
+
+}

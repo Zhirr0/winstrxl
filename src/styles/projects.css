@@ -1,8 +1,6 @@
 .projects-gallery {
-  overflow: hidden !important;
   max-width: 100vw;
   max-height: 100dvh; /* add this */
-  position: fixed; /* add this */
 
   margin-right: 2px;
   margin-left: 2px;

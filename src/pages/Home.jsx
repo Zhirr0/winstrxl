@@ -1,7 +1,7 @@
 import ButtonSvgPath from '../components/ButtonSvgPath'
 import Footer from '../components/Footer'
 import Hero from '../components/Hero'
-import Projects from '../components/Projects'
+import Projects from '../components/ProjectsSection'
 import ButtonSvgPathDesktop from '../components/ButtonSvgPathDesktop'
 import Transition from '../components/Transition'
 

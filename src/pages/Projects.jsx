@@ -1,14 +1,19 @@
 import "../styles/projects.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Transition from "../components/Transition";
+import GalleryList from "./GalleryList";
+
 // eslint-disable-next-line react-refresh/only-export-components
 const Projects = () => {
   const galleryRef = useRef(null);
   const zoomOutRef = useRef(null);
   const zoomInRef = useRef(null);
   const dragLayerRef = useRef(null);
+
+  const gridSectionRef = useRef(null);
+  const listSectionRef = useRef(null);
 
   const isZoomedRef = useRef(false);
   const imagesRef = useRef([]);
@@ -23,6 +28,9 @@ const Projects = () => {
   const currentXRef = useRef(0);
   const currentYRef = useRef(0);
 
+  // "grid" = zoom grid (default), "list" = GalleryList
+  const [activeLayout, setActiveLayout] = useState("grid");
+
   const totalRows = 20;
   const imagesPerRow = 60;
   const totalImages = totalRows * imagesPerRow;
@@ -35,6 +43,26 @@ const Projects = () => {
     return start + (end - start) * factor;
   }
 
+  function switchLayout() {
+    const next = activeLayout === "grid" ? "list" : "grid";
+    const outRef = activeLayout === "grid" ? gridSectionRef : listSectionRef;
+    const inRef = next === "grid" ? gridSectionRef : listSectionRef;
+
+    gsap.to(outRef.current, {
+      opacity: 0,
+      duration: 0.35,
+      ease: "power2.inOut",
+      onComplete: () => {
+        setActiveLayout(next);
+        gsap.fromTo(
+          inRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.35, ease: "power2.inOut" }
+        );
+      },
+    });
+  }
+
   useGSAP(() => {
     const gallery = galleryRef.current;
     const images = [];
@@ -45,8 +73,7 @@ const Projects = () => {
       img.style.height = `${getRandomHeight(30, 40)}px`;
 
       const imgElement = document.createElement("img");
-      const randomImageNumber = Math.floor(Math.random() * 35) + 1;
-      imgElement.src = `/images35/img${randomImageNumber}.jpg`;
+      imgElement.src = `/images35/img${Math.floor(Math.random() * 35) + 1}.jpg`;
       img.appendChild(imgElement);
       gallery.appendChild(img);
       images.push(img);
@@ -84,8 +111,16 @@ const Projects = () => {
         Math.abs(targetXRef.current - currentXRef.current) > 0.01 ||
         Math.abs(targetYRef.current - currentYRef.current) > 0.01
       ) {
-        currentXRef.current = lerp(currentXRef.current, targetXRef.current, 0.08);
-        currentYRef.current = lerp(currentYRef.current, targetYRef.current, 0.08);
+        currentXRef.current = lerp(
+          currentXRef.current,
+          targetXRef.current,
+          0.08,
+        );
+        currentYRef.current = lerp(
+          currentYRef.current,
+          targetYRef.current,
+          0.08,
+        );
 
         requestAnimationFrame(() => {
           gallery.style.transform = `translate3d(${currentXRef.current}px, ${currentYRef.current}px, 0)`;
@@ -103,11 +138,13 @@ const Projects = () => {
       const currentTransform = window.getComputedStyle(gallery).transform;
       gsap.set(gallery, { clearProps: "transform" });
 
-      const tl = gsap.timeline({ defaults: { duration: 2.5, ease: "power4.inOut" } });
+      const tl = gsap.timeline({
+        defaults: { duration: 2.5, ease: "power4.inOut" },
+      });
       tl.fromTo(gallery, { transform: currentTransform }, { x: 0, y: 0 }).to(
         imagesRef.current,
         { scale: 1, x: 0, y: 0 },
-        0
+        0,
       );
 
       currentXRef.current = 0;
@@ -162,10 +199,14 @@ const Projects = () => {
       targetYRef.current = initialYRef.current;
 
       if (e.type === "mousedown") {
-        document.addEventListener("mousemove", handleDragMove, { passive: false });
+        document.addEventListener("mousemove", handleDragMove, {
+          passive: false,
+        });
         document.addEventListener("mouseup", handleDragEnd);
       } else {
-        document.addEventListener("touchmove", handleDragMove, { passive: false });
+        document.addEventListener("touchmove", handleDragMove, {
+          passive: false,
+        });
         document.addEventListener("touchend", handleDragEnd);
       }
     }
@@ -174,11 +215,15 @@ const Projects = () => {
       if (!isDraggingRef.current) return;
       e.preventDefault();
 
-      const currentPositionX = e.type === "mousemove" ? e.pageX : e.touches[0].pageX;
-      const currentPositionY = e.type === "mousemove" ? e.pageY : e.touches[0].pageY;
+      const currentPositionX =
+        e.type === "mousemove" ? e.pageX : e.touches[0].pageX;
+      const currentPositionY =
+        e.type === "mousemove" ? e.pageY : e.touches[0].pageY;
 
-      targetXRef.current = initialXRef.current + (currentPositionX - startXRef.current);
-      targetYRef.current = initialYRef.current + (currentPositionY - startYRef.current);
+      targetXRef.current =
+        initialXRef.current + (currentPositionX - startXRef.current);
+      targetYRef.current =
+        initialYRef.current + (currentPositionY - startYRef.current);
     }
 
     function handleDragEnd() {
@@ -204,19 +249,53 @@ const Projects = () => {
   }, []);
 
   return (
-    <section className="projects-gallery">
-      <div className="pads">
-        <button ref={zoomOutRef} id="zoom-out" className="active">
-          <img src="/svg/zoom-out.svg" alt="" />
-        </button>
-        <button ref={zoomInRef} id="zoom-in">
-          <img src="/svg/zoom-in.svg" alt="" />
-        </button>
-      </div>
-      <div ref={dragLayerRef} id="drag-layer" />
-      <div className="gallery-container" />
-      <div ref={galleryRef} className="gallery" />
-    </section>
+    <>
+      {/* Toggle button — fixed, always on top of both layouts */}
+      <button
+        style={{ padding: "5px" }}
+        className="fixed top-10 z-200 left-10 flex gap-[0.2em] justify-center items-center text-center text-white bg-black/25 border border-white/25 backdrop-blur-xl rounded-lg"
+        onClick={switchLayout}
+      >
+        Toggle Layout
+      </button>
+
+      {/* GalleryList — always in DOM so refs are stable for GSAP.
+          Hidden via pointer-events + opacity when inactive. */}
+      <section
+        ref={listSectionRef}
+        className="projects-gallery-list"
+        style={{
+          opacity: activeLayout === "list" ? 1 : 0,
+          pointerEvents: activeLayout === "list" ? "auto" : "none",
+          position: activeLayout === "list" ? "relative" : "fixed",
+        }}
+      >
+        <GalleryList />
+      </section>
+
+      {/* Zoom grid — always in the DOM so GSAP animations, the RAF loop,
+          and drag state are never lost. */}
+      <section
+        ref={gridSectionRef}
+        className={`projects-gallery ${activeLayout === "grid" ? "fixed" : ""}`}
+        style={{
+          opacity: activeLayout === "grid" ? 1 : 0,
+          pointerEvents: activeLayout === "grid" ? "auto" : "none",
+        }}
+      >
+        <div className="pads">
+          <button ref={zoomOutRef} id="zoom-out" className="active">
+            <img src="/svg/zoom-out.svg" alt="" />
+          </button>
+          <button ref={zoomInRef} id="zoom-in">
+            <img src="/svg/zoom-in.svg" alt="" />
+          </button>
+        </div>
+        <div ref={dragLayerRef} id="drag-layer" />
+        <div className="gallery-container" />
+        <div ref={galleryRef} className="gallery" />
+      </section>
+    </>
   );
 };
 
