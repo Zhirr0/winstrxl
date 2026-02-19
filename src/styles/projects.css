@@ -1,0 +1,106 @@
+.projects-gallery {
+  overflow: hidden !important;
+  max-width: 100vw;
+  max-height: 100dvh; /* add this */
+  position: fixed; /* add this */
+
+  margin-right: 2px;
+  margin-left: 2px;
+  top: 0;
+  left: 0;
+}
+.projects-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+
+.pads {
+  position: fixed;
+  left: 50%;
+  bottom: 2em;
+  transform: translateX(-50%);
+  padding: 0 4px;
+  display: flex;
+  gap: 0.2em;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  backdrop-filter: blur(20px);
+  border-radius: 8px;
+  z-index: 2;
+}
+
+.pads button {
+  opacity: 1;
+  outline: none;
+  border: none;
+  background: none;
+  padding: 8px;
+  transition: 0.5s opacity;
+  pointer-events: all;
+}
+.pads button img {
+  width: 30px;
+  height: auto;
+}
+.pads button.active {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.gallery-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%, -50%);
+  width: 150vw;
+  height: 150vh;
+  overflow: visible;
+}
+
+.gallery {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 4px;
+  will-change: transform;
+}
+
+.img {
+  width: calc((100% - 236px) / 50);
+  transform: scale(0);
+  transform-origin: center center;
+  will-change: transform;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+  user-select: none;
+}
+
+#drag-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  touch-action: none;
+  z-index: 1;
+}
+
+@media (max-width: 400px) {
+  .img {
+    width: calc(200px / 5);
+  }
+}
+@media (max-width: 900px) {
+  .img {
+    width: calc(200px / 10);
+  }
+}

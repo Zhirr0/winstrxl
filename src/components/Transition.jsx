@@ -21,14 +21,13 @@ const Transition = (OgComponent) => {
           {Array.from({ length: slats }).map((_, i) => (
             <motion.div
               key={`out-${i}`}
-              className="absolute bg-[#090909]"
+              className="absolute bg-light-primary"
               style={{
                 top: `${i * (100 / slats)}%`,
                 left: 0,
                 right: 0,
                 height: `${100 / slats}%`,
                 transformStyle: "preserve-3d",
-                zIndex: 1000000000000000,
               }}
               initial={{
                 scaleY: isFirstLoad.current ? 0 : 1,
@@ -56,14 +55,13 @@ const Transition = (OgComponent) => {
           {Array.from({ length: slats }).map((_, i) => (
             <motion.div
               key={`in-${i}`}
-              className="absolute bg-[#090909]"
+              className="absolute bg-light-primary"
               style={{
                 top: `${i * (100 / slats)}%`,
                 left: 0,
                 right: 0,
                 height: `${100 / slats}%`,
                 transformStyle: "preserve-3d",
-                zIndex: 1000000000000000,
               }}
               initial={{
                 scaleY: 0,
