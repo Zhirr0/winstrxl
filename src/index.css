@@ -55,6 +55,10 @@ body {
   pointer-events: none;
 }
 
+button {
+  cursor: pointer
+}
+
 @layer utilities {
   .flex-center {
     @apply flex justify-center items-center;

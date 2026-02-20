@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 
 const ProjectsDescription = ({ number, label, title, description, index }) => {
   
@@ -27,7 +29,9 @@ const ProjectsDescription = ({ number, label, title, description, index }) => {
         {title}
       </h3>
       <p className={`project-description project-description-${index}`}>{description}</p>
-      <button className="button-projects-desktop">View The work</button>
+      <Link to="/projects">
+      <button className="button-projects-desktop ">View The works</button>
+      </Link>
     </div>
   );
 };

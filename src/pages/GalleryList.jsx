@@ -104,7 +104,7 @@ const GalleryList = () => {
       <div
         ref={indicatorRef}
         style={{ opacity: 0 }}
-        className="fixed right-6 top-1/2 -translate-y-1/2 z-50"
+        className="fixed right-6 top-1/2 -translate-y-1/2 z-1"
       >
         {/* Track — faint white background */}
         <div className="relative w-[2px] h-40 bg-white/20 overflow-hidden rounded-full">

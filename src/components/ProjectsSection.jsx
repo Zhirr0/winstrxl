@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { useMediaQuery } from "react-responsive";
 import { SplitText } from "gsap/SplitText";
+import { Link } from "react-router-dom";
 
 const Projects = () => {
   const projectsSectionRef = useRef(null);
@@ -697,9 +698,11 @@ const Projects = () => {
 
   return (
     <section ref={projectsSectionRef} className="projects">
-      <button className="all-projects-button" ref={buttonRef}>
-        All of the works
-      </button>
+      <Link to="/projects">
+        <button className="all-projects-button" ref={buttonRef}>
+          All of the works
+        </button>
+      </Link>
       {projectsData.map(({ id, number, label, title, description }, i) => {
         const index = i + 1;
         return (
