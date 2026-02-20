@@ -12,7 +12,7 @@ const Projects = () => {
   const dragLayerRef = useRef(null);
 
   const gridSectionRef = useRef(null);
-  const isZoomedRef = useRef(false);
+  const isZoomedRef = useRef(true);
   const imagesRef = useRef([]);
 
   const isDraggingRef = useRef(false);
@@ -209,6 +209,25 @@ const Projects = () => {
       document.removeEventListener("touchend", handleDragEnd);
     }
 
+    setTimeout(() => {
+      dragLayer.style.display = "block";
+      imagesRef.current.forEach((img) => {
+        const rect = img.getBoundingClientRect();
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const distX = (rect.left + rect.width / 2 - centerX) / 100;
+        const distY = (rect.top + rect.height / 2 - centerY) / 100;
+
+        gsap.to(img, {
+          x: distX * 1200,
+          y: distY * 600,
+          scale: 5,
+          duration: 2.5,
+          ease: "power4.inOut",
+        });
+      });
+    }, 200);
+
     zoomOutButton.addEventListener("click", handleZoomOut);
     zoomInButton.addEventListener("click", handleZoomIn);
     dragLayer.addEventListener("mousedown", handleDragStart);
@@ -224,7 +243,6 @@ const Projects = () => {
 
   return (
     <main className="overflow-x-hidden">
-
       <Link to="/projects/list">
         <button
           style={{ padding: "5px" }}
@@ -234,15 +252,12 @@ const Projects = () => {
         </button>
       </Link>
 
-      <section
-        ref={gridSectionRef}
-        className={`projects-gallery fixed`}
-      >
+      <section ref={gridSectionRef} className={`projects-gallery fixed`}>
         <div className="pads">
-          <button ref={zoomOutRef} id="zoom-out" className="active">
+          <button ref={zoomOutRef} id="zoom-out">
             <img src="/svg/zoom-out.svg" alt="" />
           </button>
-          <button ref={zoomInRef} id="zoom-in">
+          <button ref={zoomInRef} id="zoom-in" className="active">
             <img src="/svg/zoom-in.svg" alt="" />
           </button>
         </div>
