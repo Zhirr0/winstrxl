@@ -12,8 +12,8 @@ import Transition from "../components/Transition";
 import { Link } from "react-router-dom";
 
 const images = Array.from(
-  { length: 35 },
-  (_, i) => `/images35/img${i + 1}.jpg`,
+  { length: 40 },
+  (_, i) => `/images/img${i + 1}.jpg`,
 );
 
 const GalleryList = () => {

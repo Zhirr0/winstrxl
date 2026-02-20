@@ -47,7 +47,7 @@ const Projects = () => {
       img.style.height = `${getRandomHeight(30, 40)}px`;
 
       const imgElement = document.createElement("img");
-      imgElement.src = `/images35/img${Math.floor(Math.random() * 35) + 1}.jpg`;
+      imgElement.src = `/images/img${Math.floor(Math.random() * 40) + 1}.jpg`;
       img.appendChild(imgElement);
       gallery.appendChild(img);
       images.push(img);
