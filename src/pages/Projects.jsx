@@ -5,7 +5,6 @@ import { useRef, useEffect, useState } from "react";
 import Transition from "../components/Transition";
 import GalleryList from "./GalleryList";
 
-// eslint-disable-next-line react-refresh/only-export-components
 const Projects = () => {
   const galleryRef = useRef(null);
   const zoomOutRef = useRef(null);
@@ -299,5 +298,4 @@ const Projects = () => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default Transition(Projects);
