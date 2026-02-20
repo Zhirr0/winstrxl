@@ -1,7 +1,7 @@
 import "../styles/projects.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Transition from "../components/Transition";
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const Projects = () => {
   const dragLayerRef = useRef(null);
 
   const gridSectionRef = useRef(null);
-  const isZoomedRef = useRef(true);
+  const isZoomedRef = useRef(false);
   const imagesRef = useRef([]);
 
   const isDraggingRef = useRef(false);
@@ -25,9 +25,14 @@ const Projects = () => {
   const currentXRef = useRef(0);
   const currentYRef = useRef(0);
 
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const preloadedImagesRef = useRef({});
+
   const totalRows = 20;
   const imagesPerRow = 60;
   const totalImages = totalRows * imagesPerRow;
+  const totalUniqueImages = 40;
 
   function getRandomHeight(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -37,7 +42,37 @@ const Projects = () => {
     return start + (end - start) * factor;
   }
 
+  // Preload all images before mounting the gallery
+  useEffect(() => {
+    let loadedCount = 0;
+
+    const imagePromises = Array.from({ length: totalUniqueImages }, (_, i) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        const src = `/images/img${i + 1}.jpg`;
+        img.onload = () => {
+          loadedCount++;
+          setLoadingProgress(Math.round((loadedCount / totalUniqueImages) * 100));
+          preloadedImagesRef.current[src] = true;
+          resolve();
+        };
+        img.onerror = () => {
+          loadedCount++;
+          setLoadingProgress(Math.round((loadedCount / totalUniqueImages) * 100));
+          resolve(); 
+        };
+        img.src = src;
+      });
+    });
+
+    Promise.all(imagePromises).then(() => {
+      setTimeout(() => setIsLoaded(true), 400);
+    });
+  }, []);
+
   useGSAP(() => {
+    if (!isLoaded) return;
+
     const gallery = galleryRef.current;
     const images = [];
 
@@ -47,7 +82,7 @@ const Projects = () => {
       img.style.height = `${getRandomHeight(30, 40)}px`;
 
       const imgElement = document.createElement("img");
-      imgElement.src = `/images/img${Math.floor(Math.random() * 40) + 1}.jpg`;
+      imgElement.src = `/images/img${Math.floor(Math.random() * totalUniqueImages) + 1}.jpg`;
       img.appendChild(imgElement);
       gallery.appendChild(img);
       images.push(img);
@@ -71,9 +106,11 @@ const Projects = () => {
     return () => {
       images.forEach((img) => img.remove());
     };
-  }, []);
+  }, [isLoaded]);
 
   useEffect(() => {
+    if (!isLoaded) return;
+
     const gallery = galleryRef.current;
     const dragLayer = dragLayerRef.current;
     const zoomOutButton = zoomOutRef.current;
@@ -104,16 +141,8 @@ const Projects = () => {
         Math.abs(targetXRef.current - currentXRef.current) > 0.01 ||
         Math.abs(targetYRef.current - currentYRef.current) > 0.01
       ) {
-        currentXRef.current = lerp(
-          currentXRef.current,
-          targetXRef.current,
-          0.08,
-        );
-        currentYRef.current = lerp(
-          currentYRef.current,
-          targetYRef.current,
-          0.08,
-        );
+        currentXRef.current = lerp(currentXRef.current, targetXRef.current, 0.08);
+        currentYRef.current = lerp(currentYRef.current, targetYRef.current, 0.08);
 
         gallery.style.transform = isTouchDevice
           ? `translate(${Math.round(currentXRef.current)}px, ${Math.round(currentYRef.current)}px)`
@@ -190,14 +219,10 @@ const Projects = () => {
       targetYRef.current = initialYRef.current;
 
       if (e.type === "mousedown") {
-        document.addEventListener("mousemove", handleDragMove, {
-          passive: false,
-        });
+        document.addEventListener("mousemove", handleDragMove, { passive: false });
         document.addEventListener("mouseup", handleDragEnd);
       } else {
-        document.addEventListener("touchmove", handleDragMove, {
-          passive: false,
-        });
+        document.addEventListener("touchmove", handleDragMove, { passive: false });
         document.addEventListener("touchend", handleDragEnd);
       }
     }
@@ -206,15 +231,11 @@ const Projects = () => {
       if (!isDraggingRef.current) return;
       e.preventDefault();
 
-      const currentPositionX =
-        e.type === "mousemove" ? e.pageX : e.touches[0].pageX;
-      const currentPositionY =
-        e.type === "mousemove" ? e.pageY : e.touches[0].pageY;
+      const currentPositionX = e.type === "mousemove" ? e.pageX : e.touches[0].pageX;
+      const currentPositionY = e.type === "mousemove" ? e.pageY : e.touches[0].pageY;
 
-      targetXRef.current =
-        initialXRef.current + (currentPositionX - startXRef.current);
-      targetYRef.current =
-        initialYRef.current + (currentPositionY - startYRef.current);
+      targetXRef.current = initialXRef.current + (currentPositionX - startXRef.current);
+      targetYRef.current = initialYRef.current + (currentPositionY - startYRef.current);
     }
 
     function handleDragEnd() {
@@ -226,30 +247,12 @@ const Projects = () => {
       document.removeEventListener("touchend", handleDragEnd);
     }
 
-    const zoomInitTimeout = setTimeout(() => {
-      dragLayer.style.display = "block";
-      imagesRef.current.forEach((img) => {
-        const { x, y } = getZoomOffsets(img);
-
-        gsap.to(img, {
-          x,
-          y,
-          scale: 5,
-          duration: 2.5,
-          ease: "power4.inOut",
-          force3D: !isTouchDevice,
-          autoRound: isTouchDevice,
-        });
-      });
-    }, 200);
-
     zoomOutButton.addEventListener("click", handleZoomOut);
     zoomInButton.addEventListener("click", handleZoomIn);
     dragLayer.addEventListener("mousedown", handleDragStart);
     dragLayer.addEventListener("touchstart", handleDragStart);
 
     return () => {
-      clearTimeout(zoomInitTimeout);
       cancelAnimationFrame(animationFrameId);
       zoomOutButton.removeEventListener("click", handleZoomOut);
       zoomInButton.removeEventListener("click", handleZoomIn);
@@ -260,10 +263,73 @@ const Projects = () => {
       document.removeEventListener("mouseup", handleDragEnd);
       document.removeEventListener("touchend", handleDragEnd);
     };
-  }, []);
+  }, [isLoaded]);
 
   return (
     <main className="overflow-x-hidden">
+
+      {!isLoaded && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            backgroundColor: "#000",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1.5rem",
+          }}
+        >
+          <p
+            style={{
+              color: "#fff",
+              fontSize: "0.75rem",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              opacity: 0.5,
+            }}
+          >
+            Loading
+          </p>
+
+          <div
+            style={{
+              width: "200px",
+              height: "1px",
+              backgroundColor: "rgba(255,255,255,0.15)",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                height: "100%",
+                width: `${loadingProgress}%`,
+                backgroundColor: "#fff",
+                transition: "width 0.2s ease",
+              }}
+            />
+          </div>
+
+          <p
+            style={{
+              color: "#fff",
+              fontSize: "0.75rem",
+              letterSpacing: "0.1em",
+              opacity: 0.4,
+              fontVariantNumeric: "tabular-nums",
+            }}
+          >
+            {loadingProgress}%
+          </p>
+        </div>
+      )}
+
       <Link to="/projects/list">
         <button
           style={{ padding: "5px" }}
@@ -275,10 +341,10 @@ const Projects = () => {
 
       <section ref={gridSectionRef} className={`projects-gallery fixed`}>
         <div className="pads">
-          <button ref={zoomOutRef} id="zoom-out">
+          <button ref={zoomOutRef} id="zoom-out" className="active">
             <img src="/svg/zoom-out.svg" alt="" />
           </button>
-          <button ref={zoomInRef} id="zoom-in" className="active">
+          <button ref={zoomInRef} id="zoom-in">
             <img src="/svg/zoom-in.svg" alt="" />
           </button>
         </div>
