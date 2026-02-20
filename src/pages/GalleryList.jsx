@@ -22,7 +22,6 @@ const GalleryList = () => {
   const minimapRef = useRef(null);
   const indicatorRef = useRef(null);
 
-  // ── Framer Motion scroll progress ─────────────────────────────────
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -30,7 +29,6 @@ const GalleryList = () => {
     restDelta: 0.001,
   });
 
-  // Fade the indicator in/out just like the TextAnimation version does
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const element = indicatorRef.current;
     if (!element) return;
@@ -51,7 +49,6 @@ const GalleryList = () => {
     }
   });
 
-  // ── Thumbnail strip + minimap scroll handler ───────────────────────
   useEffect(() => {
     const gallery = galleryRef.current;
     const imgPreviews = previewsRef.current;
@@ -116,9 +113,7 @@ const GalleryList = () => {
         style={{ opacity: 0 }}
         className="fixed right-6 top-1/2 -translate-y-1/2 z-1"
       >
-        {/* Track — faint white background */}
         <div className="relative w-[2px] h-40 bg-white/20 overflow-hidden rounded-full">
-          {/* Fill — solid white */}
           <motion.div
             className="absolute top-0 left-0 w-full h-full bg-white origin-top rounded-full"
             style={{ scaleY: smoothProgress }}

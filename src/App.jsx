@@ -43,6 +43,19 @@ const App = () => {
       lenisRef.current.lenis.scrollTo(0, { immediate: true });
     }
   }, []);
+  useEffect(() => {
+    if (location.pathname === "/projects/list") {
+      if (!sessionStorage.getItem("list-reloaded")) {
+        const timer = setTimeout(() => {
+          sessionStorage.setItem("list-reloaded", "true");
+          window.location.reload();
+        }, 1500);
+        return () => clearTimeout(timer);
+      }
+    } else {
+      sessionStorage.removeItem("list-reloaded");
+    }
+  }, [location.pathname]);
 
   // reading from docs you can refresh the page with using window.location.reload()
   useEffect(() => {

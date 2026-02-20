@@ -14,10 +14,10 @@ const MenuSection = () => {
   const [leftMenuKey, setLeftMenuKey] = useState(0);
 
   useGSAP(() => {
+    const fromBottom = menuSection.current.querySelectorAll(".from-bottom");
     const headers = menuSection.current.querySelectorAll(
       ".menu-animated-headers",
     );
-    const fromBottom = menuSection.current.querySelectorAll(".from-bottom");
 
     headersSplitRef.current = new SplitText(headers, {
       type: "chars",
@@ -28,30 +28,33 @@ const MenuSection = () => {
       mask: "chars",
     });
 
-    // Add hover animation to each header
-    headers.forEach((header) => {
-      const handleMouseEnter = () => {
-        gsap.killTweensOf(header);
-        gsap.to(header, {
-          scale: 1.2,
-          duration: 1,
-          opacity: 1,
-          ease: "power3.out",
-        });
-      };
+    const mm = gsap.matchMedia();
 
-      const handleMouseLeave = () => {
-        gsap.killTweensOf(header);
-        gsap.to(header, {
-          scale: 1,
-          duration: 1,
-          opacity: 0.5,
-          ease: "power3.out",
-        });
-      };
+    mm.add("(min-width: 1024px)", () => {
+      headers.forEach((header) => {
+        const handleMouseEnter = () => {
+          gsap.killTweensOf(header);
+          gsap.to(header, {
+            scale: 1.2,
+            duration: 1,
+            opacity: 1,
+            ease: "power3.out",
+          });
+        };
 
-      header.addEventListener("mouseenter", handleMouseEnter);
-      header.addEventListener("mouseleave", handleMouseLeave);
+        const handleMouseLeave = () => {
+          gsap.killTweensOf(header);
+          gsap.to(header, {
+            scale: 1,
+            duration: 1,
+            opacity: 0.5,
+            ease: "power3.out",
+          });
+        };
+
+        header.addEventListener("mouseenter", handleMouseEnter);
+        header.addEventListener("mouseleave", handleMouseLeave);
+      });
     });
 
     // Set initial states
