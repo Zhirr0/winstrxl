@@ -131,8 +131,8 @@ const Projects = () => {
       zoomInButton.classList.remove("active");
     }
 
-    function handleZoomIn() {
-      if (isZoomedRef.current) return;
+    function handleZoomIn({ instant = false, force = false } = {}) {
+      if (isZoomedRef.current && !force) return;
       isZoomedRef.current = true;
       dragLayer.style.display = "block";
 
@@ -143,13 +143,16 @@ const Projects = () => {
         const distX = (rect.left + rect.width / 2 - centerX) / 100;
         const distY = (rect.top + rect.height / 2 - centerY) / 100;
 
-        gsap.to(img, {
-          x: distX * 1200,
-          y: distY * 600,
-          scale: 5,
-          duration: 2.5,
-          ease: "power4.inOut",
-        });
+        const props = { x: distX * 1200, y: distY * 600, scale: 5 };
+        if (instant) {
+          gsap.set(img, props);
+        } else {
+          gsap.to(img, {
+            ...props,
+            duration: 2.5,
+            ease: "power4.inOut",
+          });
+        }
       });
 
       zoomOutButton.classList.remove("active");
@@ -209,33 +212,26 @@ const Projects = () => {
       document.removeEventListener("touchend", handleDragEnd);
     }
 
-    setTimeout(() => {
-      dragLayer.style.display = "block";
-      imagesRef.current.forEach((img) => {
-        const rect = img.getBoundingClientRect();
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        const distX = (rect.left + rect.width / 2 - centerX) / 100;
-        const distY = (rect.top + rect.height / 2 - centerY) / 100;
-
-        gsap.to(img, {
-          x: distX * 1200,
-          y: distY * 600,
-          scale: 5,
-          duration: 2.5,
-          ease: "power4.inOut",
-        });
-      });
-    }, 200);
-
     zoomOutButton.addEventListener("click", handleZoomOut);
-    zoomInButton.addEventListener("click", handleZoomIn);
+    zoomInButton.addEventListener("click", () => handleZoomIn({ instant: false }));
     dragLayer.addEventListener("mousedown", handleDragStart);
     dragLayer.addEventListener("touchstart", handleDragStart);
 
+    function waitForImagesAndInit(attempt = 0) {
+      if (imagesRef.current && imagesRef.current.length > 0) {
+        handleZoomIn({ instant: true, force: true });
+      } else if (attempt < 120) {
+        requestAnimationFrame(() => waitForImagesAndInit(attempt + 1));
+      } else {
+      }
+    }
+    waitForImagesAndInit();
+
     return () => {
       zoomOutButton.removeEventListener("click", handleZoomOut);
-      zoomInButton.removeEventListener("click", handleZoomIn);
+      zoomInButton.removeEventListener("click", () =>
+        handleZoomIn({ instant: false }),
+      );
       dragLayer.removeEventListener("mousedown", handleDragStart);
       dragLayer.removeEventListener("touchstart", handleDragStart);
     };
