@@ -248,7 +248,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <>
+    <main className="overflow-x-hidden">
       {/* Toggle button — fixed, always on top of both layouts */}
       <button
         style={{ padding: "5px" }}
@@ -294,7 +294,7 @@ const Projects = () => {
         <div className="gallery-container" />
         <div ref={galleryRef} className="gallery" />
       </section>
-    </>
+    </main>
   );
 };
 
