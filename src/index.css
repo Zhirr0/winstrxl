@@ -334,7 +334,7 @@ button {
          max-[1160px]:text-[16px];
     }
     .bg-image {
-      @apply bg-dark-red-primary h-dvh rounded-xl;
+      @apply bg-[#303030] h-dvh rounded-xl;
       clip-path: url(#hero-container);
       -webkit-clip-path: url(#hero-container);
     }
