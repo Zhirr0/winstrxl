@@ -144,10 +144,10 @@ const GalleryList = () => {
       {!isLoaderDone && (
         <div
           ref={loaderRef}
-          className="fixed inset-0 z-10 flex items-center justify-center bg-[#faeeda]"
+          className="fixed inset-0 z-10 flex items-center justify-center bg-light-primary"
           style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
         >
-          <div className="text-center text-[#202020] font-mono">
+          <div className="text-center text-dark-red-primary font-mono">
             <div className="text-[clamp(3rem,10vw,7rem)] font-semibold leading-none tracking-tight overflow-hidden">
               {String(loadProgress).padStart(3, "0")}
             </div>

@@ -21,7 +21,7 @@ const Transition = (OgComponent) => {
           {Array.from({ length: slats }).map((_, i) => (
             <motion.div
               key={`out-${i}`}
-              className="absolute bg-light-primary"
+              className="absolute bg-dark-red-primary"
               style={{
                 top: `${i * (100 / slats)}%`,
                 left: 0,
@@ -55,7 +55,7 @@ const Transition = (OgComponent) => {
           {Array.from({ length: slats }).map((_, i) => (
             <motion.div
               key={`in-${i}`}
-              className="absolute bg-light-primary"
+              className="absolute bg-dark-red-primary"
               style={{
                 top: `${i * (100 / slats)}%`,
                 left: 0,
