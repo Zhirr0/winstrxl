@@ -99,7 +99,7 @@ const GalleryList = () => {
   }, []);
 
   return (
-    <>
+    <section className="overflow-x-hidden">
       {/* Progress bar — fixed to right center, no indices */}
       <div
         ref={indicatorRef}
@@ -133,7 +133,7 @@ const GalleryList = () => {
       </div>
 
       <div className="minimap" ref={minimapRef} />
-    </>
+    </section>
   );
 };
 
