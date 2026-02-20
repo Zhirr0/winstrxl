@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 const images = Array.from(
   { length: 40 },
-  (_, i) => `/images/img${i + 1}.jpg`,
+  (_, i) => `/imagesHigh/img${i + 1}.jpg`,
 );
 
 const GalleryList = () => {

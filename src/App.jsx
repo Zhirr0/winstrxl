@@ -49,7 +49,7 @@ const App = () => {
         const timer = setTimeout(() => {
           sessionStorage.setItem("list-reloaded", "true");
           window.location.reload();
-        }, 1500);
+        }, 1600);
         return () => clearTimeout(timer);
       }
     } else {
