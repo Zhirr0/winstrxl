@@ -8,7 +8,7 @@ export default defineConfig({
     include: ["motion", "framer-motion", "motion/react"],
   },
   server: {
-    allowedHosts: ["heard-aircraft-assistant-blocked.trycloudflare.com"],
+    allowedHosts: ["purchased-valentine-donated-overall.trycloudflare.com"],
   },
   plugins: [
     react({
