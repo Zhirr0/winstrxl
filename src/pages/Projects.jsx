@@ -78,6 +78,25 @@ const Projects = () => {
     const dragLayer = dragLayerRef.current;
     const zoomOutButton = zoomOutRef.current;
     const zoomInButton = zoomInRef.current;
+    const isTouchDevice =
+      window.matchMedia("(pointer: coarse)").matches ||
+      navigator.maxTouchPoints > 0;
+    let animationFrameId;
+
+    function getZoomOffsets(img) {
+      const rect = img.getBoundingClientRect();
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const distX = (rect.left + rect.width / 2 - centerX) / 100;
+      const distY = (rect.top + rect.height / 2 - centerY) / 100;
+      const x = distX * 1200;
+      const y = distY * 600;
+
+      return {
+        x: isTouchDevice ? Math.round(x) : x,
+        y: isTouchDevice ? Math.round(y) : y,
+      };
+    }
 
     function animate() {
       if (
@@ -96,13 +115,13 @@ const Projects = () => {
           0.08,
         );
 
-        requestAnimationFrame(() => {
-          gallery.style.transform = `translate3d(${currentXRef.current}px, ${currentYRef.current}px, 0)`;
-        });
+        gallery.style.transform = isTouchDevice
+          ? `translate(${Math.round(currentXRef.current)}px, ${Math.round(currentYRef.current)}px)`
+          : `translate3d(${currentXRef.current}px, ${currentYRef.current}px, 0)`;
       }
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     }
-    animate();
+    animationFrameId = requestAnimationFrame(animate);
 
     function handleZoomOut() {
       if (!isZoomedRef.current) return;
@@ -117,7 +136,7 @@ const Projects = () => {
       });
       tl.fromTo(gallery, { transform: currentTransform }, { x: 0, y: 0 }).to(
         imagesRef.current,
-        { scale: 1, x: 0, y: 0 },
+        { scale: 1, x: 0, y: 0, force3D: !isTouchDevice },
         0,
       );
 
@@ -137,18 +156,16 @@ const Projects = () => {
       dragLayer.style.display = "block";
 
       imagesRef.current.forEach((img) => {
-        const rect = img.getBoundingClientRect();
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        const distX = (rect.left + rect.width / 2 - centerX) / 100;
-        const distY = (rect.top + rect.height / 2 - centerY) / 100;
+        const { x, y } = getZoomOffsets(img);
 
         gsap.to(img, {
-          x: distX * 1200,
-          y: distY * 600,
+          x,
+          y,
           scale: 5,
           duration: 2.5,
           ease: "power4.inOut",
+          force3D: !isTouchDevice,
+          autoRound: isTouchDevice,
         });
       });
 
@@ -209,21 +226,19 @@ const Projects = () => {
       document.removeEventListener("touchend", handleDragEnd);
     }
 
-    setTimeout(() => {
+    const zoomInitTimeout = setTimeout(() => {
       dragLayer.style.display = "block";
       imagesRef.current.forEach((img) => {
-        const rect = img.getBoundingClientRect();
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        const distX = (rect.left + rect.width / 2 - centerX) / 100;
-        const distY = (rect.top + rect.height / 2 - centerY) / 100;
+        const { x, y } = getZoomOffsets(img);
 
         gsap.to(img, {
-          x: distX * 1200,
-          y: distY * 600,
+          x,
+          y,
           scale: 5,
           duration: 2.5,
           ease: "power4.inOut",
+          force3D: !isTouchDevice,
+          autoRound: isTouchDevice,
         });
       });
     }, 200);
@@ -234,10 +249,16 @@ const Projects = () => {
     dragLayer.addEventListener("touchstart", handleDragStart);
 
     return () => {
+      clearTimeout(zoomInitTimeout);
+      cancelAnimationFrame(animationFrameId);
       zoomOutButton.removeEventListener("click", handleZoomOut);
       zoomInButton.removeEventListener("click", handleZoomIn);
       dragLayer.removeEventListener("mousedown", handleDragStart);
       dragLayer.removeEventListener("touchstart", handleDragStart);
+      document.removeEventListener("mousemove", handleDragMove);
+      document.removeEventListener("touchmove", handleDragMove);
+      document.removeEventListener("mouseup", handleDragEnd);
+      document.removeEventListener("touchend", handleDragEnd);
     };
   }, []);
 
