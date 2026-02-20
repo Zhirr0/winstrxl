@@ -1,9 +1,9 @@
 import "../styles/projects.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import Transition from "../components/Transition";
-import GalleryList from "./GalleryList";
+import { Link } from "react-router-dom";
 
 const Projects = () => {
   const galleryRef = useRef(null);
@@ -12,8 +12,6 @@ const Projects = () => {
   const dragLayerRef = useRef(null);
 
   const gridSectionRef = useRef(null);
-  const listSectionRef = useRef(null);
-
   const isZoomedRef = useRef(false);
   const imagesRef = useRef([]);
 
@@ -27,9 +25,6 @@ const Projects = () => {
   const currentXRef = useRef(0);
   const currentYRef = useRef(0);
 
-  // "grid" = zoom grid (default), "list" = GalleryList
-  const [activeLayout, setActiveLayout] = useState("grid");
-
   const totalRows = 20;
   const imagesPerRow = 60;
   const totalImages = totalRows * imagesPerRow;
@@ -40,26 +35,6 @@ const Projects = () => {
 
   function lerp(start, end, factor) {
     return start + (end - start) * factor;
-  }
-
-  function switchLayout() {
-    const next = activeLayout === "grid" ? "list" : "grid";
-    const outRef = activeLayout === "grid" ? gridSectionRef : listSectionRef;
-    const inRef = next === "grid" ? gridSectionRef : listSectionRef;
-
-    gsap.to(outRef.current, {
-      opacity: 0,
-      duration: 0.35,
-      ease: "power2.inOut",
-      onComplete: () => {
-        setActiveLayout(next);
-        gsap.fromTo(
-          inRef.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.35, ease: "power2.inOut" }
-        );
-      },
-    });
   }
 
   useGSAP(() => {
@@ -249,38 +224,19 @@ const Projects = () => {
 
   return (
     <main className="overflow-x-hidden">
-      {/* Toggle button — fixed, always on top of both layouts */}
-      <button
-        style={{ padding: "5px" }}
-        className="fixed top-10 z-200 left-10 flex gap-[0.2em] justify-center items-center text-center text-white bg-black/25 border border-white/25 backdrop-blur-xl rounded-lg"
-        onClick={switchLayout}
-      >
-        Toggle Layout
-      </button>
 
-      {/* GalleryList — always in DOM so refs are stable for GSAP.
-          Hidden via pointer-events + opacity when inactive. */}
-      <section
-        ref={listSectionRef}
-        className="projects-gallery-list"
-        style={{
-          opacity: activeLayout === "list" ? 1 : 0,
-          pointerEvents: activeLayout === "list" ? "auto" : "none",
-          position: activeLayout === "list" ? "relative" : "fixed",
-        }}
-      >
-        <GalleryList />
-      </section>
+      <Link to="/projects/list">
+        <button
+          style={{ padding: "5px" }}
+          className="fixed top-10 z-200 left-10 flex gap-[0.2em] justify-center items-center text-center text-white bg-black/25 border border-white/25 backdrop-blur-xl rounded-lg"
+        >
+          Toggle Layout
+        </button>
+      </Link>
 
-      {/* Zoom grid — always in the DOM so GSAP animations, the RAF loop,
-          and drag state are never lost. */}
       <section
         ref={gridSectionRef}
-        className={`projects-gallery ${activeLayout === "grid" ? "fixed" : ""}`}
-        style={{
-          opacity: activeLayout === "grid" ? 1 : 0,
-          pointerEvents: activeLayout === "grid" ? "auto" : "none",
-        }}
+        className={`projects-gallery fixed`}
       >
         <div className="pads">
           <button ref={zoomOutRef} id="zoom-out" className="active">

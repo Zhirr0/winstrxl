@@ -23,6 +23,7 @@ import MenuButton from "./components/MenuButton";
 import MenuSection from "./components/MenuSection";
 import { useGSAP } from "@gsap/react";
 import Projects from "./pages/Projects";
+import GalleryList from "./pages/GalleryList";
 
 const App = () => {
   const location = useLocation();
@@ -87,6 +88,7 @@ const App = () => {
         <Routes location={location} key={location.pathname}>
           <Route index element={<Home />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/list" element={<GalleryList />} />
         </Routes>
       </AnimatePresence>
     </ReactLenis>

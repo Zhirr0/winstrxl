@@ -8,6 +8,8 @@ import {
 } from "framer-motion";
 import gsap from "gsap";
 import "../styles/list-gallery-layout.css";
+import Transition from "../components/Transition";
+import { Link } from "react-router-dom";
 
 const images = Array.from(
   { length: 35 },
@@ -30,17 +32,17 @@ const GalleryList = () => {
 
   // Fade the indicator in/out just like the TextAnimation version does
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const el = indicatorRef.current;
-    if (!el) return;
+    const element = indicatorRef.current;
+    if (!element) return;
     if (latest > 0.01 && latest < 0.99) {
-      gsap.to(el, {
+      gsap.to(element, {
         opacity: 1,
         duration: 0.6,
         ease: "power2",
         overwrite: "auto",
       });
     } else {
-      gsap.to(el, {
+      gsap.to(element, {
         opacity: 0,
         duration: 0.6,
         ease: "power2",
@@ -100,6 +102,14 @@ const GalleryList = () => {
 
   return (
     <section className="overflow-x-hidden">
+      <Link to="/projects">
+        <button
+          style={{ padding: "5px" }}
+          className="fixed top-10 z-200 left-10 flex gap-[0.2em] justify-center items-center text-center text-white bg-black/25 border border-white/25 backdrop-blur-xl rounded-lg"
+        >
+          Toggle Layout
+        </button>
+      </Link>
       {/* Progress bar — fixed to right center, no indices */}
       <div
         ref={indicatorRef}
@@ -137,4 +147,4 @@ const GalleryList = () => {
   );
 };
 
-export default GalleryList;
+export default Transition(GalleryList);
