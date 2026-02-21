@@ -144,7 +144,7 @@ const GalleryList = () => {
       {!isLoaderDone && (
         <div
           ref={loaderRef}
-          className="fixed inset-0 z-10 flex items-center justify-center bg-light-primary"
+          className="fixed inset-0 z-200 flex items-center justify-center bg-light-primary"
           style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
         >
           <div className="text-center text-dark-red-primary font-mono">
@@ -152,7 +152,9 @@ const GalleryList = () => {
               {String(loadProgress).padStart(3, "0")}
             </div>
             <div className="mt-4 text-xs opacity-40 tracking-[0.2em]">
-              LOADING
+              LOADING...<br />
+              THE IMAGES ARE HIGH QUALITY<br />
+              WAIT A LITTLE
             </div>
           </div>
         </div>
