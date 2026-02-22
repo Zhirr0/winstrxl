@@ -100,7 +100,7 @@ button {
     }
   }
   .hamburger-btn {
-    @apply fixed top-6 right-6 w-10 z-10 h-10 bg-transparent mix-blend-difference border-none rounded-xl cursor-pointer flex flex-col justify-center items-end gap-1.5 p-3.75 transition-all duration-300 ease-in-out;
+    @apply fixed top-6 right-6 w-10 z-60 h-10 bg-transparent mix-blend-difference border-none rounded-xl cursor-pointer flex flex-col justify-center items-end gap-1.5 p-3.75 transition-all duration-300 ease-in-out;
 
     &:hover {
       @apply scale-105;

@@ -5,13 +5,35 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import closeMenu from "../utils/closeMenu";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const MenuSection = () => {
   const menuSection = useRef(null);
   const headersSplitRef = useRef(null);
   const fromBottomSplitRef = useRef(null);
   const [leftMenuKey, setLeftMenuKey] = useState(0);
+
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  
+  function handleSelectLink(e, sectionId) {
+    e.preventDefault();
+    closeMenu();
+
+    if (location.pathname !== "/") {
+      navigate("/");
+
+      setTimeout(() => {
+        document
+          .getElementById(sectionId)
+          ?.scrollIntoView({ behavior: "smooth" });
+      }, 2000);
+
+    } else {
+      document.getElementById(sectionId)?.scrollIntoView({behavior: 'smooth'})
+    }
+  }
 
   useGSAP(() => {
     const fromBottom = menuSection.current.querySelectorAll(".from-bottom");
@@ -166,7 +188,7 @@ const MenuSection = () => {
       <div style={{ padding: "0px 30px" }} className="right-menu bottom-menu">
         <a
           href="#story"
-          onClick={(e) => closeMenu(e, "story")}
+          onClick={(e) => handleSelectLink(e, "story")}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <div className="about-container right-container">
@@ -192,7 +214,7 @@ const MenuSection = () => {
         <hr style={{ margin: "20px 0px" }} />
         <a
           href="#clients"
-          onClick={(e) => closeMenu(e, "clients")}
+          onClick={(e) => handleSelectLink(e, "clients")}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <div className="clients-container right-container">
@@ -206,7 +228,7 @@ const MenuSection = () => {
         <hr style={{ margin: "20px 0px" }} />
         <a
           href="#contact"
-          onClick={(e) => closeMenu(e, "contact")}
+          onClick={(e) => handleSelectLink(e, "contact")}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <div className="contacts-container right-container">
