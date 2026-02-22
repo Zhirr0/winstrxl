@@ -314,7 +314,24 @@ const GalleryList = () => {
         <div className="gallery-for-images" ref={galleryRef}>
           {images.map((src, i) => (
             <div className="images-wrapper" key={i}>
-              <img src={src} alt="" />
+              <img 
+              
+              onMouseEnter={e => {
+                gsap.to(e.currentTarget, {
+                  filter: 'invert(1)',
+                  ease: 'power2.out',
+                  duration: .5
+                })
+              }} 
+              
+              onMouseLeave={e => {
+                gsap.to(e.currentTarget, {
+                  filter: "invert(0)",
+                  ease: 'power2.out',
+                  duration: .5
+                })
+              }}
+              src={src} alt="" />
             </div>
           ))}
         </div>
