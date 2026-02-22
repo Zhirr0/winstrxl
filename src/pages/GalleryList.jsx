@@ -10,6 +10,7 @@ import "../styles/list-gallery-layout.css";
 import Transition from "../components/Transition";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import GalleryBackground from "../components/GalleryBackground";
 
 const images = Array.from(
   { length: 40 },
@@ -32,10 +33,7 @@ const GALLERY_CONFIG = {
   counterHideBreakpoint: 600,
   galleryScrollDuration: 0.1,
 
-  // Color applied to both the minimap border and the counter text per image index.
   // GSAP animates the transition between colors.
-  colorChangeDuration: 0.5,
-  colorChangeEase: "power2.out",
   imageColors: {
     1:  "oklch(70% 0.18 18)",   // light red
     2:  "",
@@ -172,11 +170,9 @@ const GalleryList = () => {
       const color = GALLERY_CONFIG.imageColors[index];
       if (!color) return;
 
-      gsap.to([minimapRef.current, counterRef.current], {
+      gsap.set([minimapRef.current, counterRef.current], {
         color,
         borderColor: color,
-        duration: GALLERY_CONFIG.colorChangeDuration,
-        ease: GALLERY_CONFIG.colorChangeEase,
         overwrite: "auto",
       });
     }
@@ -266,6 +262,9 @@ const GalleryList = () => {
 
   return (
     <section className="overflow-x-hidden">
+
+      <GalleryBackground />
+      
       {/* Preloader */}
       {!isLoaderDone && (
         <div
