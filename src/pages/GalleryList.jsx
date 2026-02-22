@@ -9,11 +9,39 @@ import gsap from "gsap";
 import "../styles/list-gallery-layout.css";
 import Transition from "../components/Transition";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 const images = Array.from(
   { length: 40 },
   (_, i) => `/imagesHigh/img${i + 1}.jpg`,
 );
+
+const GALLERY_CONFIG = {
+  // Gallery scroll speed relative to page scroll.
+  // Raise speedMax if the last images are unreachable.
+  // Lower speedMax if the gallery flies past too fast.
+  speedMin: 0.8,
+  speedMax: 2,
+  speedFallback: 1.1, // used when calculation falls outside min/max
+
+  // Loader
+  loaderExitDelay: 500,       // ms to show 100% before the loader exits
+  loaderExitDuration: 1.5,    // seconds for the clip-path exit animation
+
+  // Scroll indicator (the thin bar on the right)
+  indicatorFadeIn: 0.6,       // seconds
+  indicatorShowAfter: 0.01,   // scrollYProgress threshold to show it
+  indicatorHideBefore: 0.99,  // scrollYProgress threshold to hide it
+
+  // Minimap
+  minimapScrollDuration: 0.1, // seconds — how smoothly minimap follows scroll
+
+  // Counter
+  counterHideBreakpoint: 600, // hides counter on screens narrower than this (px)
+
+  // Gallery panel
+  galleryScrollDuration: 0.1, // seconds — how smoothly gallery panel follows scroll
+};
 
 const GalleryList = () => {
   const galleryRef = useRef(null);
@@ -21,6 +49,11 @@ const GalleryList = () => {
   const minimapRef = useRef(null);
   const indicatorRef = useRef(null);
   const loaderRef = useRef(null);
+  const counterRef = useRef(null);
+
+  const breakpoint = useMediaQuery({ maxWidth: 850 });
+  const secondBreakpoint = useMediaQuery({ maxWidth: GALLERY_CONFIG.counterHideBreakpoint });
+  const thirdBreakpoint = useMediaQuery({ maxWidth: 768 });
 
   const [loadProgress, setLoadProgress] = useState(0);
   const [isLoaderDone, setIsLoaderDone] = useState(false);
@@ -35,21 +68,15 @@ const GalleryList = () => {
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const element = indicatorRef.current;
     if (!element) return;
-    if (latest > 0.01 && latest < 0.99) {
-      gsap.to(element, {
-        opacity: 1,
-        duration: 0.6,
-        ease: "power2",
-        overwrite: "auto",
-      });
-    } else {
-      gsap.to(element, {
-        opacity: 0,
-        duration: 0.6,
-        ease: "power2",
-        overwrite: "auto",
-      });
-    }
+    const visible =
+      latest > GALLERY_CONFIG.indicatorShowAfter &&
+      latest < GALLERY_CONFIG.indicatorHideBefore;
+    gsap.to(element, {
+      opacity: visible ? 1 : 0,
+      duration: GALLERY_CONFIG.indicatorFadeIn,
+      ease: "power2",
+      overwrite: "auto",
+    });
   });
 
   // Preloader — track real image loading
@@ -63,26 +90,24 @@ const GalleryList = () => {
       setLoadProgress(progress);
 
       if (loaded === total) {
-        // Small delay so the user sees 100% before exit
         setTimeout(() => {
           const loader = loaderRef.current;
           if (!loader) return;
 
           gsap.to(loader, {
             clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-            duration: 1.5,
+            duration: GALLERY_CONFIG.loaderExitDuration,
             ease: "power3.out",
             onComplete: () => setIsLoaderDone(true),
           });
-        }, 500);
+        }, GALLERY_CONFIG.loaderExitDelay);
       }
     };
 
-    // Create hidden Image objects to track load state
     images.forEach((src) => {
       const img = new Image();
       img.onload = onImageLoad;
-      img.onerror = onImageLoad; // count errors too so we never get stuck
+      img.onerror = onImageLoad;
       img.src = src;
     });
   }, []);
@@ -115,16 +140,58 @@ const GalleryList = () => {
 
       const galleryMult =
         rawDenominator > 0
-          ? Math.max(0.8, Math.min(2.0, effectiveTravel / rawDenominator))
-          : 1.1;
+          ? Math.max(
+              GALLERY_CONFIG.speedMin,
+              Math.min(GALLERY_CONFIG.speedMax, effectiveTravel / rawDenominator),
+            )
+          : GALLERY_CONFIG.speedFallback;
 
       const galleryTranslateY = -scrollFraction * rawDenominator * galleryMult;
-      gsap.to(gallery, { y: galleryTranslateY, ease: "none", duration: 0.1 });
+      gsap.to(gallery, {
+        y: galleryTranslateY,
+        ease: "none",
+        duration: GALLERY_CONFIG.galleryScrollDuration,
+      });
 
       if (minimap && getComputedStyle(minimap).display !== "none") {
         const minimapTravel = visibleWindow - minimap.offsetHeight;
         const minimapTranslateY = scrollFraction * minimapTravel;
-        gsap.to(minimap, { y: minimapTranslateY, ease: "none", duration: 0.1 });
+
+        gsap.to(minimap, {
+          y: minimapTranslateY,
+          ease: "none",
+          duration: GALLERY_CONFIG.minimapScrollDuration,
+        });
+
+        if (counterRef.current) {
+          gsap.to(counterRef.current, {
+            y: minimapTranslateY,
+            ease: "none",
+            duration: GALLERY_CONFIG.minimapScrollDuration,
+          });
+        }
+      }
+
+      if (counterRef.current) {
+        const previewImages = previewsRef.current?.querySelectorAll("img");
+        let currentIndex = 1;
+
+        if (previewImages) {
+          previewImages.forEach((img, i) => {
+            if (img.offsetTop <= scrollY + 1) {
+              currentIndex = i + 1;
+            }
+          });
+        }
+
+        // snap to last image when fully scrolled to the bottom
+        const atBottom =
+          window.innerHeight + scrollY >=
+          document.documentElement.scrollHeight - 2;
+        if (atBottom) currentIndex = images.length;
+
+        counterRef.current.querySelector(".counter-current").textContent =
+          String(currentIndex).padStart(2, "0");
       }
     }
 
@@ -150,10 +217,13 @@ const GalleryList = () => {
           <div className="text-center text-dark-red-primary font-mono">
             <div className="text-[clamp(3rem,10vw,7rem)] font-semibold leading-none tracking-tight overflow-hidden">
               {String(loadProgress).padStart(3, "0")}
+              <span>%</span>
             </div>
             <div className="mt-4 text-xs opacity-40 tracking-[0.2em]">
-              LOADING...<br />
-              THE IMAGES ARE HIGH QUALITY<br />
+              LOADING...
+              <br />
+              THE IMAGES ARE HIGH QUALITY
+              <br />
               WAIT A LITTLE
             </div>
           </div>
@@ -199,6 +269,29 @@ const GalleryList = () => {
       </div>
 
       <div className="minimap" ref={minimapRef} />
+      <div
+        ref={counterRef}
+        className="fixed z-1 font-mono text-white/60 text-xs tracking-widest leading-none"
+        style={{
+          left: breakpoint
+            ? "clamp(calc(4rem + 8px + 12px),15vw,calc(16.5rem + 8px + 12px))"
+            : "clamp(calc(4rem + 8px + 12px),20vw,calc(16.5rem + 8px + 12px))",
+          top: thirdBreakpoint ? "21%" : breakpoint ? "27%" : "35%",
+          transform: "translateY(-50%)",
+          display: secondBreakpoint ? "none" : "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "3px",
+        }}
+      >
+        <span className="counter-current">01</span>
+        <span style={{ opacity: 0.8 }}>
+          <hr className="h-px w-[15px] opacity-50" />
+        </span>
+        <span style={{ opacity: 0.4 }}>
+          {String(images.length).padStart(2, "0")}
+        </span>
+      </div>
     </section>
   );
 };

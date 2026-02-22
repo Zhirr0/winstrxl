@@ -58,7 +58,7 @@
 .minimap {
   position: fixed;
   top: 25%;
-  left: 12.2%;
+  left: 12.3%;
   transform: translateX(-50%);
   width: 120px;
   height: 120px;
@@ -68,6 +68,13 @@
 }
 
 
+@media (max-width: 1200px) {
+ .minimap {
+  left: 13.5%;
+ }
+
+
+}
 @media (max-width: 1024px) {
   .gallery-for-images {
     left: 6%;
@@ -80,7 +87,7 @@
   }
 
   .minimap {
-    left: 8%;
+    left: 9.5%;
     width: 100px;
     height: 100px;
   }
@@ -100,7 +107,7 @@
   }
 
   .minimap {
-    left: 6%;
+    left: 7%;
     top: 20%;
     width: 88px;
     height: 88px;
@@ -126,10 +133,10 @@
   }
 
   .minimap {
-    left: 5%;
+    left: 6.6%;
     top: 15%;
-    width: 76px;
-    height: 76px;
+    width: 75px;
+    height: 75px;
   }
 
   .img-previews-list {

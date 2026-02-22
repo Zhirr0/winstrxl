@@ -20,7 +20,7 @@ body {
 
 @theme {
   --color-dark-primary: oklch(14% 0.006 173.6);
-  --color-light-primary: oklch(96.4% 0.017 2.4);
+  --color-light-primary: oklch(100% 0.00011 271.152);
   --color-dark-red-primary: oklch(38% 0.336 25.1);
 }
 

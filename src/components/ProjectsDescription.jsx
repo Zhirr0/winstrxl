@@ -30,7 +30,7 @@ const ProjectsDescription = ({ number, label, title, description, index }) => {
       </h3>
       <p className={`project-description project-description-${index}`}>{description}</p>
       <Link to="/projects">
-      <button className="button-projects-desktop ">View The works</button>
+      <button className="button-projects-desktop ">View All Of The works</button>
       </Link>
     </div>
   );

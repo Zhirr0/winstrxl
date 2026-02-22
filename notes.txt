@@ -1,19 +1,17 @@
-      @keyframes ani-your_css_selector_here{0%{--s-start-0:9%; --s-end-0:55%; --x-0:85%; --c-0:hsla(266,1%,12%,1); --y-0:80%; --y-1:6.850964371004598%; --x-1:96.85255217214939%; --c-1:hsla(335,2%,22%,1); --s-start-1:5%; --s-end-1:72%; --x-2:15.944909936151507%; --s-start-2:23.966242773739612%; --s-end-2:52%; --y-2:92.41535751184918%; --c-2:hsla(53,0%,0%,0.49); --y-3:88.408944419222%; --c-3:hsla(299,4%,36%,1); --x-3:7.836072351650621%; --s-start-3:7.6318523902974285%; --s-end-3:32.026324710864785%;}100%{--s-start-0:9%; --s-end-0:55%; --x-0:31%; --c-0:hsla(266,0%,12%,1); --y-0:94%; --y-1:25%; --x-1:2%; --c-1:hsla(0,0%,16%,1); --s-start-1:5%; --s-end-1:72%; --x-2:31.835935219865497%; --s-start-2:25.541139536208036%; --s-end-2:52%; --y-2:91.85295235938152%; --c-2:hsla(54,0%,0%,0.49); --y-3:92%; --c-3:hsla(298,3%,41%,1); --x-3:95%; --s-start-3:6.396916844464256%; --s-end-3:41.68735678265518%;}}@property --s-start-0{syntax:'<percentage>';inherits:false;initial-value:9%}@property --s-end-0{syntax:'<percentage>';inherits:false;initial-value:55%}@property --x-0{syntax:'<percentage>';inherits:false;initial-value:85%}@property --c-0{syntax:'<color>';inherits:false;initial-value:hsla(266,1%,12%,1)}@property --y-0{syntax:'<percentage>';inherits:false;initial-value:80%}@property --y-1{syntax:'<percentage>';inherits:false;initial-value:6.850964371004598%}@property --x-1{syntax:'<percentage>';inherits:false;initial-value:96.85255217214939%}@property --c-1{syntax:'<color>';inherits:false;initial-value:hsla(335,2%,22%,1)}@property --s-start-1{syntax:'<percentage>';inherits:false;initial-value:5%}@property --s-end-1{syntax:'<percentage>';inherits:false;initial-value:72%}@property --x-2{syntax:'<percentage>';inherits:false;initial-value:15.944909936151507%}@property --s-start-2{syntax:'<percentage>';inherits:false;initial-value:23.966242773739612%}@property --s-end-2{syntax:'<percentage>';inherits:false;initial-value:52%}@property --y-2{syntax:'<percentage>';inherits:false;initial-value:92.41535751184918%}@property --c-2{syntax:'<color>';inherits:false;initial-value:hsla(53,0%,0%,0.49)}@property --y-3{syntax:'<percentage>';inherits:false;initial-value:88.408944419222%}@property --c-3{syntax:'<color>';inherits:false;initial-value:hsla(299,4%,36%,1)}@property --x-3{syntax:'<percentage>';inherits:false;initial-value:7.836072351650621%}@property --s-start-3{syntax:'<percentage>';inherits:false;initial-value:7.6318523902974285%}@property --s-end-3{syntax:'<percentage>';inherits:false;initial-value:32.026324710864785%}#your_css_selector_here{--x-0:85%;--c-0:hsla(266,1%,12%,1);--y-0:80%;--y-1:6.850964371004598%;--x-1:96.85255217214939%;--c-1:hsla(335,2%,22%,1);--x-2:15.944909936151507%;--y-2:92.41535751184918%;--c-2:hsla(53,0%,0%,0.49);--y-3:88.408944419222%;--c-3:hsla(299,4%,36%,1);--x-3:7.836072351650621%;;background-color:hsla(0,0%,0%,1);background-image:radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) var(--s-start-0),transparent var(--s-end-0)),radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) var(--s-start-1),transparent var(--s-end-1)),radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) var(--s-start-2),transparent var(--s-end-2)),radial-gradient(circle at var(--x-3) var(--y-3), var(--c-3) var(--s-start-3),transparent var(--s-end-3));animation:ani-your_css_selector_here 10s linear infinite alternate;background-blend-mode:normal,normal,normal,normal;will-change: transform, opacity;contain: paint}
 
-todos for tommorrow 
-1- make sure the menu button is responsive to the right direction, and has the text of close and menu next to it
-2- add the transition to the navbar on scroll
-3- add the text blocks to the hero section
-4- one small line under the text of scroll down , scroll
-5- make sure the client likes the custom cursor, give them multiple choices
-6- adjust the roundness
-7-make the menu button functional
-8- make the section under the hero section it is three cards , two columns the cards picture on the right the text on the left 
-9- make the section under it too one big card
-10- one router page it is only to the projects showcase
-11- make sure the gradient background is added to the cards and the menu section which is at the top
+todos 
+1- redesign the view works button in the projectsSection
+2- make sure the fixed button works in the projectsSection
+3- make three more routes for each one Esports , poster, and other one i forgot 
+4- add text for each of the images in the /projects when zoomed in, and in the lists add the 00/40
 
-void mainImage(out vec4 fragColor, in vec2 fragCoord){
+from   1 to 6 light red in 7 it should be dark blue not too dark it should be visible on a black background then from 8 to 10 it should go back to the same red as from 1 to 6
+at 11 it should be white at 12 it should be light blue, at 13 to 18 it should be light gold
+at 19 it should be `oklch(47% 0.22 15)` at 20 `oklch(75% 0.14 192)` at 21 cream light  at 22 to 34 it should be `oklch(55% 0.28 300)`
+at 35 and 36 it should be white and at 37 to 39 it should be `oklch(75% 0.23 135)` and at 40 it should be `oklch(78% 0.17 110)`
+
+
+void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec2 uv=fragCoord/iResolution.xy;
     float dist = uv.x;
     float phase=iTime*0.76;
@@ -36,7 +34,6 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord){
 
     fragColor = vec4(vec3(max(0.0,waves)),1.0);
 }
-
 
 // Variant 8: Cascading waves from top-left corner
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
@@ -66,9 +63,9 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     float wave1 = sin(dist * 10.0 - phase);
     float wave2 = sin(dist * 10.0 - phase + 2.094);
     float wave3 = sin(dist * 10.0 - phase + 4.189);
-wave1 *= sin((1.0 - uv.y) * 5.0 + phase * 0.3);
-wave2 *= sin((1.0 - uv.y) * 5.0 + phase * 0.3 + 2.094);
-wave3 *= sin((1.0 - uv.y) * 5.0 + phase * 0.3 + 4.189);
+    wave1 *= sin((1.0 - uv.y) * 5.0 + phase * 0.3);
+    wave2 *= sin((1.0 - uv.y) * 5.0 + phase * 0.3 + 2.094);
+    wave3 *= sin((1.0 - uv.y) * 5.0 + phase * 0.3 + 4.189);
 
     float waves = wave1 * 0.3 + wave2 * 0.3 + wave3 * 0.3;
     waves *= smoothstep(1.0, 0.2, dist);
@@ -110,12 +107,6 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     col = vec3(waves); 
     fragColor = vec4(col, 1.0); 
 }
-
-
-
-
-
-
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) { 
     vec2 uv = fragCoord/iResolution.xy; 
@@ -309,6 +300,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     
     fragColor = vec4(vec3(waves), 1.0);
 }
+
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec2 uv = fragCoord / iResolution.xy;
 
