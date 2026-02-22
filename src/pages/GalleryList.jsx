@@ -291,7 +291,7 @@ const GalleryList = () => {
       <Link to="/projects">
         <button
           style={{ padding: "5px" }}
-          className="fixed top-10 z-200 left-10 flex gap-[0.2em] justify-center items-center text-center text-white bg-black/25 border border-white/25 backdrop-blur-xl rounded-lg"
+          className="fixed top-10 z-10 left-10 flex gap-[0.2em] justify-center items-center text-center text-white bg-black/25 border border-white/25 backdrop-blur-xl rounded-lg"
         >
           Toggle Layout
         </button>
