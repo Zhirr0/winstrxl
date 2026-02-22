@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { useRef, useEffect } from "react";
 import Transition from "../components/Transition";
 import { Link } from "react-router-dom";
+import GalleryBackground from "../components/GalleryBackground";
 
 const Projects = () => {
   const galleryRef = useRef(null);
@@ -248,6 +249,7 @@ const Projects = () => {
 
   return (
     <main className="overflow-x-hidden">
+      <GalleryBackground  />
       <Link to="/projects/list">
         <button
           style={{ padding: "5px" }}
