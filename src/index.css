@@ -56,7 +56,7 @@ body {
 }
 
 button {
-  cursor: pointer
+  cursor: pointer;
 }
 
 @layer utilities {
@@ -351,13 +351,14 @@ button {
     }
   }
 
+  .all-projects-button {
+    @apply fixed bg-light-primary text-dark-primary -translate-x-1/2 w-[200px] h-[30px] z-10 bottom-0 left-1/2;
+    clip-path: url(#button-container);
+    -webkit-clip-path: url(#button-container);
+  }
+
   .projects {
     @apply bg-dark-primary text-light-primary;
-    .all-projects-button {
-      @apply min-[1024px]:hidden fixed bg-light-primary text-dark-primary -translate-x-1/2 w-[200px] h-[30px] z-10  bottom-0 left-1/2;
-      clip-path: url(#button-container);
-      -webkit-clip-path: url(#button-container);
-    }
 
     .button-projects-desktop {
       @apply max-[1024px]:hidden absolute bottom-6 left-0 bg-light-primary w-[200px] h-[50.67px] text-dark-primary;

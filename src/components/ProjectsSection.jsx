@@ -301,36 +301,39 @@ const Projects = () => {
   ];
 
   return (
-    <section ref={projectsSectionRef} className="projects">
+    <>
       <Link to="/projects">
         <button className="all-projects-button" ref={buttonRef}>
           All of the works
         </button>
       </Link>
-      {projectsData.map(({ id, number, label, title, description }, i) => {
-        const index = i + 1;
-        return (
-          <div
-            key={id}
-            className="project-item"
-            style={{
-              marginBottom: index === projectsData.length - 1 ? "25vh" : "10vh",
-            }}
-          >
-            <div className="project-item-inner">
-              <ProjectsDescription
-                number={number}
-                label={label}
-                title={title}
-                description={description}
-                index={index}
-              />
-              <ProjectsCard index={index} />
+      <section ref={projectsSectionRef} className="projects">
+        {projectsData.map(({ id, number, label, title, description }, i) => {
+          const index = i + 1;
+          return (
+            <div
+              key={id}
+              className="project-item"
+              style={{
+                marginBottom:
+                  index === projectsData.length - 1 ? "25vh" : "10vh",
+              }}
+            >
+              <div className="project-item-inner">
+                <ProjectsDescription
+                  number={number}
+                  label={label}
+                  title={title}
+                  description={description}
+                  index={index}
+                />
+                <ProjectsCard index={index} />
+              </div>
             </div>
-          </div>
-        );
-      })}
-    </section>
+          );
+        })}
+      </section>
+    </>
   );
 };
 
