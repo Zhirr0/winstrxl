@@ -17,30 +17,67 @@ const images = Array.from(
 );
 
 const GALLERY_CONFIG = {
-  // Gallery scroll speed relative to page scroll.
-  // Raise speedMax if the last images are unreachable.
-  // Lower speedMax if the gallery flies past too fast.
   speedMin: 0.8,
   speedMax: 2,
-  speedFallback: 1.1, // used when calculation falls outside min/max
+  speedFallback: 1.1,
 
-  // Loader
-  loaderExitDelay: 500,       // ms to show 100% before the loader exits
-  loaderExitDuration: 1.5,    // seconds for the clip-path exit animation
+  loaderExitDelay: 500,
+  loaderExitDuration: 1.5,
 
-  // Scroll indicator (the thin bar on the right)
-  indicatorFadeIn: 0.6,       // seconds
-  indicatorShowAfter: 0.01,   // scrollYProgress threshold to show it
-  indicatorHideBefore: 0.99,  // scrollYProgress threshold to hide it
+  indicatorFadeIn: 0.6,
+  indicatorShowAfter: 0.01,
+  indicatorHideBefore: 0.99,
 
-  // Minimap
-  minimapScrollDuration: 0.1, // seconds — how smoothly minimap follows scroll
+  minimapScrollDuration: 0.1,
+  counterHideBreakpoint: 600,
+  galleryScrollDuration: 0.1,
 
-  // Counter
-  counterHideBreakpoint: 600, // hides counter on screens narrower than this (px)
-
-  // Gallery panel
-  galleryScrollDuration: 0.1, // seconds — how smoothly gallery panel follows scroll
+  // Color applied to both the minimap border and the counter text per image index.
+  // GSAP animates the transition between colors.
+  colorChangeDuration: 0.5,
+  colorChangeEase: "power2.out",
+  imageColors: {
+    1:  "oklch(70% 0.18 18)",   // light red
+    2:  "",
+    3:  "",
+    4:  "",
+    5:  "",
+    6:  "oklch(70% 0.18 18)",
+    7:  "oklch(45% 0.15 250)",  // dark blue, visible on black
+    8:  "oklch(70% 0.18 18)",   // back to light red
+    9:  "",
+    10: "oklch(70% 0.18 18)",
+    11: "oklch(99% 0 0)",       // white
+    12: "oklch(75% 0.12 220)",  // light blue
+    13: "oklch(82% 0.14 85)",   // light gold
+    14: "",
+    15: "",
+    16: "",
+    17: "",
+    18: "oklch(82% 0.14 85)",
+    19: "oklch(47% 0.22 15)",
+    20: "oklch(75% 0.14 192)",
+    21: "oklch(96% 0.04 90)",   // cream light
+    22: "oklch(55% 0.28 300)",
+    23: "",
+    24: "",
+    25: "",
+    26: "",
+    27: "",
+    28: "",
+    29: "",
+    30: "",
+    31: "",
+    32: "",
+    33: "",
+    34: "oklch(55% 0.28 300)",
+    35: "oklch(99% 0 0)",       // white
+    36: "",
+    37: "oklch(75% 0.23 135)",
+    38: "",
+    39: "oklch(75% 0.23 135)",
+    40: "oklch(78% 0.17 110)",
+  },
 };
 
 const GalleryList = () => {
@@ -50,6 +87,7 @@ const GalleryList = () => {
   const indicatorRef = useRef(null);
   const loaderRef = useRef(null);
   const counterRef = useRef(null);
+  const lastIndexRef = useRef(null); // avoid re-animating the same color
 
   const breakpoint = useMediaQuery({ maxWidth: 850 });
   const secondBreakpoint = useMediaQuery({ maxWidth: GALLERY_CONFIG.counterHideBreakpoint });
@@ -122,6 +160,27 @@ const GalleryList = () => {
 
     if (!gallery || !imgPreviews) return;
 
+    const initialColor = GALLERY_CONFIG.imageColors[1];
+    if (minimap) gsap.set(minimap, { borderColor: initialColor });
+    if (counterRef.current) gsap.set(counterRef.current, { color: initialColor });
+
+    function applyColor(index) {
+      // only animate when the index actually changes
+      if (lastIndexRef.current === index) return;
+      lastIndexRef.current = index;
+
+      const color = GALLERY_CONFIG.imageColors[index];
+      if (!color) return;
+
+      gsap.to([minimapRef.current, counterRef.current], {
+        color,
+        borderColor: color,
+        duration: GALLERY_CONFIG.colorChangeDuration,
+        ease: GALLERY_CONFIG.colorChangeEase,
+        overwrite: "auto",
+      });
+    }
+
     function handleScroll() {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
@@ -184,14 +243,14 @@ const GalleryList = () => {
           });
         }
 
-        // snap to last image when fully scrolled to the bottom
         const atBottom =
-          window.innerHeight + scrollY >=
-          document.documentElement.scrollHeight - 2;
+          window.innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
         if (atBottom) currentIndex = images.length;
 
         counterRef.current.querySelector(".counter-current").textContent =
           String(currentIndex).padStart(2, "0");
+
+        applyColor(currentIndex);
       }
     }
 
@@ -268,10 +327,13 @@ const GalleryList = () => {
         ))}
       </div>
 
+      {/* minimap border color driven by GSAP applyColor */}
       <div className="minimap" ref={minimapRef} />
+
+      {/* counter text color driven by GSAP applyColor */}
       <div
         ref={counterRef}
-        className="fixed z-1 font-mono text-white/60 text-xs tracking-widest leading-none"
+        className="fixed z-1 font-mono text-xs tracking-widest leading-none"
         style={{
           left: breakpoint
             ? "clamp(calc(4rem + 8px + 12px),15vw,calc(16.5rem + 8px + 12px))"
@@ -282,6 +344,7 @@ const GalleryList = () => {
           flexDirection: "column",
           alignItems: "center",
           gap: "3px",
+          color: GALLERY_CONFIG.imageColors[1], // GSAP takes over after mount
         }}
       >
         <span className="counter-current">01</span>
