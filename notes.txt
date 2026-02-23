@@ -521,3 +521,139 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     waves = pow(clamp(waves, 0.0, 1.0), 0.78);
     fragColor = vec4(vec3(waves), 1.0);
 }
+
+
+
+
+// likeee
+// eslint-disable-next-line no-unused-vars
+import { motion } from "motion/react";
+import { useRef } from "react";
+
+let hasLoadedOnce = false;
+
+// Checkerboard — an N×N grid of tiles that animate in a staggered checkerboard pattern
+// eslint-disable-next-line no-unused-vars
+const Checkerboard = (OgComponent) => {
+  return function TransitionWrapper(props) {
+    const isFirstLoad = useRef(!hasLoadedOnce);
+    if (isFirstLoad.current) hasLoadedOnce = true;
+
+    const cols = 8;
+    const rows = 6;
+    const tiles = Array.from({ length: rows * cols });
+
+    return (
+      <div className="relative">
+        <OgComponent {...props} />
+
+        {["slide-out", "slide-in"].map((cls) => {
+          const isIn = cls === "slide-in";
+          return (
+            <div className={cls} key={cls}>
+              {tiles.map((_, idx) => {
+                const col = idx % cols;
+                const row = Math.floor(idx / cols);
+                // checker delay: alternate diagonals
+                const delay = ((col + row) % 2 === 0 ? 0 : 0.08) + col * 0.03 + row * 0.03;
+
+                return (
+                  <motion.div
+                    key={`${cls}-${idx}`}
+                    className="absolute bg-light-primary"
+                    style={{
+                      left: `${col * (100 / cols)}%`,
+                      top: `${row * (100 / rows)}%`,
+                      width: `${100 / cols}%`,
+                      height: `${100 / rows}%`,
+                      zIndex: 1000000000000000,
+                    }}
+                    initial={
+                      isIn
+                        ? { scale: 0, opacity: 0 }
+                        : { scale: isFirstLoad.current ? 0 : 1, opacity: isFirstLoad.current ? 0 : 1 }
+                    }
+                    animate={
+                      isIn
+                        ? { scale: 0, opacity: 0 }
+                        : { scale: 0, opacity: 0 }
+                    }
+                    exit={
+                      isIn
+                        ? { scale: 1, opacity: 1 }
+                        : { scale: 0, opacity: 0 }
+                    }
+                    transition={{ duration: 0.4, delay, ease: [0.65, 0, 0.35, 1] }}
+                  />
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+};
+
+export default Checkerboard;
+
+
+// eslint-disable-next-line no-unused-vars
+import { motion } from "motion/react";
+import { useRef } from "react";
+
+let hasLoadedOnce = false;
+
+// Split Curtain — two panels slide in from left and right, meeting at center
+// eslint-disable-next-line no-unused-vars
+const SplitCurtain = (OgComponent) => {
+  return function TransitionWrapper(props) {
+    const isFirstLoad = useRef(!hasLoadedOnce);
+    if (isFirstLoad.current) hasLoadedOnce = true;
+
+    const panels = [
+      { left: 0, originX: "left", exitX: "-100%" },
+      { left: "50%", originX: "right", exitX: "100%" },
+    ];
+
+    return (
+      <div className="relative overflow-hidden">
+        <OgComponent {...props} />
+
+        {/* Slide Out — panels retract to their edges */}
+        <div className="slide-out">
+          {panels.map(({ left, exitX }, i) => (
+            <motion.div
+              key={`out-${i}`}
+              className="absolute top-0 bottom-0 bg-light-primary"
+              style={{ left, width: "50%", zIndex: 1000000000000000 }}
+              initial={{ x: isFirstLoad.current ? exitX : "0%" }}
+              animate={{ x: exitX }}
+              exit={{ x: exitX }}
+              transition={{ duration: 0.6, delay: i * 0.05, ease: [0.65, 0, 0.35, 1] }}
+            />
+          ))}
+        </div>
+
+        {/* Slide In — panels close from edges toward center */}
+        <div className="slide-in">
+          {panels.map(({ left, exitX }, i) => (
+            <motion.div
+              key={`in-${i}`}
+              className="absolute top-0 bottom-0 bg-light-primary"
+              style={{ left, width: "50%", zIndex: 1000000000000000 }}
+              initial={{ x: exitX }}
+              animate={{ x: exitX }}
+              exit={{ x: "0%" }}
+              transition={{ duration: 0.6, delay: i * 0.05, ease: [0.65, 0, 0.35, 1] }}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
+};
+
+export default SplitCurtain;
+
+

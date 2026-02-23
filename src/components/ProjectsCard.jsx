@@ -7,7 +7,7 @@ const imageMap = {
 const positionMap = {
   1: 'center center',
   2: 'center top',
-  3: 'center top',
+  3: 'center center',
 }
 
 const ProjectsCard = ({index}) => {
