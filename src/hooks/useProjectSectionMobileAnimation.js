@@ -57,7 +57,7 @@ export function useProjectsSectionMobile(isDesktop) {
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
-    mm.add("(max-width: 1024px)", () => {W
+    mm.add("(max-width: 1024px)", () => {
       Array.from({ length: PROJECT_COUNT }, (_, i) => animateProject(i));
     });
   }, [isDesktop]);
