@@ -12,43 +12,31 @@ const FRAG = `
   uniform vec2  iResolution;
   uniform float iTime;
 
-  #define BRIGHTNESS      0.2
-  #define BASE_WHITE      0.1
-  #define WAVE_STRENGTH_1 1.0
-  #define WAVE_STRENGTH_2 0.0
-  #define WAVE_STRENGTH_3 0.6
-  #define SPEED_1         1.0
-  #define SPEED_2         1.5
-  #define SPEED_3         0.5
-  #define RIPPLES_1       2.0
-  #define RIPPLES_2       2.0
-  #define RIPPLES_3       3.0
-  #define VERTICAL_1      4.0
-  #define VERTICAL_2      6.0
-  #define VERTICAL_3      3.0
-  #define REACH           1.0
-
   void mainImage(out vec4 fragColor, in vec2 fragCoord) {
-    vec2  uv   = fragCoord / iResolution.xy;
-    float dist = uv.x;
+      vec2 uv = (fragCoord - 0.5 * iResolution.xy) / iResolution.y;
+      float t = iTime * 0.3;
 
-    float wave1 = sin(dist * RIPPLES_1 - iTime * SPEED_1);
-    float wave2 = sin(dist * RIPPLES_2 - iTime * SPEED_2 + 1.0);
-    float wave3 = sin(dist * RIPPLES_3 - iTime * SPEED_3 + 2.5);
+      float f = sin(uv.x * 3.0 + t) * cos(uv.y * 3.0 + t * 0.7)
+              + sin(uv.x * 6.1 + uv.y * 4.3 + t * 1.1) * 0.5
+              + cos(uv.x * 8.5 - uv.y * 5.2 + t * 0.9) * 0.25
+              + sin((uv.x + uv.y) * 10.0 + t * 1.4) * 0.125
+              + cos(uv.x * 13.0 + uv.y * 9.0 - t * 0.6) * 0.0625;
 
-    wave1 *= sin(uv.y * VERTICAL_1 + iTime * 0.5);
-    wave2 *= sin(uv.y * VERTICAL_2 - iTime * 0.3);
-    wave3 *= sin(uv.y * VERTICAL_3 + iTime * 0.7);
+      f = f * 0.5 + 0.5;
 
-    float waves = wave1 * WAVE_STRENGTH_1
-                + wave2 * WAVE_STRENGTH_2
-                + wave3 * WAVE_STRENGTH_3;
+      float glow = pow(f, 1.8);
+      float cracks = smoothstep(0.35, 0.65, f);
+      float hotSpots = smoothstep(0.72, 1.0, f);
 
-    waves *= smoothstep(REACH, 0.2, dist);
-    waves  = waves * BRIGHTNESS + BASE_WHITE;
-    waves  = max(0.0, waves);
+      vec3 color = vec3(0.0);
+      color += vec3(0.15) * glow;
+      color += vec3(0.5) * cracks;
+      color += vec3(1.0) * hotSpots;
 
-    fragColor = vec4(vec3(waves), 1.0);
+      float pulse = 0.001 + 0.04 * sin(iTime * 1.5 + f * 12.0);
+      color *= pulse;
+
+      fragColor = vec4(color, 1.0);
   }
 
   void main() {
