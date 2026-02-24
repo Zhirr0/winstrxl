@@ -8,12 +8,15 @@ import { useMediaQuery } from "react-responsive";
 import { SplitText } from "gsap/SplitText";
 import { Link } from "react-router-dom";
 import { useProjectsSectionMobile } from "../hooks/useProjectSectionMobileAnimation";
+import useCursorFreeze from '../utils/useCursorFreeze'
 const Projects = () => {
   const projectsSectionRef = useRef(null);
   const isNotDesktop = useMediaQuery({ maxWidth: 1024 });
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const buttonRef = useRef(null);
 
+  
+  useCursorFreeze('.projects-card')
   // should always be running
   // three things happening
   // the projects item appearing from opacity and ypercent

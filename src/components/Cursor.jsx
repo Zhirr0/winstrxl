@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
+import { SplitText } from "gsap/SplitText";
 import { useMediaQuery } from "react-responsive";
-gsap.registerPlugin(Observer);
+gsap.registerPlugin(Observer, SplitText);
 
 const size = 40;
 
@@ -12,9 +13,13 @@ const Cursor = () => {
   const lastMoveTimeRef = useRef(null);
   const resetTimeoutRef = useRef(null);
   const inactivityIntervalRef = useRef(null);
-  const isNotAllowed = useMediaQuery({maxWidth: 1024})
+  const isFrozenRef = useRef(false);
+  const viewProjectHeaderRef = useRef(null);
+  const cursorArrowRef = useRef(null);
+  const isNotAllowed = useMediaQuery({ maxWidth: 1024 });
+
   useEffect(() => {
-    if (isNotAllowed) return ;
+    if (isNotAllowed) return;
     lastMoveTimeRef.current = Date.now();
     const cursor = cursorRef.current;
     const links = document.querySelectorAll(
@@ -26,8 +31,33 @@ const Cursor = () => {
     let rafId = null;
     let pendingCheck = false;
     let isDragging = false;
+    let splitChars = null;
 
-    // Function to smoothly reset scales to 1
+    const setupSplit = () => {
+      if (!viewProjectHeaderRef.current) return;
+
+      gsap.set(viewProjectHeaderRef.current, { visibility: "visible" });
+
+      const split = SplitText.create(viewProjectHeaderRef.current, {
+        type: "chars",
+        mask: "chars",
+      });
+
+      splitChars = split.chars;
+
+      // Hide all chars below their mask initially
+      gsap.set(splitChars, { yPercent: 110, skewX: 90, display: "none" });
+
+      // Hide the arrow too
+      gsap.set(cursorArrowRef.current, {
+        opacity: 0,
+        x: -100,
+        display: "none",
+      });
+    };
+
+    document.fonts.ready.then(setupSplit);
+
     const resetScalesToNormal = () => {
       gsap.to(cursor, {
         scaleX: 1,
@@ -38,29 +68,103 @@ const Cursor = () => {
       });
     };
 
-    // Check if cursor hasn't moved for a while
     const checkInactivity = () => {
       const now = Date.now();
       const timeSinceLastMove = now - lastMoveTimeRef.current;
-
-      // If no movement for 150ms, reset to normal
       if (timeSinceLastMove > 150) {
         resetScalesToNormal();
       }
     };
 
-    // Start continuous inactivity checking
     inactivityIntervalRef.current = setInterval(checkInactivity, 50);
 
-    // Observer for velocity-based animation
+    // Freeze / Unfreeze
+    const onCursorFreeze = () => {
+      gsap.killTweensOf(cursor);
+      gsap.killTweensOf(splitChars);
+      isFrozenRef.current = true;
+
+      // Expand the cursor into a pill
+      gsap.to(cursor, {
+        scaleX: 1,
+        scaleY: 1,
+        width: "200px",
+        height: "50px",
+        rotation: 0,
+        duration: 1,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+
+      // Animate chars up into view
+      if (splitChars) {
+        gsap.to(splitChars, {
+          yPercent: 0,
+          duration: 0.5,
+          display: "block",
+          ease: "power3.out",
+          stagger: 0.025,
+          skewX: 0,
+          overwrite: "auto",
+        });
+      }
+
+      // Slide arrow in
+      gsap.to(cursorArrowRef.current, {
+        opacity: 1,
+        x: 0,
+        display: "block",
+        duration: 0.4,
+        delay: 0.15,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+    };
+
+    const onCursorUnfreeze = () => {
+      gsap.killTweensOf(cursor);
+      gsap.killTweensOf(splitChars);
+      isFrozenRef.current = false;
+
+      // Shrink back to circle
+      gsap.to(cursor, {
+        width: size,
+        height: size,
+        duration: 0.4,
+        ease: "power3.out",
+        overwrite: "auto",
+      });
+
+      // Animate chars back down out of mask
+      if (splitChars) {
+        gsap.set(splitChars, {
+          yPercent: 110,
+          overwrite: "auto",
+          display: "none",
+        });
+      }
+
+      // Hide arrow
+      gsap.set(cursorArrowRef.current, {
+        opacity: 0,
+        x: -100,
+        display: "none",
+        overwrite: "auto",
+      });
+    };
+
+    window.addEventListener("cursorFreeze", onCursorFreeze);
+    window.addEventListener("cursorUnfreeze", onCursorUnfreeze);
+
+    // --- Observer for velocity-based animation ---
     const observer = Observer.create({
       type: "pointer",
       tolerance: 1,
       onMove: (self) => {
-        // Update last move time
+        if (isFrozenRef.current) return;
+
         lastMoveTimeRef.current = Date.now();
 
-        // Clear any pending reset
         if (resetTimeoutRef.current) {
           clearTimeout(resetTimeoutRef.current);
         }
@@ -70,40 +174,31 @@ const Cursor = () => {
         const velocityX = self.velocityX;
         const velocityY = self.velocityY;
 
-        // Calculate total velocity magnitude
         const velocity = Math.sqrt(
           velocityX * velocityX + velocityY * velocityY,
         );
 
-        // Normalize velocity to a reasonable range (0 to ~1)
         const normalizedVelocity = Math.min(Math.pow(velocity / 5000, 0.85), 1);
 
-        // Calculate rotation based on direction
         let rotation = 0;
         if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
-          // Calculate angle in degrees
           rotation = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
         }
 
-        // Calculate stretch values based on velocity
         const velocityFactor = normalizedVelocity;
-        const scaleX = 1 + 0.55 * velocityFactor; // 1 to 1.55
-        const scaleY = 1 - 0.55 * velocityFactor; // 1 to 0.45
+        const scaleX = 1 + 0.55 * velocityFactor;
+        const scaleY = 1 - 0.55 * velocityFactor;
 
-        // Ensure constraints
         const finalScaleX = Math.max(1, scaleX);
         const finalScaleY = Math.min(1, Math.max(0.45, scaleY));
 
-        // Store velocity data
         velocityDataRef.current = {
           rotation,
           scaleX: finalScaleX,
           scaleY: finalScaleY,
         };
 
-        // Apply velocity-based transform immediately (only when moving)
         if (normalizedVelocity > 0.05) {
-          // ROTATION — fast, immediate
           gsap.to(cursor, {
             rotation,
             duration: 0.001,
@@ -111,7 +206,6 @@ const Cursor = () => {
             overwrite: "auto",
           });
 
-          // SCALE — heavier, slower
           gsap.to(cursor, {
             scaleX: finalScaleX,
             scaleY: finalScaleY,
@@ -120,10 +214,8 @@ const Cursor = () => {
             overwrite: "auto",
           });
 
-          // Schedule inactivity check
           resetTimeoutRef.current = setTimeout(checkInactivity, 150);
         } else {
-          // Smoothly reset when velocity is low
           resetScalesToNormal();
         }
       },
@@ -141,9 +233,7 @@ const Cursor = () => {
         ease: "back",
       });
 
-      if (!isDragging) {
-        scheduleCheck();
-      }
+      if (!isDragging) scheduleCheck();
     };
 
     const onCursorUpdate = (e) => {
@@ -159,9 +249,7 @@ const Cursor = () => {
           ease: "power2.out",
         });
 
-        if (!isDragging) {
-          scheduleCheck();
-        }
+        if (!isDragging) scheduleCheck();
       }
     };
 
@@ -186,63 +274,35 @@ const Cursor = () => {
       rafId = requestAnimationFrame(checkElementUnderPointer);
     };
 
-    const onMouseOut = () => {
-      resetScalesToNormal();
-    };
-
-    // Handle mouse leaving the entire document
-    const onMouseLeave = () => {
-      resetScalesToNormal();
-    };
-
+    const onMouseOut = () => resetScalesToNormal();
+    const onMouseLeave = () => resetScalesToNormal();
     const onScroll = () => {
-      if (!isDragging) {
-        scheduleCheck();
-      }
+      if (!isDragging) scheduleCheck();
     };
-
     const onWheel = () => {
-      if (!isDragging) {
-        scheduleCheck();
-      }
+      if (!isDragging) scheduleCheck();
     };
-
     const onTouchMove = () => {
-      if (!isDragging) {
-        scheduleCheck();
-      }
+      if (!isDragging) scheduleCheck();
     };
-
-    // Listen for drag events from Draggable
     const onDragStart = () => {
       isDragging = true;
     };
-
     const onDragEnd = () => {
       isDragging = false;
       scheduleCheck();
     };
 
-    // Add global drag event listeners
     document.addEventListener("mousedown", (e) => {
-      const target = e.target;
-      if (target.closest(".dragger-wrapper")) {
-        onDragStart();
-      }
+      if (e.target.closest(".dragger-wrapper")) onDragStart();
     });
-
     document.addEventListener("mouseup", () => {
-      if (isDragging) {
-        onDragEnd();
-      }
+      if (isDragging) onDragEnd();
     });
-
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseleave", onMouseLeave);
     window.addEventListener("cursorUpdate", onCursorUpdate);
-    links.forEach((link) => {
-      link.addEventListener("mouseleave", onMouseOut);
-    });
+    links.forEach((link) => link.addEventListener("mouseleave", onMouseOut));
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("wheel", onWheel, { passive: true });
     window.addEventListener("touchmove", onTouchMove, { passive: true });
@@ -251,16 +311,17 @@ const Cursor = () => {
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseleave", onMouseLeave);
       window.removeEventListener("cursorUpdate", onCursorUpdate);
-      links.forEach((link) => {
-        link.removeEventListener("mouseleave", onMouseOut);
-      });
+      window.removeEventListener("cursorFreeze", onCursorFreeze);
+      window.removeEventListener("cursorUnfreeze", onCursorUnfreeze);
+      links.forEach((link) =>
+        link.removeEventListener("mouseleave", onMouseOut),
+      );
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchmove", onTouchMove);
       if (rafId) cancelAnimationFrame(rafId);
       if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
-      if (inactivityIntervalRef.current)
-        clearInterval(inactivityIntervalRef.current);
+      if (inactivityIntervalRef.current) clearInterval(inactivityIntervalRef.current);
       observer.kill();
     };
   }, [isNotAllowed]);
@@ -274,9 +335,24 @@ const Cursor = () => {
         transformOrigin: "center center",
       }}
       id="cursor"
-      className="custom-cursor"
+      className="custom-cursor overflow-hidden"
       ref={cursorRef}
-    />
+    >
+      <div className="cursor-content flex justify-center items-center text-center flex-row whitespace-nowrap w-full h-full">
+        <div className="projects-card-header flex gap-7 justify-center items-center text-center">
+          {/* visibility: hidden so layout is preserved but text is invisible until SplitText is ready */}
+          <h4 ref={viewProjectHeaderRef} style={{ visibility: "hidden" }}>
+            View Project
+          </h4>
+          <img
+            ref={cursorArrowRef}
+            src="/svg/cursor-arrow.svg"
+            className="w-10 h-10"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 
