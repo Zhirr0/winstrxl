@@ -1,7 +1,7 @@
 const imageMap = {
-  1: '/imagesHigh/img20.jpg',
-  2: '/imagesHigh/img24.jpg',
-  3: '/imagesHigh/img14.jpg',
+  1: '',
+  2: '',
+  3: '',
 }
 
 const positionMap = {

@@ -17,6 +17,8 @@ const Cursor = () => {
   const viewProjectHeaderRef = useRef(null);
   const cursorArrowRef = useRef(null);
   const isNotAllowed = useMediaQuery({ maxWidth: 1024 });
+  const cursorContentRef = useRef(null);
+  const unfreezeTimeRef = useRef(null);
 
   useEffect(() => {
     if (isNotAllowed) return;
@@ -125,8 +127,8 @@ const Cursor = () => {
       gsap.killTweensOf(cursor);
       gsap.killTweensOf(splitChars);
       isFrozenRef.current = false;
+      unfreezeTimeRef.current = Date.now();
 
-      // Shrink back to circle
       gsap.to(cursor, {
         width: size,
         height: size,
@@ -135,21 +137,17 @@ const Cursor = () => {
         overwrite: "auto",
       });
 
-      // Animate chars back down out of mask
       if (splitChars) {
         gsap.set(splitChars, {
           yPercent: 110,
-          overwrite: "auto",
           display: "none",
         });
       }
 
-      // Hide arrow
       gsap.set(cursorArrowRef.current, {
         opacity: 0,
         x: -100,
         display: "none",
-        overwrite: "auto",
       });
     };
 
@@ -162,6 +160,12 @@ const Cursor = () => {
       tolerance: 1,
       onMove: (self) => {
         if (isFrozenRef.current) return;
+
+        if (
+          unfreezeTimeRef.current &&
+          Date.now() - unfreezeTimeRef.current < 400
+        )
+          return;
 
         lastMoveTimeRef.current = Date.now();
 
@@ -265,7 +269,15 @@ const Cursor = () => {
     const checkElementUnderPointer = () => {
       pendingCheck = false;
       if (lastX === null || lastY === null) return;
-      getElementUnderPointer(lastX, lastY);
+
+      const element = getElementUnderPointer(lastX, lastY);
+      const isOverSelector = element?.closest(".projects-card") !== null;
+
+      if (cursorContentRef.current) {
+        cursorContentRef.current.style.display = isOverSelector
+          ? "flex"
+          : "none";
+      }
     };
 
     const scheduleCheck = () => {
@@ -321,7 +333,8 @@ const Cursor = () => {
       window.removeEventListener("touchmove", onTouchMove);
       if (rafId) cancelAnimationFrame(rafId);
       if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
-      if (inactivityIntervalRef.current) clearInterval(inactivityIntervalRef.current);
+      if (inactivityIntervalRef.current)
+        clearInterval(inactivityIntervalRef.current);
       observer.kill();
     };
   }, [isNotAllowed]);
@@ -338,9 +351,12 @@ const Cursor = () => {
       className="custom-cursor overflow-hidden"
       ref={cursorRef}
     >
-      <div className="cursor-content flex justify-center items-center text-center flex-row whitespace-nowrap w-full h-full">
-        <div className="projects-card-header flex gap-7 justify-center items-center text-center">
-          {/* visibility: hidden so layout is preserved but text is invisible until SplitText is ready */}
+      <div
+        ref={cursorContentRef}
+        className="cursor-content flex justify-center items-center text-center flex-row whitespace-nowrap w-full h-full"
+        style={{ display: "none" }}
+      >
+        <div className="projects-card-header flex gap-13 justify-center items-center text-center">
           <h4 ref={viewProjectHeaderRef} style={{ visibility: "hidden" }}>
             View Project
           </h4>
