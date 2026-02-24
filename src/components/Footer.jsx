@@ -1,4 +1,4 @@
-import { useMediaQuery } from "react-responsive";
+import MediaQuery, { useMediaQuery } from "react-responsive";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,6 +20,7 @@ export default function Footer() {
   const firstBreakPoint = useMediaQuery({ maxWidth: 1024 });
   const secondBreakPoint = useMediaQuery({ minWidth: 1024 });
   const thirdBreakPoint = useMediaQuery({ maxWidth: 700 });
+  const isMobile = window.innerWidth < 650
   useGSAP(() => {
     gsap.set(".slidein-contact-left", {
       xPercent: -100,
@@ -275,12 +276,20 @@ export default function Footer() {
             <HrSpecialDesign className={`w-full slidein-clients-right`} />
           </div>
           <div className="clients-center">
-            <h1>logo1</h1>
-            <h1>logo2</h1>
-            <h1>logo3</h1>
-            <h1>logo4</h1>
-            <h1>logo5</h1>
-            <h1>logo6</h1>
+            <img src="/svg/client-logos/Adept Club.svg" />
+            <img src="/svg/client-logos/Coffein Esports.svg" />
+            <img
+              style={{
+                marginLeft: isMobile ? "5px" : "20px",
+              }}
+              src="/svg/client-logos/dukki.svg"
+            />
+            <img src="/svg/client-logos/Kodex Esports.svg" />
+            <img src="/svg/client-logos/Lumina Gaming.svg" />
+            <img src="/svg/client-logos/Nexus77 Esports.svg" />
+            <img src="/svg/client-logos/Souls Heart Esports.svg" />
+            <img src="/svg/client-logos/Syndicate Gaming.svg" />
+            <img src="/svg/client-logos/Xravel Esports.svg" />
           </div>
           <div className="clients-bottom">
             <p>

@@ -527,13 +527,16 @@ button {
       }
 
       .clients-center {
-        @apply gap-20 w-[30%];
+        @apply gap-5 max-[1024px]:gap-10 max-[1024px]:gap-x-20 w-[30%] max-[1024px]:w-[50%] max-[768px]:w-[65%] max-[500px]:w-[80%] max-[400px]:w-[95%];
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
         justify-content: center;
         align-items: center;
         text-align: center;
+        img {
+          @apply max-[1024px]:h-auto opacity-50;
+        }
       }
 
       .clients-bottom {
