@@ -42,13 +42,37 @@ const Projects = () => {
     const gallery = galleryRef.current;
     const images = [];
 
+    const imageCount = 40;
+
+    function createImagePool() {
+      return Array.from({ length: imageCount }, (_, i) => i + 1);
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    let pool = shuffle(createImagePool());
+    let poolIndex = 0;
+
     for (let i = 0; i < totalImages; i++) {
+      if (poolIndex === imageCount) {
+        pool = shuffle(createImagePool());
+        poolIndex = 0;
+      }
+
       const img = document.createElement("div");
       img.className = "img";
       img.style.height = `${getRandomHeight(30, 40)}px`;
 
       const imgElement = document.createElement("img");
-      imgElement.src = `/images/img${Math.floor(Math.random() * 40) + 1}.jpg`;
+      imgElement.src = `/images/img${pool[poolIndex]}.jpg`;
+      poolIndex++;
+
       img.appendChild(imgElement);
       gallery.appendChild(img);
       images.push(img);
@@ -227,8 +251,6 @@ const Projects = () => {
       document.removeEventListener("touchend", handleDragEnd);
     }
 
-
-
     zoomOutButton.addEventListener("click", handleZoomOut);
     zoomInButton.addEventListener("click", handleZoomIn);
     dragLayer.addEventListener("mousedown", handleDragStart);
@@ -249,7 +271,7 @@ const Projects = () => {
 
   return (
     <main className="overflow-x-hidden">
-      <GalleryBackground  />
+      <GalleryBackground />
       <Link to="/projects/list">
         <button
           style={{ padding: "5px" }}
@@ -264,7 +286,7 @@ const Projects = () => {
           <button ref={zoomOutRef} id="zoom-out" className="active">
             <img src="/svg/zoom-out.svg" alt="" />
           </button>
-          <button ref={zoomInRef} id="zoom-in" >
+          <button ref={zoomInRef} id="zoom-in">
             <img src="/svg/zoom-in.svg" alt="" />
           </button>
         </div>

@@ -33,7 +33,7 @@ const FRAG = `
       color += vec3(0.5) * cracks;
       color += vec3(1.0) * hotSpots;
 
-      float pulse = 0.001 + 0.04 * sin(iTime * 1.5 + f * 12.0);
+      float pulse = 0.01 + 0.04 * sin(iTime * 1.5 + f * 12.0);
       color *= pulse;
 
       fragColor = vec4(color, 1.0);

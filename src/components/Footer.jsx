@@ -65,7 +65,6 @@ export default function Footer() {
           cardInner,
           { scale: 1, y: "0%", opacity: 1 },
           {
-            scale: 0.6,
             y: "-40%",
             opacity: 0,
             filter: "blur(10px)",
@@ -278,18 +277,18 @@ export default function Footer() {
           <div className="clients-center">
             <img src="/svg/client-logos/Adept Club.svg" />
             <img src="/svg/client-logos/Coffein Esports.svg" />
+            <img src="/svg/client-logos/Xravel Esports.svg" />
+            <img src="/svg/client-logos/Kodex Esports.svg" />
+            <img src="/svg/client-logos/Lumina Gaming.svg" />
+            <img src="/svg/client-logos/Nexus77 Esports.svg" />
+            <img src="/svg/client-logos/Souls Heart Esports.svg" />
+            <img src="/svg/client-logos/Syndicate Gaming.svg" />
             <img
               style={{
                 marginLeft: isMobile ? "5px" : "20px",
               }}
               src="/svg/client-logos/dukki.svg"
             />
-            <img src="/svg/client-logos/Kodex Esports.svg" />
-            <img src="/svg/client-logos/Lumina Gaming.svg" />
-            <img src="/svg/client-logos/Nexus77 Esports.svg" />
-            <img src="/svg/client-logos/Souls Heart Esports.svg" />
-            <img src="/svg/client-logos/Syndicate Gaming.svg" />
-            <img src="/svg/client-logos/Xravel Esports.svg" />
           </div>
           <div className="clients-bottom">
             <p>

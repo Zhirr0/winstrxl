@@ -353,7 +353,9 @@ button {
   }
 
   .all-projects-button {
-    @apply fixed bg-light-primary text-dark-primary -translate-x-1/2 w-[200px] h-[30px] z-10 bottom-0 left-1/2;
+    @apply fixed bg-light-primary text-dark-primary text-[13px] -translate-x-1/2 w-[200px] h-[30px] uppercase  z-10 bottom-0 left-1/2;
+    letter-spacing: 0.2px;
+    font-weight: 100;
     clip-path: url(#button-container);
     -webkit-clip-path: url(#button-container);
   }
@@ -517,9 +519,9 @@ button {
       }
     }
     #clients {
-      @apply min-h-dvh translate-x-0 flex flex-col gap-20 items-center;
+      @apply min-h-dvh translate-x-0 flex flex-col gap-10 justify-center text-center items-center;
       .clients-header {
-        @apply flex flex-row w-full items-center justify-evenly gap-3;
+        @apply flex flex-row w-full justify-between items-center gap-3;
         h1 {
           @apply whitespace-nowrap;
           font-size: clamp(20px, 6vw, 72px);

@@ -357,7 +357,7 @@ const Cursor = () => {
         style={{ display: "none" }}
       >
         <div className="projects-card-header flex gap-13 justify-center items-center text-center">
-          <h4 ref={viewProjectHeaderRef} style={{ visibility: "hidden" }}>
+          <h4 ref={viewProjectHeaderRef} className="uppercase text-[13px]" style={{ visibility: "hidden", fontWeight: 100}}>
             View Project
           </h4>
           <img
