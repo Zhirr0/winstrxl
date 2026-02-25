@@ -3,13 +3,14 @@ import { motion } from "motion/react";
 import { useRef } from "react";
 
 let hasLoadedOnce = false;
+const isMobile = window.innerWidth  < 1024
 
 const ColumnBounce = (OgComponent) => {
   return function TransitionWrapper(props) {
     const isFirstLoad = useRef(!hasLoadedOnce);
     if (isFirstLoad.current) hasLoadedOnce = true;
 
-    const cols = 10;
+    const cols = isMobile ? 7 : 10;
     const center = (cols - 1) / 2;
 
     return (

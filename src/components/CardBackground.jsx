@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-
+const isMobile = window.innerWidth < 1024
 const VERT = `
   attribute vec2 position;
   void main() {
@@ -33,7 +33,7 @@ const FRAG = `
       color += vec3(0.5) * cracks;
       color += vec3(1.0) * hotSpots;
 
-      float pulse = 0.01 + 0.04 * sin(iTime * 1.5 + f * 12.0);
+      float pulse = ${isMobile ? 0.1 : 0.005} + 0.04 * sin(iTime * 1.5 + f * 12.0);
       color *= pulse;
 
       fragColor = vec4(color, 1.0);
