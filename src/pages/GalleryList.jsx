@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import {
   motion,
   useScroll,
@@ -18,9 +18,6 @@ const GALLERY_CONFIG = {
   speedMin: 0.8,
   speedMax: 2,
   speedFallback: 1.1,
-
-  loaderExitDelay: 500,
-  loaderExitDuration: 1.5,
 
   indicatorFadeIn: 0.6,
   indicatorShowAfter: 0.01,
@@ -80,7 +77,6 @@ const GalleryList = () => {
   const previewsRef = useRef(null);
   const minimapRef = useRef(null);
   const indicatorRef = useRef(null);
-  const loaderRef = useRef(null);
   const counterRef = useRef(null);
   const lastIndexRef = useRef(null); // avoid re-animating the same color
 
@@ -89,9 +85,6 @@ const GalleryList = () => {
     maxWidth: GALLERY_CONFIG.counterHideBreakpoint,
   });
   const thirdBreakpoint = useMediaQuery({ maxWidth: 768 });
-
-  const [loadProgress, setLoadProgress] = useState(0);
-  const [isLoaderDone, setIsLoaderDone] = useState(false);
 
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, {
@@ -114,43 +107,7 @@ const GalleryList = () => {
     });
   });
 
-  // Preloader — track real image loading
   useEffect(() => {
-    let loaded = 0;
-    const total = images.length;
-
-    const onImageLoad = () => {
-      loaded += 1;
-      const progress = Math.round((loaded / total) * 100);
-      setLoadProgress(progress);
-
-      if (loaded === total) {
-        setTimeout(() => {
-          const loader = loaderRef.current;
-          if (!loader) return;
-
-          gsap.to(loader, {
-            clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-            duration: GALLERY_CONFIG.loaderExitDuration,
-            ease: "power3.out",
-            onComplete: () => setIsLoaderDone(true),
-          });
-        }, GALLERY_CONFIG.loaderExitDelay);
-      }
-    };
-
-    images.forEach((src) => {
-      const img = new Image();
-      img.onload = onImageLoad;
-      img.onerror = onImageLoad;
-      img.src = src;
-    });
-  }, []);
-
-  // Scroll logic — only starts after loader is gone
-  useEffect(() => {
-    if (!isLoaderDone) return;
-
     const gallery = galleryRef.current;
     const imgPreviews = previewsRef.current;
     const minimap = minimapRef.current;
@@ -163,7 +120,6 @@ const GalleryList = () => {
       gsap.set(counterRef.current, { color: initialColor });
 
     function applyColor(index) {
-      // only animate when the index actually changes
       if (lastIndexRef.current === index) return;
       lastIndexRef.current = index;
 
@@ -262,34 +218,11 @@ const GalleryList = () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };
-  }, [isLoaderDone]);
+  }, []);
 
   return (
     <section className="overflow-x-hidden">
       <GalleryBackground />
-
-      {/* Preloader */}
-      {!isLoaderDone && (
-        <div
-          ref={loaderRef}
-          className="fixed inset-0 z-200 flex items-center justify-center bg-light-primary"
-          style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
-        >
-          <div className="text-center text-dark-red-primary font-mono">
-            <div className="text-[clamp(3rem,10vw,7rem)] font-semibold leading-none tracking-tight overflow-hidden">
-              {String(loadProgress).padStart(3, "0")}
-              <span>%</span>
-            </div>
-            <div className="mt-4 text-xs opacity-40 tracking-[0.2em]">
-              LOADING...
-              <br />
-              THE IMAGES ARE HIGH QUALITY
-              <br />
-              WAIT A LITTLE
-            </div>
-          </div>
-        </div>
-      )}
 
       <Link to="/projects">
         <button
@@ -346,10 +279,8 @@ const GalleryList = () => {
         ))}
       </div>
 
-      {/* minimap border color driven by GSAP applyColor */}
       <div className="minimap" ref={minimapRef} />
 
-      {/* counter text color driven by GSAP applyColor */}
       <div
         ref={counterRef}
         className="fixed z-1 font-mono text-xs tracking-widest leading-none"
@@ -363,7 +294,7 @@ const GalleryList = () => {
           flexDirection: "column",
           alignItems: "center",
           gap: "3px",
-          color: GALLERY_CONFIG.imageColors[1], // GSAP takes over after mount
+          color: GALLERY_CONFIG.imageColors[1],
         }}
       >
         <span className="counter-current">01</span>
