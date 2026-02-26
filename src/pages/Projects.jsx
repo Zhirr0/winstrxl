@@ -70,7 +70,7 @@ const Projects = () => {
       img.style.height = `${getRandomHeight(30, 40)}px`;
 
       const imgElement = document.createElement("img");
-      imgElement.src = `/images/img${pool[poolIndex]}.jpg`;
+      imgElement.src = `/imagesOptimized/img${pool[poolIndex]}.webp`;
       poolIndex++;
 
       img.appendChild(imgElement);

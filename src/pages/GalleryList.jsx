@@ -14,7 +14,7 @@ import GalleryBackground from "../components/GalleryBackground";
 
 const images = Array.from(
   { length: 40 },
-  (_, i) => `/imagesHigh/img${i + 1}.jpg`,
+  (_, i) => `/imagesOptimized/img${i + 1}.webp`,
 );
 
 const GALLERY_CONFIG = {

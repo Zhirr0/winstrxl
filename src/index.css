@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   @apply bg-dark-primary overflow-x-hidden h-full;
   margin-left: clamp(3px, 1vw, 12.4px);
