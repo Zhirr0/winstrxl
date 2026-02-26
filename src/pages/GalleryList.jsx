@@ -12,10 +12,7 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import GalleryBackground from "../components/GalleryBackground";
 
-const images = Array.from(
-  { length: 40 },
-  (_, i) => `/imagesOptimized/img${i + 1}.webp`,
-);
+const images = Array.from({ length: 40 }, (_, i) => `/images/img${i + 1}.webp`);
 
 const GALLERY_CONFIG = {
   speedMin: 0.8,
@@ -35,19 +32,19 @@ const GALLERY_CONFIG = {
 
   // GSAP animates the transition between colors.
   imageColors: {
-    1:  "oklch(70% 0.18 18)",   // light red
-    2:  "",
-    3:  "",
-    4:  "",
-    5:  "",
-    6:  "oklch(70% 0.18 18)",
-    7:  "oklch(45% 0.15 250)",  // dark blue, visible on black
-    8:  "oklch(70% 0.18 18)",   // back to light red
-    9:  "",
+    1: "oklch(70% 0.18 18)", // light red
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: "oklch(70% 0.18 18)",
+    7: "oklch(45% 0.15 250)", // dark blue, visible on black
+    8: "oklch(70% 0.18 18)", // back to light red
+    9: "",
     10: "oklch(70% 0.18 18)",
-    11: "oklch(99% 0 0)",       // white
-    12: "oklch(75% 0.12 220)",  // light blue
-    13: "oklch(82% 0.14 85)",   // light gold
+    11: "oklch(99% 0 0)", // white
+    12: "oklch(75% 0.12 220)", // light blue
+    13: "oklch(82% 0.14 85)", // light gold
     14: "",
     15: "",
     16: "",
@@ -55,7 +52,7 @@ const GALLERY_CONFIG = {
     18: "oklch(82% 0.14 85)",
     19: "oklch(47% 0.22 15)",
     20: "oklch(75% 0.14 192)",
-    21: "oklch(96% 0.04 90)",   // cream light
+    21: "oklch(96% 0.04 90)", // cream light
     22: "oklch(55% 0.28 300)",
     23: "",
     24: "",
@@ -69,7 +66,7 @@ const GALLERY_CONFIG = {
     32: "",
     33: "",
     34: "oklch(55% 0.28 300)",
-    35: "oklch(99% 0 0)",       // white
+    35: "oklch(99% 0 0)", // white
     36: "",
     37: "oklch(75% 0.23 135)",
     38: "",
@@ -88,7 +85,9 @@ const GalleryList = () => {
   const lastIndexRef = useRef(null); // avoid re-animating the same color
 
   const breakpoint = useMediaQuery({ maxWidth: 850 });
-  const secondBreakpoint = useMediaQuery({ maxWidth: GALLERY_CONFIG.counterHideBreakpoint });
+  const secondBreakpoint = useMediaQuery({
+    maxWidth: GALLERY_CONFIG.counterHideBreakpoint,
+  });
   const thirdBreakpoint = useMediaQuery({ maxWidth: 768 });
 
   const [loadProgress, setLoadProgress] = useState(0);
@@ -160,7 +159,8 @@ const GalleryList = () => {
 
     const initialColor = GALLERY_CONFIG.imageColors[1];
     if (minimap) gsap.set(minimap, { borderColor: initialColor });
-    if (counterRef.current) gsap.set(counterRef.current, { color: initialColor });
+    if (counterRef.current)
+      gsap.set(counterRef.current, { color: initialColor });
 
     function applyColor(index) {
       // only animate when the index actually changes
@@ -197,7 +197,10 @@ const GalleryList = () => {
         rawDenominator > 0
           ? Math.max(
               GALLERY_CONFIG.speedMin,
-              Math.min(GALLERY_CONFIG.speedMax, effectiveTravel / rawDenominator),
+              Math.min(
+                GALLERY_CONFIG.speedMax,
+                effectiveTravel / rawDenominator,
+              ),
             )
           : GALLERY_CONFIG.speedFallback;
 
@@ -240,7 +243,8 @@ const GalleryList = () => {
         }
 
         const atBottom =
-          window.innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
+          window.innerHeight + scrollY >=
+          document.documentElement.scrollHeight - 2;
         if (atBottom) currentIndex = images.length;
 
         counterRef.current.querySelector(".counter-current").textContent =
@@ -262,9 +266,8 @@ const GalleryList = () => {
 
   return (
     <section className="overflow-x-hidden">
-
       <GalleryBackground />
-      
+
       {/* Preloader */}
       {!isLoaderDone && (
         <div
@@ -314,24 +317,24 @@ const GalleryList = () => {
         <div className="gallery-for-images" ref={galleryRef}>
           {images.map((src, i) => (
             <div className="images-wrapper" key={i}>
-              <img 
-              
-              onMouseEnter={e => {
-                gsap.to(e.currentTarget, {
-                  filter: 'invert(1)',
-                  ease: 'power2.out',
-                  duration: .5
-                })
-              }} 
-              
-              onMouseLeave={e => {
-                gsap.to(e.currentTarget, {
-                  filter: "invert(0)",
-                  ease: 'power2.out',
-                  duration: .5
-                })
-              }}
-              src={src} alt="" />
+              <img
+                onMouseEnter={(e) => {
+                  gsap.to(e.currentTarget, {
+                    filter: "invert(1)",
+                    ease: "power2.out",
+                    duration: 0.5,
+                  });
+                }}
+                onMouseLeave={(e) => {
+                  gsap.to(e.currentTarget, {
+                    filter: "invert(0)",
+                    ease: "power2.out",
+                    duration: 0.5,
+                  });
+                }}
+                src={src}
+                alt=""
+              />
             </div>
           ))}
         </div>
