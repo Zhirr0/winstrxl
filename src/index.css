@@ -81,7 +81,7 @@ button {
 
 @layer components {
   .custom-cursor {
-    @apply fixed rounded-full pointer-events-none z-100 mix-blend-difference flex items-center justify-center bg-light-primary select-none;
+    @apply top-0 left-0 fixed rounded-full pointer-events-none z-100 mix-blend-difference flex items-center justify-center bg-light-primary select-none;
   }
 
   nav {
