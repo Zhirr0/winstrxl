@@ -10,6 +10,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import { AnimatePresence } from "motion/react";
 import { ReactLenis } from "lenis/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /* Utilities */
 import { useMediaQuery } from "react-responsive";
@@ -76,6 +77,19 @@ const App = () => {
     const update = (time) => lenisRef.current?.lenis?.raf(time * 700);
     gsap.ticker.add(update);
     return () => gsap.ticker.remove(update);
+  }, []);
+
+  useEffect(() => {
+    const lenis = lenisRef.current?.lenis;
+    if (lenis) {
+      const handleScroll = () => {
+        ScrollTrigger.update();
+      };
+      lenis.on("scroll", handleScroll);
+      return () => {
+        lenis.off("scroll", handleScroll);
+      };
+    }
   }, []);
 
   return (

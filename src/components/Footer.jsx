@@ -20,7 +20,7 @@ export default function Footer() {
   const firstBreakPoint = useMediaQuery({ maxWidth: 1024 });
   const secondBreakPoint = useMediaQuery({ minWidth: 1024 });
   const thirdBreakPoint = useMediaQuery({ maxWidth: 700 });
-  const isMobile = window.innerWidth < 650
+  const isMobile = useMediaQuery({ maxWidth: 650 });
   useGSAP(() => {
     gsap.set(".slidein-contact-left", {
       xPercent: -100,

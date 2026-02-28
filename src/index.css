@@ -226,7 +226,7 @@ button {
   }
 
   .menu-section {
-    @apply fixed inset-0 h-dvh z-50 bg-dark-primary text-light-primary;
+    @apply fixed inset-0 h-svh z-50 bg-dark-primary text-light-primary;
     display: grid;
     grid-template-columns: 0.7fr 1fr;
     grid-template-rows: 1fr;
@@ -323,7 +323,7 @@ button {
   }
 
   .hero {
-    @apply h-dvh relative;
+    @apply h-svh relative;
     h3 {
       @apply absolute 
          left-1/2 
@@ -336,7 +336,7 @@ button {
          max-[1160px]:text-[16px];
     }
     .bg-image {
-      @apply bg-[#303030] h-dvh rounded-xl;
+      @apply bg-[#303030] h-svh rounded-xl;
       clip-path: url(#hero-container);
       -webkit-clip-path: url(#hero-container);
     }
@@ -372,7 +372,7 @@ button {
   }
 
   .project-item {
-    @apply h-dvh;
+    @apply h-svh;
   }
 
   .project-item-inner {
@@ -453,7 +453,7 @@ button {
   footer {
     @apply bg-dark-primary text-light-primary min-h-screen w-full flex flex-col max-[1024px]:gap-[10vh]  max-[1024px]:justify-between;
     .footer-card {
-      @apply min-h-dvh overflow-hidden rounded-lg relative translate-x-0 flex flex-col;
+      @apply min-h-svh overflow-hidden rounded-lg relative translate-x-0 flex flex-col;
       .hr-block {
         @apply bg-light-primary w-1 h-1;
       }
@@ -520,7 +520,7 @@ button {
       }
     }
     #clients {
-      @apply min-h-dvh translate-x-0 flex flex-col gap-10 justify-center text-center items-center;
+      @apply min-h-svh translate-x-0 flex flex-col gap-10 justify-center text-center items-center;
       .clients-header {
         @apply flex flex-row w-full justify-between items-center gap-3;
         h1 {
