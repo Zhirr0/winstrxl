@@ -81,7 +81,6 @@ const Projects = () => {
     imagesRef.current = images;
 
     gsap.to(images, {
-      scale: 1,
       opacity: 1,
       delay: 0.5,
       duration: 0.5,

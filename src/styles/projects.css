@@ -99,7 +99,6 @@
 
 .img {
   width: calc((100% - 236px) / 50);
-  transform: scale(0);
   transform-origin: center center;
   will-change: transform;
   pointer-events: none;
