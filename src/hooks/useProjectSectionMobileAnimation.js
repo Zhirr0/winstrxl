@@ -1,9 +1,8 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { STAGGER, DURATION } from "../config/projectsSectionAnimation.config";
+import { STAGGER, DURATION, PROJECT_COUNT } from "../config/projectsSectionAnimation.config";
 
-const PROJECT_COUNT = 3;
 
 function animateSplit(element, options, trigger) {
   if (!element) return;

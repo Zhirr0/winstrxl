@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { motion } from "motion/react";
 import { useRef } from "react";
 
@@ -14,7 +13,6 @@ const ColumnBounce = (OgComponent) => {
     const center = (cols - 1) / 2;
 
     return (
-      // ✅ No overflow-hidden here — it breaks position:fixed children
       <div className="relative">
         <OgComponent {...props} />
 

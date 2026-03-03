@@ -153,8 +153,8 @@ export default function GalleryBackground() {
       style={{
         position: "fixed",
         inset: 0,
-        width: "100dvw",
-        height: "100dvh",
+        width: "100svw",
+        height: "100svh",
         pointerEvents: "none",
         zIndex: -1,
         transform: "translateZ(0)",

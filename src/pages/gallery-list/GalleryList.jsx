@@ -6,11 +6,11 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import gsap from "gsap";
-import Transition from "../components/Transition";
+import Transition from "../../components/Transition";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import GalleryBackground from "../components/GalleryBackground";
-import "../styles/list-gallery-layout.css";
+import GalleryBackground from "../../components/GalleryBackground";
+import "../../styles/list-gallery-layout.css";
 
 const images = Array.from({ length: 40 }, (_, i) => `/images/img${i + 1}.webp`);
 

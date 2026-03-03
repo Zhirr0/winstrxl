@@ -1,3 +1,4 @@
+export const PROJECT_COUNT = 3
 
 export const STAGGER = {
   label: 0.3,

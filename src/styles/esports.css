@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark-primary: oklch(14% 0.006 173.6);
+  --color-light-primary: oklch(100% 0.00011 271.152);
+  --color-dark-red-primary: oklch(38% 0.336 25.1);
+  --color-transition-gray: oklch(18.5% 0 360);
+
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-barlow: "Barlow Condensed", sans-serif;
+  --font-mono: "Roboto Mono", monospace;
+}
+
+@layer components {
+  .es-hero {
+    @apply bg-dark-red-primary relative w-full min-h-svh flex flex-col justify-end overflow-hidden;
+
+    .es-scan {
+      @apply absolute inset-0 pointer-events-none opacity-40;
+      background: repeating-linear-gradient(
+        180deg,
+        transparent,
+        transparent 4px,
+        color-mix(in oklch, var(--color-light-primary) 3%, transparent) 4px,
+        color-mix(in oklch, var(--color-light-primary) 3%, transparent) 5px
+      );
+    }
+
+    /* giant background letter */
+    .es-bg-letter {
+      @apply absolute overflow-visible top-0 -left-[10px] text-light-primary/50 font-bebas select-none whitespace-nowrap;
+      font-size: clamp(120px, 28vw, 320px);
+      line-height: 0.85;
+      letter-spacing: -14px;
+      .es-bg-chars {
+        @apply w-[120px];
+      }
+    }
+
+    /* content wrapper */
+    .es-body {
+      @apply relative z-10 flex flex-col px-10 pb-10 pt-16;
+    }
+
+    /* h1 */
+    .es-h1 {
+      @apply flex flex-col mb-4;
+      font-family: var(--font-bebas);
+      font-size: clamp(56px, 10vw, 100px);
+      line-height: 0.88;
+      letter-spacing: clamp(-1px, 100vw, -6px);
+      color: color-mix(in oklch, var(--color-light-primary) 50%, transparent);
+    }
+
+    /* chips row */
+    .es-chips {
+      @apply flex flex-wrap gap-[5px];
+    }
+
+    .es-chip {
+      @apply inline-flex items-center px-[9px] py-[3px];
+      font-family: var(--font-mono);
+      font-size: 6.5px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: color-mix(in oklch, var(--color-light-primary) 40%, transparent);
+      border: 1px solid var(--color-transition-gray);
+    }
+  }
+}
+
+@media (max-width: 1140px) {
+    .es-bg-chars {
+      width: clamp(45px,10vw,120px)
+    }
+}

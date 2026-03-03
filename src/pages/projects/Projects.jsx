@@ -1,10 +1,10 @@
-import "../styles/projects.css";
+import "../../styles/projects.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef, useEffect } from "react";
-import Transition from "../components/Transition";
+import Transition from "../../components/Transition";
 import { Link } from "react-router-dom";
-import GalleryBackground from "../components/GalleryBackground";
+import GalleryBackground from "../../components/GalleryBackground";
 
 const Projects = () => {
   const galleryRef = useRef(null);

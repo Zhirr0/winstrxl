@@ -11,6 +11,7 @@ import gsap from "gsap";
 import { AnimatePresence } from "motion/react";
 import { ReactLenis } from "lenis/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 /* Utilities */
 import { useMediaQuery } from "react-responsive";
@@ -22,9 +23,19 @@ import Home from "./pages/Home";
 import HeroSvgPath from "./components/HeroSvgPath";
 import MenuButton from "./components/MenuButton";
 import MenuSection from "./components/MenuSection";
-import { useGSAP } from "@gsap/react";
-import Projects from "./pages/Projects";
-import GalleryList from "./pages/GalleryList";
+
+/* projects */
+import Projects from "./pages/projects/Projects";
+import GalleryList from "./pages/gallery-list/GalleryList";
+
+/* the other three router
+  esports
+  clientDesign
+  posters
+*/
+import Esports from "./pages/esports/Esports";
+import ClientWork from "./pages/client-work/ClientWork";
+import Posters from "./pages/posters/Posters";
 
 const App = () => {
   const location = useLocation();
@@ -100,7 +111,7 @@ const App = () => {
         smoothWheel: true,
         duration: 1,
         lerp: 0.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -8 * t)),
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -7 * t)),
       }}
       ref={lenisRef}
     >
@@ -113,9 +124,16 @@ const App = () => {
       </div>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
+          
           <Route index element={<Home />} />
+
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/list" element={<GalleryList />} />
+
+          <Route path="/esports" element={<Esports />} />
+          <Route path="/client-work" element={<ClientWork />} />
+          <Route path="/posters" element={<Posters />} />
+          
         </Routes>
       </AnimatePresence>
     </ReactLenis>

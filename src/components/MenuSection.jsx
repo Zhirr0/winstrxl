@@ -13,10 +13,9 @@ const MenuSection = () => {
   const fromBottomSplitRef = useRef(null);
   const [leftMenuKey, setLeftMenuKey] = useState(0);
 
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  
   function handleSelectLink(e, sectionId) {
     e.preventDefault();
     closeMenu();
@@ -29,9 +28,10 @@ const MenuSection = () => {
           .getElementById(sectionId)
           ?.scrollIntoView({ behavior: "smooth" });
       }, 2000);
-
     } else {
-      document.getElementById(sectionId)?.scrollIntoView({behavior: 'smooth'})
+      document
+        .getElementById(sectionId)
+        ?.scrollIntoView({ behavior: "smooth" });
     }
   }
 
@@ -186,15 +186,13 @@ const MenuSection = () => {
         <LeftMenuContainer key={leftMenuKey} />
       </div>
       <div style={{ padding: "0px 30px" }} className="right-menu bottom-menu">
-        <a
-          href="#story"
-          onClick={(e) => handleSelectLink(e, "story")}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
+        <a href="#story" style={{ textDecoration: "none", color: "inherit" }}>
           <div className="about-container right-container">
             <div>
               <p>01</p>
-              <h3 className="menu-animated-headers">ABOUT</h3>
+              <Link onClick={() => closeMenu()} to={"/esports"}>
+                <h3 className="menu-animated-headers">ESPORTS</h3>
+              </Link>
             </div>
             <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
           </div>
@@ -212,29 +210,25 @@ const MenuSection = () => {
         </div>
 
         <hr style={{ margin: "20px 0px" }} />
-        <a
-          href="#clients"
-          onClick={(e) => handleSelectLink(e, "clients")}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
+        <a href="#clients" style={{ textDecoration: "none", color: "inherit" }}>
           <div className="clients-container right-container">
             <div>
               <p>03</p>
-              <h3 className="menu-animated-headers">CLIENTS</h3>
+              <Link onClick={() => closeMenu()} to={"/posters"}>
+                <h3 className="menu-animated-headers">POSTERS</h3>
+              </Link>
             </div>
             <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
           </div>
         </a>
         <hr style={{ margin: "20px 0px" }} />
-        <a
-          href="#contact"
-          onClick={(e) => handleSelectLink(e, "contact")}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
+        <a href="#contact" style={{ textDecoration: "none", color: "inherit" }}>
           <div className="contacts-container right-container">
             <div>
               <p>04</p>
-              <h3 className="menu-animated-headers">CONTACT</h3>
+              <Link onClick={() => closeMenu()} to={"/client-work"}>
+                <h3 className="menu-animated-headers">CLIENT WORK</h3>
+              </Link>
             </div>
             <img src="/svg/plus.svg" className="w-3 h-auto" alt="" />
           </div>

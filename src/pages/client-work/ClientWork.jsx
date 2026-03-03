@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ClientDesigns() {
+export default function ClientWork() {
   return (
     <div>
       
