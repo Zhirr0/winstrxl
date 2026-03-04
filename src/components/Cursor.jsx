@@ -5,7 +5,7 @@ import { SplitText } from "gsap/SplitText";
 import { useMediaQuery } from "react-responsive";
 gsap.registerPlugin(Observer, SplitText);
 
-const size = 40;
+const size = 30;
 
 const Cursor = () => {
   const cursorRef = useRef(null);

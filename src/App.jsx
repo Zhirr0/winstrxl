@@ -111,7 +111,7 @@ const App = () => {
         smoothWheel: true,
         duration: 1,
         lerp: 0.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -7 * t)),
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       }}
       ref={lenisRef}
     >

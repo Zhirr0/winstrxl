@@ -12,8 +12,9 @@ export default function EsportsHero() {
           gsap.from(self.chars, {
             yPercent: 100,
             rotateY: 90,
-            duration: 4,
-            ease: "expo.out",
+            duration: 2,
+            stagger: 0.2,
+            ease: "power3.out",
           });
         },
       });
@@ -28,8 +29,9 @@ export default function EsportsHero() {
         gsap.from(self.chars, {
           rotateY: 90,
           yPercent: 100,
-          duration: 4,
-          ease: 'expo.out'
+          duration: 2,
+          ease: 'power3.out',
+          stagger: 0.05,
 
         })
       }
