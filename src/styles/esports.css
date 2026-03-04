@@ -14,16 +14,6 @@
 @layer components {
   .es-hero {
     @apply bg-dark-red-primary relative w-full min-h-svh flex flex-col justify-end overflow-hidden;
-    .es-scan {
-      @apply absolute inset-0 pointer-events-none;
-      background: repeating-linear-gradient(
-        180deg,
-        transparent,
-        transparent 4px,
-        color-mix(in oklch, var(--color-light-primary) 3%, transparent) 4px,
-        color-mix(in oklch, var(--color-light-primary) 3%, transparent) 5px
-      );
-    }
 
     .es-bg-letter {
       @apply absolute overflow-visible top-0 -left-[10px] text-light-primary/50 font-bebas select-none whitespace-nowrap;
@@ -111,7 +101,6 @@
 
           .es-ai-thumb {
             @apply w-full h-full bg-[#fff]/20;
-
           }
 
           .es-ai-org {
@@ -136,7 +125,6 @@
       }
     }
   }
-
   @media (max-width: 1024px) {
     .es-feat {
       @apply grid-cols-1;
@@ -154,12 +142,107 @@
       }
     }
   }
+  .es-games-header {
+    @apply flex items-center text-light-primary justify-between;
+
+    .es-games-sh-left {
+      @apply font-mono uppercase;
+      font-size: 10px;
+      letter-spacing: 3px;
+    }
+
+    .es-games-sh-right {
+      @apply font-mono uppercase;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+  }
+  .es-games-grid {
+    @apply bg-light-primary/60 h-full;
+    border-radius: 10px;
+    padding: 10px;
+
+    .es-games-container {
+      @apply grid rounded-[7px] bg-dark-primary;
+      gap: 1px;
+      grid-template-columns: repeat(8, 1fr);
+
+      @media (max-width: 1200px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      @media (max-width: 767px) {
+        grid-template-columns: repeat(6, 1fr);
+
+        .es-game-card {
+          grid-column: span 2;
+        }
+
+        .es-game-card:nth-last-child(2):nth-child(3n + 1) {
+          grid-column: span 3;
+        }
+
+        .es-game-card:last-child:nth-child(3n + 2) {
+          grid-column: span 3;
+        }
+      }
+      @media (max-width: 539px) {
+        grid-template-columns: repeat(2, 1fr);
+
+        .es-game-card,
+        .es-game-card:nth-last-child(2):nth-child(3n + 1),
+        .es-game-card:last-child:nth-child(3n + 2) {
+          grid-column: span 1; /* ← resets all overrides from the 767px rule */
+        }
+      }
+
+      @media (max-width: 359px) {
+        grid-template-columns: 1fr;
+      }
+
+      .es-game-card {
+        @apply flex flex-col items-center justify-center;
+        padding: 24px 16px;
+        min-height: 140px;
+        position: relative;
+        cursor: pointer;
+
+        .es-game-icon {
+          height: 44px;
+          width: auto;
+          object-fit: contain;
+          margin-bottom: 12px;
+          filter: brightness(0.9);
+        }
+
+        .es-game-title {
+          @apply font-barlow font-bold text-light-primary/[.28];
+          font-size: 12px;
+          letter-spacing: 1.5px;
+          text-align: center;
+          text-transform: uppercase;
+          line-height: 1.3;
+
+          @media (max-width: 768px) {
+            font-size: 10px;
+            letter-spacing: 1px;
+          }
+        }
+
+        .es-game-count {
+          @apply font-mono text-[#444];
+          font-size: 9px;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin-top: 3px;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
   .es-feat {
     @apply grid-cols-1 gap-10;
-
   }
 }
 

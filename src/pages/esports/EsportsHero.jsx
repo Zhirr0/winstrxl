@@ -39,8 +39,6 @@ export default function EsportsHero() {
   }, []);
   return (
     <section className="es-hero">
-      <div className="es-scan" />
-
       <div
         style={{ marginTop: "25px", marginLeft: "5px" , }}
         className="es-bg-letter"

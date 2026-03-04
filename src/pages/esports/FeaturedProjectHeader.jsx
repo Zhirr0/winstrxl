@@ -4,7 +4,7 @@ export default function FeaturedProjectHeader() {
   const breakPoint = useMediaQuery({ maxWidth: 1024 });
   return (
     <div
-      style={{ padding: breakPoint ? "14px 20px" : "18px 36px" }}
+      style={{ padding: breakPoint ? "2px 5px" : "10px 15px" }}
       className="es-section-header"
     >
       <span className="es-sh-left">Featured Project</span>
