@@ -1,3 +1,4 @@
+/* esports css */
 @import "tailwindcss";
 
 @theme {
@@ -71,7 +72,7 @@
       grid-template-columns: 2fr 1fr;
 
       .es-feat-img {
-        @apply relative h-[90svh] bg-white/20;
+        @apply relative h-[90svh] bg-transparent overflow-hidden;
 
         .es-feat-over {
           @apply absolute bottom-0 left-0 right-0;

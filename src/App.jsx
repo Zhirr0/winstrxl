@@ -36,11 +36,14 @@ import GalleryList from "./pages/gallery-list/GalleryList";
 import Esports from "./pages/esports/Esports";
 import ClientWork from "./pages/client-work/ClientWork";
 import Posters from "./pages/posters/Posters";
+import Footer from "./pages/Footer";
 
 const App = () => {
   const location = useLocation();
   const lenisRef = useRef();
   const isTouchScreenSize = useMediaQuery({ maxWidth: 1024 });
+  const FOOTER_ROUTES = ["/esports", "/client-work", "/posters"];
+
   useGSAP(() => {
     gsap.from(".hero, .hamburger-btn, nav", {
       yPercent: -10,
@@ -124,7 +127,6 @@ const App = () => {
       </div>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          
           <Route index element={<Home />} />
 
           <Route path="/projects" element={<Projects />} />
@@ -133,9 +135,10 @@ const App = () => {
           <Route path="/esports" element={<Esports />} />
           <Route path="/client-work" element={<ClientWork />} />
           <Route path="/posters" element={<Posters />} />
-          
         </Routes>
       </AnimatePresence>
+
+      {FOOTER_ROUTES.includes(location.pathname) && <Footer />}
     </ReactLenis>
   );
 };

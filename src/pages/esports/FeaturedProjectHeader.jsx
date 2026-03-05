@@ -8,7 +8,7 @@ export default function FeaturedProjectHeader() {
       className="es-section-header"
     >
       <span className="es-sh-left">Featured Project</span>
-      <span className="es-sh-right">Spotlight · 2024</span>
+      <span className="es-sh-right">Spotlight · 2026</span>
     </div>
   );
 }

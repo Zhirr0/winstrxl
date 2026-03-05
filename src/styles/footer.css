@@ -1,0 +1,341 @@
+:root {
+  --ftv-text-dim: #6a6a6a;
+  --ftv-text-soft: rgba(255, 255, 255, 0.45);
+  --ftv-text-mid: rgba(255, 255, 255, 0.6);
+  --ftv-text-strong: rgba(255, 255, 255, 0.75);
+  --ftv-text-link: rgba(255, 255, 255, 0.65);
+  --ftv-text-hover: #ffffff;
+
+  --ftv-border-dark: #161616;
+  --ftv-border-mid: #282828;
+  --ftv-bg-soft: #1f1f1f;
+
+  --ftv-icon-text: #8a8a8a;
+  --ftv-arrow: #6a6a6a;
+  --ftv-ticker: #4a4a4a;
+}
+
+.ftv {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: transparent;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.ftv-grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.18;
+  background-size: 80px 80px;
+}
+
+.ftv-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.13) 2px,
+    rgba(0, 0, 0, 0.13) 3px
+  );
+}
+
+.ftv-vign {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(
+    ellipse 130% 130% at 50% 50%,
+    transparent 15%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+.ftv-inner {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.ftv-brand-wrap {
+  margin-top: 100px;
+  user-select: none;
+  overflow: hidden;
+  height: 38%;
+}
+
+.ftv-rule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ftv-rule-line {
+  flex: 1;
+  height: 1px;
+  min-width: 30px;
+  background: var(--ftv-bg-soft);
+}
+
+.ftv-rule-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--ftv-text-dim);
+  flex-shrink: 0;
+}
+
+.ftv-rule-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Roboto Mono", monospace;
+  font-size: 6.5px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ftv-text-dim);
+}
+
+.ftv-rule-sep {
+  color: var(--ftv-border-mid);
+}
+
+.ftv-avail-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #39d353;
+  flex-shrink: 0;
+  animation: ftv-pulse 2.4s ease-in-out infinite;
+}
+
+.ftv-cols {
+  max-height: 350px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  flex: 1;
+  border-top: 1px solid var(--ftv-border-dark);
+  border-bottom: 1px solid var(--ftv-border-dark);
+}
+
+
+.ftv-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-right: 1px solid var(--ftv-border-dark);
+}
+
+.ftv-col--last {
+  border-right: none;
+}
+
+.ftv-col-lbl {
+  font-family: "Roboto Mono", monospace;
+  font-size: 9.5px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ftv-text-dim);
+  margin-bottom: 2px;
+}
+
+.ftv-tagline {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ftv-text-soft);
+}
+
+.ftv-email {
+  font-family: "Roboto Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--ftv-text-mid);
+  border-bottom: 1px solid var(--ftv-border-mid);
+  width: fit-content;
+  padding-bottom: 3px;
+  margin-top: 4px;
+}
+
+.ftv-links {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ftv-link {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ftv-text-link);
+  cursor: pointer;
+  position: relative;
+  width: fit-content;
+  text-decoration: none;
+  transition: color 0.12s;
+}
+
+.ftv-link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--ftv-text-hover);
+  transition: width 0.2s ease;
+}
+
+.ftv-link:hover {
+  color: var(--ftv-text-hover);
+}
+
+.ftv-link:hover::after {
+  width: 100%;
+}
+
+.ftv-link--active {
+  color: var(--ftv-text-strong);
+  border-bottom: 1px solid var(--ftv-text-soft);
+}
+
+.ftv-link--active::after {
+  display: none;
+}
+
+.ftv-link--sm {
+  font-size: 13px;
+}
+
+.ftv-social-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ftv-text-link);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.12s;
+}
+
+.ftv-social-row:hover {
+  color: var(--ftv-text-hover);
+}
+
+.ftv-social-row:hover .ftv-social-icon {
+  background: var(--ftv-border-mid);
+  border-color: var(--ftv-text-dim);
+}
+
+.ftv-social-row:hover .ftv-social-arr {
+  transform: translate(2px, -2px);
+}
+
+.ftv-social-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--ftv-bg-soft);
+  border: 1px solid var(--ftv-border-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Roboto Mono", monospace;
+  font-size: 6px;
+  color: var(--ftv-icon-text);
+  flex-shrink: 0;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.ftv-social-arr {
+  margin-left: auto;
+  color: var(--ftv-arrow);
+  font-size: 11px;
+  transition: transform 0.2s;
+}
+
+.ftv-bottom {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.ftv-copy {
+  font-family: "Roboto Mono", monospace;
+  font-size: 6.5px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ftv-text-dim);
+  flex-shrink: 0;
+}
+
+
+
+.ftv-ticker-wrap {
+  overflow: hidden;
+  margin: 0 16px;
+}
+
+.ftv-ticker {
+  font-family: "Roboto Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ftv-ticker);
+  white-space: nowrap;
+  display: inline-block;
+  animation: ftv-tick 32s linear infinite;
+}
+
+@keyframes ftv-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 4px #39d353;
+  }
+  50% {
+    box-shadow:
+      0 0 12px #39d353,
+      0 0 24px rgba(57, 211, 83, 0.25);
+  }
+}
+
+@keyframes ftv-tick {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+@media (max-width: 887px) {
+  .ftv-cols {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .ftv-copy {
+    letter-spacing: 0px;
+  }
+}

@@ -269,7 +269,7 @@ export default function SliderCards() {
 
       <div
         ref={railRef}
-        className="relative w-full h-12 bg-dark-primary border-t border-[#1c1c1c] rounded-b-[10px] px-[1em] py-0 flex items-center justify-between overflow-hidden"
+        className="relative w-full h-12 border-t border-[#1c1c1c] rounded-b-[10px] px-[1em] py-0 flex items-center justify-between overflow-hidden"
       >
         {Array.from({ length: MARKERS }).map((_, i) => (
           <div key={i} className="w-px h-full bg-[#1e1e1e] shrink-0" />

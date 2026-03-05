@@ -63,124 +63,37 @@ export default function FeaturedProjectCards() {
 
   // text appearing on hover
   useGSAP(() => {
-    document.fonts.ready.then(() => {
-      // main card split
-      const titleSplit = SplitText.create(
-        mainCardRef.current.querySelector(".es-feat-title"),
-        { type: "chars", mask: "chars" },
-      );
-      const subSplit = SplitText.create(
-        mainCardRef.current.querySelector(".es-feat-sub"),
-        { type: "words", mask: "words" },
-      );
+    const mm = gsap.matchMedia();
 
-      gsap.set(titleSplit.chars, { yPercent: 100, rotateY: 180 });
-      gsap.set(subSplit.words, { yPercent: 100, rotateY: 180 });
+    mm.add("(min-width: 1024px)", () => {
+      document.fonts.ready.then(() => {
+        // main card split
+        const titleSplit = SplitText.create(
+          mainCardRef.current.querySelector(".es-feat-title"),
+          { type: "chars", mask: "chars" },
+        );
+        const subSplit = SplitText.create(
+          mainCardRef.current.querySelector(".es-feat-sub"),
+          { type: "words", mask: "words" },
+        );
 
-      mainCardRef.current.addEventListener("mouseenter", () => {
-        gsap.killTweensOf([
-          titleSplit.chars,
-          subSplit.words,
-          mainImgRef.current,
-        ]);
+        gsap.set(titleSplit.chars, { yPercent: 100, rotateY: 180 });
+        gsap.set(subSplit.words, { yPercent: 100, rotateY: 180 });
 
-        gsap.to(mainImgRef.current, {
-          scale: 1.06,
-          duration: 0.8,
-          ease: "power2.out",
-        });
-
-        gsap.to(titleSplit.chars, {
-          yPercent: 0,
-          rotateY: 0,
-          duration: 2,
-          stagger: 0.01,
-          ease: "power3.out",
-        });
-
-        gsap.to(subSplit.words, {
-          yPercent: 0,
-          rotateY: 0,
-          duration: 2,
-          stagger: 0.025,
-          ease: "power3.out",
-        });
-      });
-
-      mainCardRef.current.addEventListener("mouseleave", () => {
-        gsap.killTweensOf([
-          titleSplit.chars,
-          subSplit.words,
-          mainImgRef.current,
-        ]);
-
-        gsap.to(mainImgRef.current, {
-          scale: 1,
-          duration: 0.8,
-          ease: "power2.out",
-        });
-
-        gsap.to(titleSplit.chars, {
-          yPercent: 100,
-          rotateY: 180,
-          duration: 2,
-          stagger: 0.01,
-          ease: "power3.out",
-        });
-
-        gsap.to(subSplit.words, {
-          yPercent: 100,
-          rotateY: 180,
-          duration: 2,
-          stagger: 0.025,
-          ease: "power3.out",
-        });
-      });
-
-      // aside card split
-      asideCardsRef.current.forEach((card) => {
-        if (!card) return;
-
-        const nameSplit = SplitText.create(card.querySelector(".es-ai-name"), {
-          type: "words",
-          mask: "words",
-        });
-
-        const chipsSplit = SplitText.create(card.querySelectorAll(".es-chip"), {
-          type: "chars",
-          mask: "chars",
-        });
-
-        gsap.set(nameSplit.words, { yPercent: 100, rotateY: 180 });
-        gsap.set(chipsSplit.chars, { yPercent: 100, rotateY: 180 });
-
-        const chipElements = card.querySelectorAll(".es-chip");
-        gsap.set(chipElements, { borderColor: "transparent" });
-        gsap.set(card, { backgroundSize: "100%" });
-
-        card.addEventListener("mouseenter", () => {
+        mainCardRef.current.addEventListener("mouseenter", () => {
           gsap.killTweensOf([
-            nameSplit.words,
-            chipsSplit.chars,
-            chipElements,
-            card,
+            titleSplit.chars,
+            subSplit.words,
+            mainImgRef.current,
           ]);
 
-          gsap.to(card, {
-            backgroundSize: "108%",
+          gsap.to(mainImgRef.current, {
+            scale: 1.06,
             duration: 0.8,
             ease: "power2.out",
           });
 
-          gsap.to(nameSplit.words, {
-            yPercent: 0,
-            rotateY: 0,
-            duration: 2,
-            stagger: 0.025,
-            ease: "power3.out",
-          });
-
-          gsap.to(chipsSplit.chars, {
+          gsap.to(titleSplit.chars, {
             yPercent: 0,
             rotateY: 0,
             duration: 2,
@@ -188,37 +101,29 @@ export default function FeaturedProjectCards() {
             ease: "power3.out",
           });
 
-          gsap.to(chipElements, {
-            borderColor: "#282828",
-            duration: 0.6,
-            stagger: 0.08,
-            ease: "power2.out",
-          });
-        });
-
-        card.addEventListener("mouseleave", () => {
-          gsap.killTweensOf([
-            nameSplit.words,
-            chipsSplit.chars,
-            chipElements,
-            card,
-          ]);
-
-          gsap.to(card, {
-            backgroundSize: "100%",
-            duration: 0.8,
-            ease: "power2.out",
-          });
-
-          gsap.to(nameSplit.words, {
-            yPercent: 100,
-            rotateY: 180,
+          gsap.to(subSplit.words, {
+            yPercent: 0,
+            rotateY: 0,
             duration: 2,
             stagger: 0.025,
             ease: "power3.out",
           });
+        });
 
-          gsap.to(chipsSplit.chars, {
+        mainCardRef.current.addEventListener("mouseleave", () => {
+          gsap.killTweensOf([
+            titleSplit.chars,
+            subSplit.words,
+            mainImgRef.current,
+          ]);
+
+          gsap.to(mainImgRef.current, {
+            scale: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          });
+
+          gsap.to(titleSplit.chars, {
             yPercent: 100,
             rotateY: 180,
             duration: 2,
@@ -226,11 +131,116 @@ export default function FeaturedProjectCards() {
             ease: "power3.out",
           });
 
-          gsap.to(chipElements, {
-            borderColor: "transparent",
-            duration: 0.4,
-            stagger: 0.08,
-            ease: "power2.in",
+          gsap.to(subSplit.words, {
+            yPercent: 100,
+            rotateY: 180,
+            duration: 2,
+            stagger: 0.025,
+            ease: "power3.out",
+          });
+        });
+
+        // aside card split
+        asideCardsRef.current.forEach((card) => {
+          if (!card) return;
+
+          const nameSplit = SplitText.create(
+            card.querySelector(".es-ai-name"),
+            {
+              type: "words",
+              mask: "words",
+            },
+          );
+
+          const chipsSplit = SplitText.create(
+            card.querySelectorAll(".es-chip"),
+            {
+              type: "chars",
+              mask: "chars",
+            },
+          );
+
+          gsap.set(nameSplit.words, { yPercent: 100, rotateY: 180 });
+          gsap.set(chipsSplit.chars, { yPercent: 100, rotateY: 180 });
+
+          const chipElements = card.querySelectorAll(".es-chip");
+          gsap.set(chipElements, { borderColor: "transparent" });
+          gsap.set(card, { backgroundSize: "100%" });
+
+          card.addEventListener("mouseenter", () => {
+            gsap.killTweensOf([
+              nameSplit.words,
+              chipsSplit.chars,
+              chipElements,
+              card,
+            ]);
+
+            gsap.to(card, {
+              backgroundSize: "108%",
+              duration: 0.8,
+              ease: "power2.out",
+            });
+
+            gsap.to(nameSplit.words, {
+              yPercent: 0,
+              rotateY: 0,
+              duration: 2,
+              stagger: 0.025,
+              ease: "power3.out",
+            });
+
+            gsap.to(chipsSplit.chars, {
+              yPercent: 0,
+              rotateY: 0,
+              duration: 2,
+              stagger: 0.01,
+              ease: "power3.out",
+            });
+
+            gsap.to(chipElements, {
+              borderColor: "#282828",
+              duration: 0.6,
+              stagger: 0.08,
+              ease: "power2.out",
+            });
+          });
+
+          card.addEventListener("mouseleave", () => {
+            gsap.killTweensOf([
+              nameSplit.words,
+              chipsSplit.chars,
+              chipElements,
+              card,
+            ]);
+
+            gsap.to(card, {
+              backgroundSize: "100%",
+              duration: 0.8,
+              ease: "power2.out",
+            });
+
+            gsap.to(nameSplit.words, {
+              yPercent: 100,
+              rotateY: 180,
+              duration: 2,
+              stagger: 0.025,
+              ease: "power3.out",
+            });
+
+            gsap.to(chipsSplit.chars, {
+              yPercent: 100,
+              rotateY: 180,
+              duration: 2,
+              stagger: 0.01,
+              ease: "power3.out",
+            });
+
+            gsap.to(chipElements, {
+              borderColor: "transparent",
+              duration: 0.4,
+              stagger: 0.08,
+              ease: "power2.in",
+            });
           });
         });
       });
