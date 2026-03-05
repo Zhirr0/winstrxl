@@ -113,7 +113,23 @@ export default function Footer() {
                 <a key={icon} href={href} className="ftv-social-row">
                   <div className="ftv-social-icon">{icon}</div>
                   <span>{label}</span>
-                  <span className="ftv-social-arr">↗</span>
+                  <span className="ftv-social-arr overflow-visible">
+                    <svg
+                      className="w-[10px] h-auto"
+                      viewBox="0 0 450 450"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M25 425L108.333 341.667M425 25H125M425 25V325M425 25L208.333 241.667"
+                        stroke="white"
+                        stroke-opacity="0.2"
+                        stroke-width="50"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
                 </a>
               ))}
             </div>
