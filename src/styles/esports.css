@@ -13,10 +13,10 @@
 
 @layer components {
   .es-hero {
-    @apply bg-dark-red-primary relative w-full min-h-svh flex flex-col justify-end overflow-hidden;
+    @apply bg-[#202020] relative w-full min-h-svh flex flex-col justify-end overflow-hidden;
 
     .es-bg-letter {
-      @apply absolute overflow-visible top-0 -left-[10px] text-light-primary/50 font-bebas select-none whitespace-nowrap;
+      @apply absolute overflow-visible top-0 -left-[10px] text-light-primary font-bebas select-none whitespace-nowrap;
       font-size: clamp(120px, 28vw, 320px);
       line-height: 0.85;
       letter-spacing: -14px;
@@ -30,12 +30,11 @@
     }
 
     .es-h1 {
-      @apply flex flex-col mb-4;
+      @apply flex flex-col mb-4 text-light-primary;
       font-family: var(--font-bebas);
       font-size: clamp(56px, 10vw, 100px);
       line-height: 0.88;
       letter-spacing: clamp(-1px, 100vw, -6px);
-      color: color-mix(in oklch, var(--color-light-primary) 50%, transparent);
     }
 
     .es-chips {
@@ -72,12 +71,12 @@
       grid-template-columns: 2fr 1fr;
 
       .es-feat-img {
-        @apply relative h-[90svh] bg-[#fff]/20;
+        @apply relative h-[90svh] bg-white/20;
 
         .es-feat-over {
           @apply absolute bottom-0 left-0 right-0;
           padding: 28px 24px;
-          background: linear-gradient(transparent, #000000cc);
+          background: linear-gradient(transparent, #000000cc); 
 
           .es-feat-title {
             @apply font-bebas leading-none text-light-primary/40;
@@ -100,7 +99,7 @@
           gap: 5px;
 
           .es-ai-thumb {
-            @apply w-full h-full bg-[#fff]/20;
+            @apply w-full h-full bg-white/20;
           }
 
           .es-ai-org {
@@ -238,6 +237,62 @@
       }
     }
   }
+  .es-slider {
+    @apply min-h-svh;
+    .slider-header {
+      @apply flex items-center justify-between border-b border-[#161616];
+
+      .slider-header-left {
+        @apply font-mono text-[13px] tracking-[3px] max-[768px]:tracking-[0px] text-white uppercase;
+      }
+
+      .slider-header-right {
+        @apply font-mono text-[13px] tracking-[2px] max-[768px]:tracking-[0px] text-white uppercase;
+      }
+    }
+
+    .sc-track {
+      @apply flex overflow-x-auto gap-5 ;
+      height: calc(100svh - 40px);
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .sc-card {
+        @apply min-w-[360px] overflow-hidden rounded-lg flex-none flex flex-col border-r border-[#161616] h-full;
+
+        .sc-card-img {
+          @apply relative bg-[#0b0b0b] flex-1 min-h-0;
+          max-height: calc(100% - 80px);
+
+          .sc-card-img-label {
+            @apply absolute top-[8px] left-[10px] font-mono text-[10px] tracking-[2px] text-[#333] uppercase;
+          }
+        }
+
+        .sc-card-body {
+          @apply flex flex-col gap-1 bg-[#070707] shrink-0;
+          min-height: 80px;
+          .sc-card-org {
+            @apply font-mono text-[10px] tracking-[2px] text-[#999] uppercase;
+          }
+
+          .sc-card-name {
+            @apply font-barlow text-[15px] font-extrabold tracking-[1px] text-[#ffffff80] uppercase leading-[1.1];
+          }
+
+          .sc-card-chips {
+            @apply flex flex-wrap gap-[3px];
+
+            .sc-card-chip {
+              @apply bg-[#0b0b0b] border border-[#505050] font-mono text-[10px] tracking-[1px] text-[#999] uppercase;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
@@ -248,6 +303,6 @@
 
 @media (max-width: 1140px) {
   .es-bg-chars {
-    width: clamp(45px, 10vw, 120px);
+    width: clamp(45px, 12vw, 120px);
   }
 }

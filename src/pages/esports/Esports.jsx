@@ -2,25 +2,19 @@ import "../../styles/esports.css";
 import EsportsHero from "./EsportsHero";
 import Transition from "../../components/Transition";
 import EsportFeaturedProject from "./EsportFeaturedProject";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useRef } from "react";
 import EsportGames from "./EsportGames";
-
+import EsportsSlider from "./EsportsSlider";
 const Esports = () => {
-  const spacerRef = useRef(null);
-  useGSAP(() => {
-    gsap.set(spacerRef.current, {
-      height: "20svh",
-    });
-  }, []);
   return (
     <main>
       <EsportsHero />
-      <div ref={spacerRef} />
+      <div className="min-h-[20svh]" />
       <EsportFeaturedProject />
-      <div ref={spacerRef} />
+      <div className="min-h-[20svh]" />
       <EsportGames />
+      <div className="min-h-[20svh]" />
+      <EsportsSlider />
+      <div className="min-h-[20svh]" />
     </main>
   );
 };

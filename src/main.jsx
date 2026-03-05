@@ -13,6 +13,7 @@ import DrawSVGPlugin from "gsap/DrawSVGPlugin";
 import { Draggable, Flip } from "gsap/all";
 import MorphSVGPlugin from "gsap/MorphSVGPlugin";
 import CustomEase from "gsap/CustomEase";
+import InertiaPlugin from "gsap/InertiaPlugin";
 
 // Register ALL plugins once
 gsap.registerPlugin(
@@ -23,6 +24,7 @@ gsap.registerPlugin(
   Flip,
   MorphSVGPlugin,
   CustomEase,
+  InertiaPlugin
 );
 
 createRoot(document.getElementById("root")).render(

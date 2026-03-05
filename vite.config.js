@@ -7,9 +7,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ["motion", "framer-motion", "motion/react"],
   },
-  server: {
-    allowedHosts: ["suggestions-assisted-arrive-linda.trycloudflare.com"],
-  },
+
   plugins: [
     react({
       babel: {

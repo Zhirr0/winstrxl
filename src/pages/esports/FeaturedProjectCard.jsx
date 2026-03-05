@@ -28,11 +28,25 @@ export default function FeaturedProjectCards() {
 
   // parallax effect
   useGSAP(() => {
-    const mm = gsap.matchMedia();
+    ScrollTrigger.create({
+      trigger: mainCardRef.current,
+      start: "top bottom",
+      end: "bottom top",
+      onUpdate(self) {
+        const pos = gsap.utils.interpolate(
+          PARALLAX_START,
+          PARALLAX_END,
+          self.progress,
+        );
+        gsap.set(mainImgRef.current, { objectPosition: `center ${pos}%` });
+      },
+    });
 
-    mm.add("(min-width: 768px)", () => {
+    asideCardsRef.current.forEach((card) => {
+      if (!card) return;
+
       ScrollTrigger.create({
-        trigger: mainCardRef.current,
+        trigger: card,
         start: "top bottom",
         end: "bottom top",
         onUpdate(self) {
@@ -41,26 +55,8 @@ export default function FeaturedProjectCards() {
             PARALLAX_END,
             self.progress,
           );
-          gsap.set(mainImgRef.current, { objectPosition: `center ${pos}%` });
+          gsap.set(card, { backgroundPosition: `center ${pos}%` });
         },
-      });
-
-      asideCardsRef.current.forEach((card) => {
-        if (!card) return;
-
-        ScrollTrigger.create({
-          trigger: card,
-          start: "top bottom",
-          end: "bottom top",
-          onUpdate(self) {
-            const pos = gsap.utils.interpolate(
-              PARALLAX_START,
-              PARALLAX_END,
-              self.progress,
-            );
-            gsap.set(card, { backgroundPosition: `center ${pos}%` });
-          },
-        });
       });
     });
   }, []);

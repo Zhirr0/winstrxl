@@ -13,7 +13,10 @@ export default function EsportsHero() {
             yPercent: 100,
             rotateY: 90,
             duration: 2,
-            stagger: 0.2,
+            stagger: {
+              from: 'start',
+              amount: 0.2,
+            },
             ease: "power3.out",
           });
         },
@@ -27,11 +30,14 @@ export default function EsportsHero() {
       ,
       onSplit(self) {
         gsap.from(self.chars, {
-          rotateY: 90,
           yPercent: 100,
           duration: 2,
+          rotateY: 90,
           ease: 'power3.out',
-          stagger: 0.05,
+          stagger: {
+            amount: 0.5,
+            from: 'start'
+          },
 
         })
       }
