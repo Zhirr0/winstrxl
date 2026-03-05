@@ -240,7 +240,7 @@
   .es-slider {
     @apply min-h-svh;
     .slider-header {
-      @apply flex items-center justify-between border-b border-[#161616];
+      @apply flex items-center justify-between;
 
       .slider-header-left {
         @apply font-mono text-[13px] tracking-[3px] max-[768px]:tracking-[0px] text-white uppercase;
@@ -260,7 +260,7 @@
         display: none;
       }
       .sc-card {
-        @apply min-w-[360px] overflow-hidden rounded-lg flex-none flex flex-col border-r border-[#161616] h-full;
+        @apply min-w-[360px] overflow-hidden rounded-lg flex-none flex flex-col h-full;
 
         .sc-card-img {
           @apply relative bg-[#0b0b0b] flex-1 min-h-0;
