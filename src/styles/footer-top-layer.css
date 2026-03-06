@@ -15,7 +15,6 @@
   --cta-green: #39d353;
 }
 
-/* ── Root Layer ── */
 .footer-top-layer {
   position: absolute;
   inset: 0;
@@ -27,7 +26,6 @@
   justify-content: stretch;
 }
 
-/* ── CTA Panel ── */
 .footer-cta-panel {
   pointer-events: all;
   width: 100%;
@@ -41,7 +39,6 @@
   overflow: hidden;
 }
 
-/* Noise grain overlay */
 .footer-cta-panel::before {
   content: "";
   position: absolute;
@@ -53,7 +50,6 @@
   background-size: 128px 128px;
 }
 
-/* ── Left Column ── */
 .footer-cta-left {
   position: relative;
   z-index: 1;
@@ -64,7 +60,6 @@
   gap: 14px;
 }
 
-/* Ghost text behind heading */
 .footer-cta-left::before {
   content: "BUILD";
   position: absolute;
@@ -74,12 +69,12 @@
   font-size: clamp(120px, 18vw, 240px);
   line-height: 0.82;
   letter-spacing: -2px;
-  color: var(--cta-w08);
+  color: #505050;
+  opacity: 0.5;
   pointer-events: none;
   white-space: nowrap;
   z-index: 0;
 }
-
 .footer-cta-kicker {
   font-family: "Roboto Mono", monospace;
   font-size: 15px;
@@ -107,22 +102,27 @@
   font-size: clamp(52px, 7vw, 88px);
   line-height: 0.92;
   letter-spacing: -1px;
-  color: var(--cta-w36);
+  color: var(--color-light-primary);
   position: relative;
   z-index: 1;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
 }
 
 .footer-cta-heading em {
   display: block;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--cta-w22);
-  letter-spacing: 9px;
   font-style: normal;
+  letter-spacing: clamp(6px, 1.5vw, 8px);
+  color: #fff;
+  opacity: 0.7;
+  -webkit-text-stroke: 1px #fff;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
-
 .footer-cta-body {
   font-family: "Barlow Condensed", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   color: var(--cta-w22);
   line-height: 1.6;
@@ -131,7 +131,6 @@
   z-index: 1;
 }
 
-/* ── Right Column ── */
 .footer-cta-right {
   position: relative;
   z-index: 1;
@@ -144,13 +143,12 @@
 }
 .footer-cta-description {
   font-family: "Barlow Condensed", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   color: var(--cta-w22);
   line-height: 1.6;
 }
 
-/* ── Action Buttons ── */
 .footer-cta-actions {
   display: flex;
   gap: 8px;
@@ -175,8 +173,6 @@
   text-decoration: none;
 }
 
-
-
 .footer-cta-btn.primary {
   background: var(--cta-acid);
   border-color: var(--cta-acid);
@@ -190,7 +186,6 @@
   box-shadow: 0 0 24px var(--cta-acid-glow);
 }
 
-/* ── Status Indicator ── */
 .footer-cta-status {
   display: flex;
   align-items: center;
@@ -224,7 +219,6 @@
   }
 }
 
-/* ── Scan lines on right panel ── */
 .footer-cta-right::before {
   content: "";
   position: absolute;
@@ -245,7 +239,6 @@
   z-index: 1;
 }
 
-/* ── Responsive ── */
 @media (max-width: 887px) {
   .footer-cta-panel {
     grid-template-columns: 1fr;

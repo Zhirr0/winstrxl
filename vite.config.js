@@ -7,7 +7,9 @@ export default defineConfig({
   optimizeDeps: {
     include: ["motion", "framer-motion", "motion/react"],
   },
-
+  server: {
+    allowedHosts: ["truck-raising-minimal-qualifying.trycloudflare.com"],
+  },
   plugins: [
     react({
       babel: {
