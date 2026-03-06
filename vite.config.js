@@ -8,7 +8,7 @@ export default defineConfig({
     include: ["motion", "framer-motion", "motion/react"],
   },
   server: {
-    allowedHosts: ["truck-raising-minimal-qualifying.trycloudflare.com"],
+    allowedHosts: ["advocacy-adjust-rely-grain.trycloudflare.com"],
   },
   plugins: [
     react({

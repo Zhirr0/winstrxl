@@ -102,19 +102,17 @@
   font-size: clamp(52px, 7vw, 88px);
   line-height: 0.92;
   letter-spacing: -1px;
-  color: var(--color-light-primary);
+  color: oklch(100% 0.00011 271.152);
   position: relative;
+  opacity: .5;
   z-index: 1;
-  -webkit-font-smoothing: antialiased;
-  transform: translateZ(0);
 }
 
 .footer-cta-heading em {
   display: block;
   font-style: normal;
   letter-spacing: clamp(6px, 1.5vw, 8px);
-  color: #fff;
-  opacity: 0.7;
+  color: #505050;
   -webkit-text-stroke: 1px #fff;
   -webkit-font-smoothing: antialiased;
   transform: translateZ(0);
