@@ -4,6 +4,7 @@ import Transition from "../../components/Transition";
 import EsportFeaturedProject from "./EsportFeaturedProject";
 import EsportGames from "./EsportGames";
 import EsportsSlider from "./EsportsSlider";
+import Footer from "../Footer";
 const Esports = () => {
   return (
     <main>
@@ -15,6 +16,7 @@ const Esports = () => {
       <div className="min-h-[20svh]" />
       <EsportsSlider />
       <div className="min-h-[20svh]" />
+      <Footer />
     </main>
   );
 };

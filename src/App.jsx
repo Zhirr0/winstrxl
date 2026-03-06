@@ -36,7 +36,6 @@ import GalleryList from "./pages/gallery-list/GalleryList";
 import Esports from "./pages/esports/Esports";
 import ClientWork from "./pages/client-work/ClientWork";
 import Posters from "./pages/posters/Posters";
-import Footer from "./pages/Footer";
 
 const App = () => {
   const location = useLocation();
@@ -138,7 +137,6 @@ const App = () => {
         </Routes>
       </AnimatePresence>
 
-      {FOOTER_ROUTES.includes(location.pathname) && <Footer />}
     </ReactLenis>
   );
 };

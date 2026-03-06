@@ -32,7 +32,6 @@ const TICKER_TEXT =
 
 export default function Footer() {
   const bottomLayerRef = useRef(null);
-  // Parallax for top layer
   useGSAP(() => {
     ScrollTrigger.create({
       trigger: ".esports-footer",
