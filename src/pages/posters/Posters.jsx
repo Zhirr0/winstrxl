@@ -1,9 +1,13 @@
-import React from "react";
+import Transition from '../../components/Transition'
+import '../../styles/posters.css'
+import PosterHero from './PosterHero'
 
-export default function Posters() {
+const Posters = () => {
   return (
-    <div>
-      
-    </div>
+    <main className='poster-page'>
+      <PosterHero />
+    </main>
   );
 }
+
+export default Transition(Posters)

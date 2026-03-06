@@ -1,0 +1,190 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,700;0,800;1,700&family=Roboto+Mono:wght@300;400;500&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-dark-primary: oklch(14% 0.006 173.6);
+  --color-light-primary: oklch(100% 0.00011 271.152);
+  --color-dark-red-primary: oklch(38% 0.336 25.1);
+  --color-transition-gray: oklch(18.5% 0 360);
+
+  --color-bg-deep: oklch(9% 0.004 173.6);
+  --color-bg-surface: oklch(17% 0.004 173.6);
+
+  --color-border-subtle: oklch(20% 0.003 173.6);
+  --color-border-soft: oklch(27% 0.003 173.6);
+
+  --color-text-dim: oklch(34% 0.003 173.6);
+  --color-text-muted: oklch(52% 0.003 173.6);
+
+  --color-accent-red: oklch(60% 0.26 25.1);
+
+  --color-white-ghost: oklch(100% 0 0 / 0.04);
+  --color-white-faint: oklch(100% 0 0 / 0.14);
+  --color-white-soft: oklch(100% 0 0 / 0.22);
+  --color-white-mid: oklch(100% 0 0 / 0.36);
+  --color-white-raised: oklch(100% 0 0 / 0.55);
+
+  --font-display: "Bebas Neue", sans-serif;
+  --font-condensed: "Barlow Condensed", sans-serif;
+  --font-mono: "Roboto Mono", monospace;
+}
+
+@layer components {
+  .poster-page {
+    @apply w-full bg-dark-primary;
+  }
+
+  .po-hero {
+    @apply grid min-h-svh relative overflow-hidden bg-dark-primary border-b border-border-subtle;
+    grid-template-columns: 1fr 400px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
+    .po-hero-left {
+      @apply bg-bg-deep border-r border-border-subtle;
+    }
+
+    .po-hero-center {
+      @apply relative bg-bg-surface;
+
+      @media (max-width: 768px) {
+        height: 70svh;
+      }
+    }
+
+    .po-hero-right {
+      @apply flex flex-col justify-between bg-bg-deep border-l border-border-subtle;
+
+      @media (max-width: 768px) {
+        flex-direction: column-reverse;
+        border-left: none;
+      }
+
+      .po-hero-intro {
+        @media (max-width: 768px) {
+          height: 50svh;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          border-top: 1px solid var(--color-border-subtle);
+        }
+
+        p:first-child {
+          @apply flex items-center uppercase font-mono text-text-dim;
+          font-size: 10px;
+          letter-spacing: 4px;
+
+          &::before {
+            content: "";
+            @apply inline-block w-5 h-px shrink-0 bg-accent-red;
+            margin-right: 10px;
+            opacity: 0.6;
+          }
+        }
+
+        h1 {
+          @apply leading-[0.88] font-display text-light-primary opacity-70;
+          font-size: clamp(64px, 5vw, 80px);
+        }
+
+        p:nth-child(3) {
+          @apply flex items-center uppercase font-condensed text-white-mid;
+          font-size: 12px;
+          font-weight: 300;
+          letter-spacing: 2px;
+
+          &::before {
+            content: "";
+            @apply inline-block w-10 h-px shrink-0 bg-border-soft;
+            margin-right: 10px;
+          }
+        }
+
+        .po-hero-btns {
+          @apply flex flex-wrap gap-1.5;
+
+          button {
+            @apply inline-flex items-center gap-2 uppercase cursor-pointer font-bold font-condensed border border-border-soft text-text-muted;
+            font-size: 12px;
+            letter-spacing: 2px;
+            transition: all 0.15s;
+
+            &:first-child {
+              @apply bg-white-ghost border-white-faint text-white-soft;
+            }
+
+            &:hover {
+              @apply text-white-raised border-text-muted;
+            }
+          }
+        }
+      }
+
+      .po-active-info {
+        @apply border-t border-border-subtle;
+
+        @media (max-width: 768px) {
+          height: 30svh;
+          display: flex;
+          gap: 4px;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        h2 {
+          @apply leading-none font-display text-light-primary opacity-70;
+          font-size: 34px;
+          letter-spacing: 1px;
+        }
+
+        p:first-of-type {
+          @apply uppercase font-mono text-light-primary opacity-70 tracking-[2px] max-[768px]:tracking-[0px];
+          font-size: 10px;
+        }
+
+
+
+        p:last-of-type {
+          @apply leading-[1.45] font-condensed text-light-primary opacity-40;
+          font-size: 12px;
+          font-weight: 400;
+        }
+
+        .po-poster-nav {
+          @apply flex gap-1.5 flex-row justify-start items-center;
+
+          button {
+            @apply flex items-center justify-center text-sm cursor-pointer border border-border-soft text-text-muted;
+            width: 28px;
+            height: 28px;
+            transition: all 0.12s;
+
+            &:hover {
+              @apply border-text-muted text-white-soft;
+            }
+          }
+
+          span {
+            @apply text-light-primary opacity-70 font-mono text-[15px];
+          }
+        }
+
+        .po-poster-prog {
+          @apply flex items-center gap-1;
+
+          span {
+            @apply flex-1 h-px bg-text-dim;
+
+            &.active {
+              flex: 2;
+              @apply bg-accent-red;
+              opacity: 0.7;
+            }
+          }
+        }
+      }
+    }
+  }
+}
