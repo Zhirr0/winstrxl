@@ -6,6 +6,7 @@ const Posters = () => {
   return (
     <main className='poster-page'>
       <PosterHero />
+      <div className='h-svh'/>
     </main>
   );
 }
