@@ -11,6 +11,7 @@ const PosterHero = () => {
   const previousButtonRef = useRef(null);
   const imageRef = useRef(null);
   const mainContainer = useRef(null);
+
   // setting the initial states
   useGSAP(() => {
     gsap.set(imageRef.current, {
@@ -35,6 +36,12 @@ const PosterHero = () => {
       },
     });
   }, []);
+
+
+  useGSAP(() => {
+    
+  }, [])
+  
   return (
     <section className="po-hero rounded-lg" ref={mainContainer}>
       <div className="po-hero-center relative">
@@ -42,7 +49,6 @@ const PosterHero = () => {
           ref={imageRef}
           src="/images/img1.webp"
           className="absolute inset-0 w-full h-full object-cover"
-
         />
       </div>
 

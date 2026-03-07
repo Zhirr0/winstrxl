@@ -277,7 +277,7 @@ export default function SliderCards() {
 
         <div
           ref={thumbRef}
-          className="absolute h-12 top-1/2 left-0 -translate-y-1/2 inline-flex items-center bg-dark-primary cursor-grab select-none will-change-transform whitespace-nowrap leading-[1.2]"
+          className="absolute  h-12 top-1/2 left-0 -translate-y-1/2 inline-flex items-center bg-dark-primary cursor-grab select-none will-change-transform whitespace-nowrap leading-[1.2]"
         >
           <span className="font-mono text-[10px] tracking-[2px] uppercase text-white/45 px-5 py-[9px]">
             [

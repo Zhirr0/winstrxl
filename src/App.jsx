@@ -20,7 +20,6 @@ import { useMediaQuery } from "react-responsive";
 import Nav from "./components/Nav";
 import Cursor from "./components/Cursor";
 import Home from "./pages/Home";
-import HeroSvgPath from "./components/HeroSvgPath";
 import MenuButton from "./components/MenuButton";
 import MenuSection from "./components/MenuSection";
 
@@ -36,6 +35,7 @@ import GalleryList from "./pages/gallery-list/GalleryList";
 import Esports from "./pages/esports/Esports";
 import ClientWork from "./pages/client-work/ClientWork";
 import Posters from "./pages/posters/Posters";
+import AllPosters from "./pages/posters/allPosters/AllPosters";
 
 const App = () => {
   const location = useLocation();
@@ -118,7 +118,6 @@ const App = () => {
       ref={lenisRef}
     >
       <Nav />
-      <HeroSvgPath />
       <MenuButton />
       <MenuSection />
       <div style={{ display: isTouchScreenSize ? "none" : "block" }}>
@@ -134,6 +133,7 @@ const App = () => {
           <Route path="/esports" element={<Esports />} />
           <Route path="/client-work" element={<ClientWork />} />
           <Route path="/posters" element={<Posters />} />
+          <Route path="/posters/all" element={<AllPosters />} />
         </Routes>
       </AnimatePresence>
 

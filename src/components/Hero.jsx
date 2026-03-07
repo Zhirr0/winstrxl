@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import HeroSvgPath from "./HeroSvgPath";
 
 const Hero = () => {
   useGSAP(() => {
@@ -54,7 +54,7 @@ const Hero = () => {
             yPercent: progress * 200 * -1,
             opacity: 1 - progress,
             ease: "power3.out",
-            overwrite: "auto", 
+            overwrite: "auto",
           });
 
           gsap.to(paraSplit.lines, {
@@ -71,7 +71,9 @@ const Hero = () => {
   const isSmall = useMediaQuery({ maxWidth: 768 });
 
   return (
-    <section style={{ marginBottom: "25vh"}} className="hero">
+    <section style={{ marginBottom: "25vh" }} className="hero">
+      <HeroSvgPath />
+
       <div className="bg-image"></div>
       <div className="hero-text-block">
         <div className="hero-paragraph">
