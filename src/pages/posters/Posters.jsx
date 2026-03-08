@@ -1,4 +1,5 @@
 import Transition from "../../components/Transition";
+import Footer from "../esports/EsportsFooter";
 import AppliedClippingSection from "./AppliedClipingSection";
 import PosterHero from "./PosterHero";
 import PosterSlider from "./PosterSlider";
@@ -14,6 +15,8 @@ const Posters = () => {
       <PosterWaveText />
       <div className="h-[20svh]" />
       <AppliedClippingSection />
+      <div className="h-[20svh]" />
+      <Footer />
     </main>
   );
 };

@@ -1,8 +1,8 @@
 import { useMediaQuery } from "react-responsive";
-import GlitchWordmark from "../components/GlitchWordmark";
-import "../styles/footer.css";
+import GlitchWordmark from "../../components/GlitchWordmark";
+import PosterFooterLayer from './PostersFooterLayer'
+import "../../styles/footer.css";
 import { Link } from "react-router-dom";
-import EsportsFooterLayer from "./esports/EsportsTopLayer";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -62,7 +62,7 @@ export default function Footer() {
   const breakpoint = useMediaQuery({ maxWidth: 887 });
   return (
     <section className="esports-footer relative">
-      <EsportsFooterLayer />
+      <PosterFooterLayer />
 
       <div ref={bottomLayerRef} className="ftv" style={{ height: "100svh" }}>
         <div className="ftv-grid-bg" />

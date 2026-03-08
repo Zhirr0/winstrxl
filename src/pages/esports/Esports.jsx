@@ -4,16 +4,15 @@ import Transition from "../../components/Transition";
 import EsportFeaturedProject from "./EsportFeaturedProject";
 import EsportGames from "./EsportGames";
 import EsportsSlider from "./EsportsSlider";
-import Footer from "../Footer";
-import useFadeOnScroll from '../../hooks/useFadeOnScroll'
+import Footer from "./EsportsFooter";
+import useFadeOnScroll from "../../hooks/useFadeOnScroll";
 
 const Esports = () => {
+  useFadeOnScroll(".es-featured-project", ".es-hero");
+  useFadeOnScroll(".es-games-section", ".es-featured-project");
+  useFadeOnScroll(".es-slider", ".es-games-section");
+  useFadeOnScroll(".esports-footer", ".es-slider");
 
-  useFadeOnScroll('.es-featured-project','.es-hero')
-  useFadeOnScroll('.es-games-section','.es-featured-project')
-  useFadeOnScroll('.es-slider','.es-games-section')
-  useFadeOnScroll('.esports-footer', '.es-slider')
-  
   return (
     <main>
       <EsportsHero />
