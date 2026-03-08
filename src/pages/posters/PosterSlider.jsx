@@ -302,7 +302,7 @@ const PosterSlider = () => {
   };
 
   return (
-    <section className="po-slider-section">
+    <section className="po-slider-section overflow-x-hidden">
       <div
         style={{ padding: "12px 0px" }}
         className="po-slider-header font-mono text-light-primary uppercase flex flex-row justify-between items-center text-center"

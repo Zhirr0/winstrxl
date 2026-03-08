@@ -7,7 +7,7 @@ import PosterWaveText from "./PosterWaveText";
 
 const Posters = () => {
   return (
-    <main className="poster-page">
+    <main className="poster-page overflow-x-hidden">
       <PosterHero />
       <div className="h-[20svh]" />
       <PosterSlider />
