@@ -1,0 +1,99 @@
+.po-slider {
+  position: relative;
+  width: 100%;
+  height: 60svh;
+  overflow: visible;
+  user-select: none;
+  cursor: grab;
+}
+
+.po-slider:active {
+  cursor: grabbing;
+}
+
+.po-slide-track {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  will-change: transform;
+}
+
+.po-slide {
+  flex-shrink: 0;
+  position: relative;
+  width: 350px;
+  height: 400px;
+  margin: 0 5px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .po-slide {
+    width: 200px;
+  }
+}
+
+.po-slide-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  flex: 1;
+}
+
+.po-slide-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(2.25);
+  border-radius: 10px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.po-slide-overlay {
+  position: absolute;
+  bottom: -1.75rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.po-slide:hover .po-slide-overlay {
+  opacity: calc(1 - var(--po-slider-moving, 1));
+}
+
+.po-project-title {
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: white;
+}
+
+.po-project-arrow {
+  width: 16px;
+  height: 16px;
+}
+
+.po-project-arrow svg {
+  stroke: white;
+  stroke-width: 2;
+}
+
+.po-slide-link {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}

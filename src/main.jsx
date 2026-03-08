@@ -14,6 +14,17 @@ import { Draggable, Flip } from "gsap/all";
 import MorphSVGPlugin from "gsap/MorphSVGPlugin";
 import CustomEase from "gsap/CustomEase";
 import InertiaPlugin from "gsap/InertiaPlugin";
+import ScrollToPlugin from "gsap/ScrollToPlugin.js";
+
+// import all css files
+import './styles/esports.css'
+import './styles/footer-top-layer.css'
+import './styles/footer.css'
+import './styles/list-gallery-layout.css'
+import './styles/poster-slider.css'
+import './styles/posters.css'
+import './styles/projects.css'
+
 
 // Register ALL plugins once
 gsap.registerPlugin(
@@ -24,7 +35,8 @@ gsap.registerPlugin(
   Flip,
   MorphSVGPlugin,
   CustomEase,
-  InertiaPlugin
+  InertiaPlugin,
+  ScrollToPlugin
 );
 
 createRoot(document.getElementById("root")).render(

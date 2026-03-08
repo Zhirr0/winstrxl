@@ -4,10 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useRef } from "react";
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
-
 const PARALLAX_START = 0;
-const PARALLAX_END = 20;
+const PARALLAX_END = 70;
 
 const ANIM_CONFIG = {
   progress: {
@@ -23,10 +21,10 @@ const ANIM_CONFIG = {
   text: {
     swapAt: 0.82,
     out: {
-      title: { duration: 0.8, ease: "power2.in", stagger: 0.018 },
-      specs: { duration: 0.65, ease: "power2.in", stagger: 0.04 },
-      desc: { duration: 0.65, ease: "power2.in", stagger: 0.06 },
-      counter: { duration: 0.7, ease: "power2.in" },
+      title: { duration: 0.8, ease: "power3.in", stagger: 0.018 },
+      specs: { duration: 0.65, ease: "power3.in", stagger: 0.04 },
+      desc: { duration: 0.65, ease: "power3.in", stagger: 0.06 },
+      counter: { duration: 0.7, ease: "power3.in" },
     },
     in: {
       title: { duration: 0.85, ease: "power3.out", stagger: 0.02 },
@@ -105,7 +103,7 @@ const PosterHero = () => {
     ScrollTrigger.create({
       trigger: mainContainer.current,
       start: "top top",
-      end: "bottom bottom",
+      end: `+=${window.innerHeight}px`,
       onUpdate(self) {
         const pos = gsap.utils.interpolate(
           PARALLAX_START,
@@ -227,6 +225,11 @@ const PosterHero = () => {
       ANIM_CONFIG.wipe.duration,
     );
 
+    // Lock heights BEFORE splitting to prevent reflow on mobile
+    gsap.set(titleRef.current, { height: titleRef.current.offsetHeight });
+    gsap.set(specsRef.current, { height: specsRef.current.offsetHeight });
+    gsap.set(descRef.current, { height: descRef.current.offsetHeight });
+
     const outTitle = new SplitText(titleRef.current, {
       type: "chars",
       mask: "chars",
@@ -263,6 +266,11 @@ const PosterHero = () => {
         descRef.current.textContent = next.desc;
         counterRef.current.textContent = `${String(newIndex + 1).padStart(2, "0")} / ${String(POSTERS.length).padStart(2, "0")}`;
 
+        // Lock heights BEFORE splitting incoming text too
+        gsap.set(titleRef.current, { height: titleRef.current.offsetHeight });
+        gsap.set(specsRef.current, { height: specsRef.current.offsetHeight });
+        gsap.set(descRef.current, { height: descRef.current.offsetHeight });
+
         const inTitle = new SplitText(titleRef.current, {
           type: "chars",
           mask: "chars",
@@ -287,6 +295,7 @@ const PosterHero = () => {
           ...ANIM_CONFIG.text.in.title,
           onComplete: () => {
             inTitle.revert();
+            gsap.set(titleRef.current, { height: "auto" });
             activeSplitsRef.current = activeSplitsRef.current.filter(
               (s) => s !== inTitle,
             );
@@ -297,6 +306,7 @@ const PosterHero = () => {
           ...ANIM_CONFIG.text.in.specs,
           onComplete: () => {
             inSpecs.revert();
+            gsap.set(specsRef.current, { height: "auto" });
             activeSplitsRef.current = activeSplitsRef.current.filter(
               (s) => s !== inSpecs,
             );
@@ -307,6 +317,7 @@ const PosterHero = () => {
           ...ANIM_CONFIG.text.in.desc,
           onComplete: () => {
             inDesc.revert();
+            gsap.set(descRef.current, { height: "auto" });
             activeSplitsRef.current = activeSplitsRef.current.filter(
               (s) => s !== inDesc,
             );
@@ -377,10 +388,18 @@ const PosterHero = () => {
 
           <div className="po-poster-nav" style={{ marginBottom: "10px" }}>
             <button ref={previousButtonRef} onClick={handlePrevious}>
-              <img src="/svg/arrow-left.svg" className="w-[10px] h-auto object-cover" alt="" />
+              <img
+                src="/svg/arrow-left.svg"
+                className="w-[10px] h-auto object-cover"
+                alt=""
+              />
             </button>
             <button ref={nextButtonRef} onClick={handleNext}>
-              <img src="/svg/arrow-right.svg" className="w-[10px] h-auto object-cover"  alt="" />
+              <img
+                src="/svg/arrow-right.svg"
+                className="w-[10px] h-auto object-cover"
+                alt=""
+              />
             </button>
             <span ref={counterRef} style={{ marginLeft: "10px" }}>
               01 / 04

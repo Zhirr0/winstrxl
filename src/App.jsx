@@ -36,6 +36,7 @@ import Esports from "./pages/esports/Esports";
 import ClientWork from "./pages/client-work/ClientWork";
 import Posters from "./pages/posters/Posters";
 import AllPosters from "./pages/posters/allPosters/AllPosters";
+import PosterViewer from "./pages/posters/specific-poster/PosterViewer";
 
 const App = () => {
   const location = useLocation();
@@ -134,6 +135,9 @@ const App = () => {
           <Route path="/client-work" element={<ClientWork />} />
           <Route path="/posters" element={<Posters />} />
           <Route path="/posters/all" element={<AllPosters />} />
+          <Route path="/posters/viewer" element={<PosterViewer />} />
+
+
         </Routes>
       </AnimatePresence>
 
