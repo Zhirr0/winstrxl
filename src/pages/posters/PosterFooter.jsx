@@ -1,12 +1,13 @@
 import { useMediaQuery } from "react-responsive";
 import GlitchWordmark from "../../components/GlitchWordmark";
-import PosterFooterLayer from './PostersFooterLayer'
 import "../../styles/footer.css";
 import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import PostersFooterLayer from './PostersFooterLayer'
+
 const NAV_LINKS = [
   { label: "Client Designs", href: "/client-designs" },
   { label: "Posters", href: "/posters" },
@@ -30,17 +31,17 @@ const SOCIALS = [
 const TICKER_TEXT =
   "BRAND IDENTITY · SOCIAL KITS · PRINT DESIGN · MERCH · APPAREL · ESPORTS · POSTER PRINTS · MOTION GRAPHICS · BRAND IDENTITY · SOCIAL KITS · PRINT DESIGN · MERCH · APPAREL · ESPORTS · POSTER PRINTS · MOTION GRAPHICS · ";
 
-export default function Footer() {
+export default function PosterFooter() {
   const bottomLayerRef = useRef(null);
   useGSAP(() => {
     ScrollTrigger.create({
-      trigger: ".esports-footer",
+      trigger: ".posters-footer",
       start: "top bottom",
       end: "bottom top",
       scrub: 0.4,
       onUpdate(e) {
         const yPercent = gsap.utils.interpolate(0, -250, e.progress);
-        gsap.set(".footer-top-layer", { yPercent });
+        gsap.set(".po-footer-layer", { yPercent });
       },
     });
   }, []);
@@ -61,8 +62,8 @@ export default function Footer() {
   }, []);
   const breakpoint = useMediaQuery({ maxWidth: 887 });
   return (
-    <section className="esports-footer relative">
-      <PosterFooterLayer />
+    <section className="posters-footer relative">
+      <PostersFooterLayer />
 
       <div ref={bottomLayerRef} className="ftv" style={{ height: "100svh" }}>
         <div className="ftv-grid-bg" />
