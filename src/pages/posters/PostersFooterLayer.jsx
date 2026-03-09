@@ -9,9 +9,9 @@ export default function PostersFooterLayer() {
           <p className="po-footer-kicker">Want something unique?</p>
 
           <h2 className="po-footer-heading">
-            Custom
+            Custom Print
             <br />
-            <em>Print Order</em>
+            <em>Order</em>
           </h2>
 
           <p className="po-footer-body" style={{ marginBottom: "30px" }}>
@@ -34,7 +34,7 @@ export default function PostersFooterLayer() {
               className="po-footer-btn primary"
               style={{ padding: "10px 22px" }}
             >
-              Get a Quote
+              Send a message
             </a>
             <a
               href="/posters"

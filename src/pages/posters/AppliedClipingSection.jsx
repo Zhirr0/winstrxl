@@ -125,7 +125,7 @@ export default function AppliedClippingSection() {
         <Fragment key={i}>
           <ClippingSection section={s} />
           {i < sections.length - 1 && (
-            <hr className="bg-white text-white h-px" />
+            <hr className="bg-transparent text-light-primary h-px" />
           )}
         </Fragment>
       ))}

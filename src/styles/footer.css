@@ -240,20 +240,14 @@
   color: var(--ftv-text-hover);
 }
 
-.ftv-social-row:hover .ftv-social-icon {
-  background: var(--ftv-border-mid);
-  border-color: var(--ftv-text-dim);
-}
 
 .ftv-social-row:hover .ftv-social-arr {
   transform: translate(2px, -2px);
 }
 
 .ftv-social-icon {
-  width: 24px;
+  width: 15px;
   height: 24px;
-  background: var(--ftv-bg-soft);
-  border: 1px solid var(--ftv-border-mid);
   display: flex;
   align-items: center;
   justify-content: center;

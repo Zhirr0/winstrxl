@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import PostersFooterLayer from './PostersFooterLayer'
+import PostersFooterLayer from "./PostersFooterLayer";
 
 const NAV_LINKS = [
   { label: "Client Designs", href: "/client-designs" },
@@ -23,9 +23,21 @@ const SERVICES = [
 ];
 
 const SOCIALS = [
-  { icon: "IG", label: "@winstrxl", href: "https://tr.ee/3IWOPsRo9W" },
-  { icon: "TT", label: "@winstrxl", href: "https://tr.ee/KaIj1fhUr9" },
-  { icon: "BE", label: "winstrxl", href: "https://www.behance.net/Winstrol" },
+  {
+    icon: `/svg/linktree.svg`,
+    label: "Linktree",
+    href: "https://linktr.ee/winstrol",
+  },
+  {
+    icon: `/svg/x.svg`,
+    label: "Twitter",
+    href: "https://x.com/Winstrxl",
+  },
+  {
+    icon: `/svg/instagram.svg`,
+    label: "Instagram",
+    href: "https://www.instagram.com/winstrxl?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+  },
 ];
 
 const TICKER_TEXT =
@@ -105,7 +117,14 @@ export default function PosterFooter() {
                 contrast, and culture — building visuals for brands that refuse
                 to blend in.
               </div>
-              <div className="ftv-email">winstrxl@gmail.com</div>
+              <a
+                className="ftv-email"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=Winstrol821@gmail.com&su=create%20me%20a%20design"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Winstrol821@gmail.com
+              </a>{" "}
             </div>
 
             <div
@@ -148,7 +167,10 @@ export default function PosterFooter() {
               <div className="ftv-links">
                 {SOCIALS.map(({ icon, label, href }) => (
                   <Link key={icon} to={href} className="ftv-social-row">
-                    <div className="ftv-social-icon">{icon}</div>
+                    <img
+                      className="ftv-social-icon"
+                      src={icon}
+                    />
                     <span>{label}</span>
                     <span className="ftv-social-arr overflow-visible">
                       <svg

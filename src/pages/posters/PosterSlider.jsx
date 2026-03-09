@@ -24,7 +24,6 @@ const sliderData = [
   { title: "Neon Fragments", img: "/images/img5.webp", url: "/posters/viewer" },
   { title: "Digital Mirage", img: "/images/img6.webp", url: "/posters/viewer" },
   { title: "Quantum Bloom", img: "/images/img7.webp", url: "/posters/viewer" },
-
   { title: "Crimson Pulse", img: "/images/img8.webp", url: "/posters/viewer" },
   { title: "Lunar Static", img: "/images/img9.webp", url: "/posters/viewer" },
   { title: "Velvet Noise", img: "/images/img10.webp", url: "/posters/viewer" },
@@ -94,6 +93,8 @@ const PosterSlider = () => {
     velocity: 0,
     slideWidth: SLIDE_WIDTH_DESKTOP,
     isDragging: false,
+    isTouching: false, // blocks synthesized mouse events after touch
+    touchId: null,
     startX: 0,
     lastX: 0,
     lastMouseX: 0,
@@ -152,21 +153,32 @@ const PosterSlider = () => {
     state.rafId = requestAnimationFrame(animate);
 
     const handleWheel = (e) => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
       e.preventDefault();
       state.lastScrollTime = Date.now();
-      const delta = e.deltaY * CONFIG.SCROLL_SPEED;
+      // Prefer horizontal scroll (trackpad swipe), fall back to vertical
+      const delta =
+        Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
       state.targetX = clamp(
-        state.targetX - clamp(delta, -CONFIG.MAX_VELOCITY, CONFIG.MAX_VELOCITY),
+        state.targetX -
+          clamp(
+            delta * CONFIG.SCROLL_SPEED,
+            -CONFIG.MAX_VELOCITY,
+            CONFIG.MAX_VELOCITY,
+          ),
         getMinX(),
         0,
       );
     };
 
     const handleTouchStart = (e) => {
+      if (state.isDragging) return;
+      e.preventDefault(); // stops browser synthesizing mouse events after touch
+      state.isTouching = true;
       state.isDragging = true;
+      state.touchId = e.touches[0].identifier;
       state.startX = e.touches[0].clientX;
-      state.lastX = state.targetX;
+      state.lastX = state.currentX;
+      state.targetX = state.currentX;
       state.dragDistance = 0;
       state.hasActuallyDragged = false;
       state.lastScrollTime = Date.now();
@@ -174,21 +186,32 @@ const PosterSlider = () => {
 
     const handleTouchMove = (e) => {
       if (!state.isDragging) return;
-      const deltaX = (e.touches[0].clientX - state.startX) * 1.5;
+      const touch = Array.from(e.touches).find(
+        (t) => t.identifier === state.touchId,
+      );
+      if (!touch) return; // wrong finger, ignore
+      const deltaX = (touch.clientX - state.startX) * 3.5;
       state.targetX = clamp(state.lastX + deltaX, getMinX(), 0);
       state.dragDistance = Math.abs(deltaX);
       if (state.dragDistance > 5) state.hasActuallyDragged = true;
       state.lastScrollTime = Date.now();
     };
 
-    const handleTouchEnd = () => {
+    const handleTouchEnd = (e) => {
+      const touch = Array.from(e.changedTouches).find(
+        (t) => t.identifier === state.touchId,
+      );
+      if (!touch) return; // not our finger lifting
       state.isDragging = false;
+      state.touchId = null;
       setTimeout(() => {
+        state.isTouching = false; // small delay so synthesized mouse events get blocked
         state.hasActuallyDragged = false;
-      }, 100);
+      }, 300);
     };
 
     const handleMouseDown = (e) => {
+      if (state.isTouching) return; // ignore synthesized mouse events after touch
       e.preventDefault();
       state.isDragging = true;
       state.startX = e.clientX;
@@ -200,7 +223,7 @@ const PosterSlider = () => {
     };
 
     const handleMouseMove = (e) => {
-      if (!state.isDragging) return;
+      if (state.isTouching || !state.isDragging) return; 
       const deltaX = (e.clientX - state.lastMouseX) * 2;
       state.targetX = clamp(state.targetX + deltaX, getMinX(), 0);
       state.lastMouseX = e.clientX;
@@ -223,8 +246,8 @@ const PosterSlider = () => {
     };
 
     slider.addEventListener("wheel", handleWheel, { passive: false });
-    slider.addEventListener("touchstart", handleTouchStart);
-    slider.addEventListener("touchmove", handleTouchMove);
+    slider.addEventListener("touchstart", handleTouchStart, { passive: false });
+    slider.addEventListener("touchmove", handleTouchMove, { passive: false });
     slider.addEventListener("touchend", handleTouchEnd);
     slider.addEventListener("mousedown", handleMouseDown);
     slider.addEventListener("mouseleave", handleMouseUp);
@@ -302,12 +325,13 @@ const PosterSlider = () => {
   };
 
   return (
-    <section className="po-slider-section overflow-x-hidden">
+    <section className="po-slider-section">
       <div
         style={{ padding: "12px 0px" }}
         className="po-slider-header font-mono text-light-primary uppercase flex flex-row justify-between items-center text-center"
       >
-        <p className="header-paragraph-left">some of the posters</p> <p className="header-paragraph-right">n posters</p>
+        <p className="header-paragraph-left">some of the posters</p>
+        <p className="header-paragraph-right">n posters</p>
       </div>
       <section
         className="po-slider relativee"
