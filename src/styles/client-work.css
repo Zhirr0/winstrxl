@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark-primary: oklch(14% 0.006 173.6);
+  --color-light-primary: oklch(100% 0.0011 271.152);
+  --color-dark-red-primary: oklch(38% 0.336 25.1);
+  --color-transition-gray: oklch(18.5% 0 360);
+
+  --font-serif: sans-serif;
+  --font-display: "Bebas Neue", sans-serif;
+  --font-condensed: "Barlow Condensed", sans-serif;
+  --font-mono: "Roboto Mono", monospace;
+}
+
+@layer components {
+  .cl-hero {
+    @apply h-svh bg-light-primary rounded-lg text-dark-primary relative;
+    h1 {
+      @apply absolute top-0 right-5 max-[1300px]:top-5 max-[600px]:top-10 max-[768px]:right-3 font-display;
+      letter-spacing: 0px;
+      font-size: clamp(100px, calc(75px + 7.8125svw), 200px);
+    }
+    h3 {
+      @apply absolute bottom-0 left-5 max-[768px]:left-2 font-display;
+      letter-spacing: -2px;
+      line-height: 0.9;
+      font-size: clamp(70px, calc(60.53px + 2.632svw), 100px);
+    }
+  }
+
+  .cl-names {
+    .cl-names-header {
+      @apply flex items-center justify-between;
+
+      .cl-names-header-label {
+        @apply font-mono text-[10px] tracking-[3px] text-light-primary uppercase;
+      }
+
+      .cl-names-header-count {
+        @apply font-mono text-[10px] tracking-[2px] text-light-primary uppercase;
+      }
+    }
+
+    .cl-names-cards {
+      @apply flex flex-col;
+
+      .cl-names-row {
+        @apply grid items-stretch min-h-[100px];
+        grid-template-columns: 48px 64px 1fr 140px 48px;
+        border-bottom: 1px solid #303030;
+        .cl-names-row-num {
+          @apply font-mono text-[10px] text-light-primary flex items-center self-stretch;
+        }
+
+        .cl-names-row-thumb {
+          @apply w-16 bg-[#505050]  self-stretch;
+        }
+
+        .cl-names-row-info {
+          @apply flex flex-col justify-center gap-[3px] self-stretch;
+
+          .cl-names-row-name {
+            @apply font-condensed text-sm font-bold tracking-[1px] text-light-primary;
+          }
+
+          .cl-names-row-sub {
+            @apply font-mono text-[10px] tracking-[2px] text-light-primary uppercase;
+          }
+        }
+
+        .cl-names-row-type {
+          @apply font-mono text-[10px] tracking-[2px] text-light-primary uppercase flex items-center self-stretch;
+        }
+
+        .cl-names-row-arrow {
+          @apply flex items-center justify-center self-stretch text-[13px] text-light-primary;
+        }
+      }
+    }
+  }
+
+  .cl-sticky {
+    @apply relative h-screen overflow-hidden;
+
+    .cl-slider {
+      @apply relative w-full h-full overflow-hidden rounded-lg;
+
+      .cl-slides {
+        @apply relative h-full flex;
+        width: 500%;
+        will-change: transform;
+        transform: translateX(0);
+
+        .cl-slide {
+          @apply relative flex-1 h-full;
+
+          .cl-img {
+            @apply absolute w-full h-full overflow-hidden;
+
+            img {
+              @apply relative w-full h-full object-cover ;
+              object-position: center 25%;
+              will-change: transform;
+              transform: translateX(0);
+            }
+          }
+
+          .cl-title {
+            @apply relative z-[2];
+            width: max-content;
+            height: 200px;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+
+            h1 {
+              @apply relative text-light-primary uppercase;
+              font-size: 85px;
+              font-weight: 900;
+              letter-spacing: -2px;
+              line-height: 0.9;
+              will-change: transform;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -24,7 +24,7 @@ import './styles/list-gallery-layout.css'
 import './styles/poster-slider.css'
 import './styles/posters.css'
 import './styles/projects.css'
-
+import './styles/client-work.css'
 
 // Register ALL plugins once
 gsap.registerPlugin(

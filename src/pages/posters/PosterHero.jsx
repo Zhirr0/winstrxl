@@ -7,6 +7,8 @@ import { useRef } from "react";
 const PARALLAX_START = 0;
 const PARALLAX_END = 70;
 
+const IDLE_DURATION = 5; // seconds before auto-advance
+
 const ANIM_CONFIG = {
   progress: {
     fillOut: { duration: 0.3, ease: "power2.in" },
@@ -77,9 +79,48 @@ const PosterHero = () => {
   const descRef = useRef(null);
   const counterRef = useRef(null);
 
+  // Idle bar refs
+  const idleBarRef = useRef(null);
+  const idleTlRef = useRef(null);
+
   const committedIndexRef = useRef(0);
   const tlRef = useRef(null);
   const activeSplitsRef = useRef([]);
+
+  const stopIdleBar = () => {
+    if (idleTlRef.current) {
+      idleTlRef.current.kill();
+      idleTlRef.current = null;
+    }
+    if (idleBarRef.current) {
+      gsap.set(idleBarRef.current, { scaleX: 0, transformOrigin: "left" });
+    }
+  };
+
+  const startIdleBar = () => {
+    stopIdleBar();
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        idleTlRef.current = null;
+        gsap.to(idleBarRef.current, {
+          scaleX: 0,
+          transformOrigin: "right",
+          duration: 1,
+          ease: "power2.in",
+          onComplete: () => navigateTo((committedIndexRef.current + 1) % POSTERS.length),
+        });
+      },
+    });
+
+    tl.fromTo(
+      idleBarRef.current,
+      { scaleX: 0, transformOrigin: "left" },
+      { scaleX: 1, duration: IDLE_DURATION, ease: "none" },
+    );
+
+    idleTlRef.current = tl;
+  };
 
   useGSAP(() => {
     imageRefs.current.forEach((img, i) => {
@@ -97,6 +138,9 @@ const PosterHero = () => {
     progTrackRefs.current.forEach((track, i) => {
       gsap.set(track, { flexGrow: i === 0 ? 2 : 1 });
     });
+
+    // Kick off the idle bar on mount
+    startIdleBar();
   }, []);
 
   useGSAP(() => {
@@ -119,6 +163,9 @@ const PosterHero = () => {
 
   const navigateTo = (newIndex) => {
     const committed = committedIndexRef.current;
+
+    // Reset idle bar while transition is playing
+    stopIdleBar();
 
     if (tlRef.current) {
       tlRef.current.kill();
@@ -175,6 +222,8 @@ const PosterHero = () => {
         tlRef.current = null;
         nextButtonRef.current.disabled = false;
         previousButtonRef.current.disabled = false;
+        // Restart idle countdown once the slide transition finishes
+        startIdleBar();
       },
     });
 
@@ -225,7 +274,6 @@ const PosterHero = () => {
       ANIM_CONFIG.wipe.duration,
     );
 
-    // Lock heights BEFORE splitting to prevent reflow on mobile
     gsap.set(titleRef.current, { height: titleRef.current.offsetHeight });
     gsap.set(specsRef.current, { height: specsRef.current.offsetHeight });
     gsap.set(descRef.current, { height: descRef.current.offsetHeight });
@@ -266,7 +314,6 @@ const PosterHero = () => {
         descRef.current.textContent = next.desc;
         counterRef.current.textContent = `${String(newIndex + 1).padStart(2, "0")} / ${String(POSTERS.length).padStart(2, "0")}`;
 
-        // Lock heights BEFORE splitting incoming text too
         gsap.set(titleRef.current, { height: titleRef.current.offsetHeight });
         gsap.set(specsRef.current, { height: specsRef.current.offsetHeight });
         gsap.set(descRef.current, { height: descRef.current.offsetHeight });
@@ -355,6 +402,17 @@ const PosterHero = () => {
             className="absolute inset-0 w-full h-full object-cover"
           />
         ))}
+
+        {/* idle bar */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[2px] overflow-hidden z-10"
+          style={{ mixBlendMode: "difference" }}
+        >
+          <div
+            ref={idleBarRef}
+            className="absolute inset-0 bg-white origin-left scale-x-0"
+          />
+        </div>
       </div>
 
       <div className="po-hero-right">

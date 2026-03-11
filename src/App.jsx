@@ -42,7 +42,6 @@ const App = () => {
   const location = useLocation();
   const lenisRef = useRef();
   const isTouchScreenSize = useMediaQuery({ maxWidth: 1024 });
-  const FOOTER_ROUTES = ["/esports", "/client-work", "/posters"];
 
   useGSAP(() => {
     gsap.from(".hero, .hamburger-btn, nav", {

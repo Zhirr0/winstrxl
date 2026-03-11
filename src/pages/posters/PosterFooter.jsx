@@ -10,8 +10,8 @@ import PostersFooterLayer from "./PostersFooterLayer";
 
 const NAV_LINKS = [
   { label: "Client Designs", href: "/client-designs" },
-  { label: "Posters", href: "/posters" },
-  { label: "Esports", href: "/esports", active: true },
+  { label: "Posters", href: "/posters", active: true },
+  { label: "Esports", href: "/esports" },
   { label: "Home", href: "/" },
 ];
 
@@ -167,10 +167,7 @@ export default function PosterFooter() {
               <div className="ftv-links">
                 {SOCIALS.map(({ icon, label, href }) => (
                   <Link key={icon} to={href} className="ftv-social-row">
-                    <img
-                      className="ftv-social-icon"
-                      src={icon}
-                    />
+                    <img className="ftv-social-icon" src={icon} />
                     <span>{label}</span>
                     <span className="ftv-social-arr overflow-visible">
                       <svg
