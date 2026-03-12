@@ -137,6 +137,7 @@ const App = () => {
       </div>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
+        
           <Route index element={<Home />} />
 
           <Route path="/projects" element={<Projects />} />
@@ -147,6 +148,7 @@ const App = () => {
           <Route path="/posters" element={<Posters />} />
           <Route path="/posters/all" element={<AllPosters />} />
           <Route path="/posters/viewer" element={<PosterViewer />} />
+          
         </Routes>
       </AnimatePresence>
     </ReactLenis>

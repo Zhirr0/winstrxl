@@ -223,7 +223,7 @@ const PosterSlider = () => {
     };
 
     const handleMouseMove = (e) => {
-      if (state.isTouching || !state.isDragging) return; 
+      if (state.isTouching || !state.isDragging) return;
       const deltaX = (e.clientX - state.lastMouseX) * 2;
       state.targetX = clamp(state.targetX + deltaX, getMinX(), 0);
       state.lastMouseX = e.clientX;
@@ -336,7 +336,6 @@ const PosterSlider = () => {
       <section
         className="po-slider relativee"
         ref={sliderRef}
-        data-lenis-prevent
       >
         <div className="po-slide-track" ref={trackRef}>
           {sliderData.map((item, i) => (
