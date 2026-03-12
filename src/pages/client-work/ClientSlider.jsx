@@ -45,7 +45,6 @@ export default function ClientSlider() {
                 scrollTrigger: {
                   trigger: slide,
                   start: "top center",
-                  markers: true,
                   toggleActions: "play none none reverse"
                 },
               });

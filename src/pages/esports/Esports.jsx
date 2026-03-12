@@ -6,12 +6,15 @@ import EsportGames from "./EsportGames";
 import EsportsSlider from "./EsportsSlider";
 import Footer from "./EsportsFooter";
 import useFadeOnScroll from "../../hooks/useFadeOnScroll";
+import EsportsGallery from "./EsportsGallery";
 
 const Esports = () => {
+  
   useFadeOnScroll(".es-featured-project", ".es-hero");
   useFadeOnScroll(".es-games-section", ".es-featured-project");
   useFadeOnScroll(".es-slider", ".es-games-section");
-  useFadeOnScroll(".esports-footer", ".es-slider");
+  useFadeOnScroll(".es-gallery", ".es-slider");
+  useFadeOnScroll(".esports-footer", ".es-gallery");
 
   return (
     <main>
@@ -23,6 +26,7 @@ const Esports = () => {
       <div className="min-h-[20svh]" />
       <EsportsSlider />
       <div className="min-h-[20svh]" />
+      <EsportsGallery />
       <Footer />
     </main>
   );
