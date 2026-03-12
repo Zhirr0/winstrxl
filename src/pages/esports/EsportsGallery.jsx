@@ -24,7 +24,7 @@ const getColCount = () => {
 };
 
 export default function EsportsGallery() {
-  const [colCount, setColCount] = useState(5);
+  const [colCount, setColCount] = useState(() => getColCount());
   const sectionRef = useRef(null);
   const colRefs = useRef([]);
 
@@ -53,6 +53,7 @@ export default function EsportsGallery() {
           trigger: sectionRef.current,
           start: "top bottom",
           end: "bottom top",
+          invalidateOnRefresh: true,
           scrub: true,
         },
       });
@@ -68,7 +69,9 @@ export default function EsportsGallery() {
       makeAnimation(3),
     );
     mm.add("(max-width: 639.99px)", () => makeAnimation(2));
-  }, []);
+
+    return () => mm.revert();
+  }, [colCount]);
 
   return (
     <section ref={sectionRef} className="es-gallery">

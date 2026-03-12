@@ -8,7 +8,7 @@ export default defineConfig({
     include: ["motion", "framer-motion", "motion/react"],
   },
   server: {
-    allowedHosts: ["greater-representation-telescope-calculation.trycloudflare.com"],
+    allowedHosts: ["chief-shopzilla-previously-sku.trycloudflare.com"],
   },
   plugins: [
     react({

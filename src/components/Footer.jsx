@@ -3,7 +3,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CardBackground from "./CardBackground";
-import useTextHighlight from "../hooks/useTextHighlight";
 const HrSpecialDesign = ({ className, top, bottom }) => {
   return (
     <div
@@ -58,19 +57,11 @@ export default function Footer() {
     if (firstBreakPoint) return;
     const cards = gsap.utils.toArray(".footer-card-outer");
 
-    // Maps raw scroll progress to animation progress with pause zones:
-    // 0–10%: no movement, 10–60%: first half, 60–70%: pause, 70–100%: second half
-    const remapProgress = (p) => {
-      if (p < 0.3) return 0; // 0–30%: pause
-      if (p < 0.6) return ((p - 0.3) / 0.3) * 0.75; // 30–60%: first active window
-      if (p < 0.9) return 0.75; // 60–90%: pause
-      return 0.75 + ((p - 0.9) / 0.1) * 0.25; // 90–100%: second active window
-    };
     cards.forEach((c, i) => {
       if (i < cards.length - 1) {
         const cardInner = c.querySelector(".footer-card");
 
-        const tween = gsap.fromTo(
+        gsap.fromTo(
           cardInner,
           { scale: 1, y: "0%", opacity: 1 },
           {
@@ -78,22 +69,18 @@ export default function Footer() {
             opacity: 0,
             filter: "blur(10px)",
             ease: "power1.out",
-            paused: true, // ← driven manually by onUpdate
+            scrollTrigger: {
+              trigger: cards[i + 1],
+              start: "top 100%",
+              end: "top -70%",
+              scrub: true,
+              pin: c,
+              pinSpacing: false,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
           },
         );
-
-        ScrollTrigger.create({
-          trigger: cards[i + 1],
-          start: "top 100%",
-          end: "top -70%",
-          pin: c,
-          pinSpacing: false,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate(self) {
-            tween.progress(remapProgress(self.progress));
-          },
-        });
       }
     });
   }, [firstBreakPoint]);
@@ -102,7 +89,7 @@ export default function Footer() {
       trigger: "#contact",
       start: "top 50%",
       end: "top top",
-      invalidateOnRefresh: true,
+
       onUpdate(self) {
         const progress = self.progress;
         const xPercentLeft = gsap.utils.interpolate(-100, 0, progress);
@@ -134,7 +121,7 @@ export default function Footer() {
       trigger: "#clients",
       start: "top 75%",
       end: "top top",
-      invalidateOnRefresh: true,
+
       onUpdate(self) {
         const progress = self.progress;
         const xPercentLeft = gsap.utils.interpolate(-100, 0, progress);
@@ -183,19 +170,6 @@ export default function Footer() {
       });
     });
   }, []);
-
-  useTextHighlight(".client-text-span", ".clients-bottom", 0.01);
-  useTextHighlight(
-    ".text-highlight-contact",
-    ".text-highlight-contact-wrapper",
-    0.01,
-  );
-  useTextHighlight(".text-highlight-story", ".text-highlight-story-wrapper", 0.001);
-  useTextHighlight('.text-highlight-story-2', ".right-side", 0.001)
-  useTextHighlight(".story-card-header-main", ".story-header", 0.05)
-  useTextHighlight(".clients-header-main-header", ".clients-header", 0.05)
-  useTextHighlight(".contact-header-main-header", ".contact-header", 0.01)
-
   return (
     // Main footer container
     <footer className="min-h-screen font-serif">

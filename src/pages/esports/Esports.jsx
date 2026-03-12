@@ -14,7 +14,6 @@ const Esports = () => {
   useFadeOnScroll(".es-games-section", ".es-featured-project");
   useFadeOnScroll(".es-slider", ".es-games-section");
   useFadeOnScroll(".es-gallery", ".es-slider");
-  useFadeOnScroll(".esports-footer", ".es-gallery");
 
   return (
     <main>
@@ -25,8 +24,8 @@ const Esports = () => {
       <EsportGames />
       <div className="min-h-[20svh]" />
       <EsportsSlider />
-      <div className="min-h-[20svh]" />
       <EsportsGallery />
+      <div className="min-h-[20svh]"></div>
       <Footer />
     </main>
   );

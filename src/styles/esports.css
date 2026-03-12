@@ -295,7 +295,7 @@
     }
   }
   .es-gallery {
-    @apply bg-neutral-950 min-h-screen p-6;
+    @apply bg-neutral-950 min-h-screen p-6 overflow-hidden h-auto;
 
     .es-gallery-grid {
       display: flex;
@@ -312,6 +312,7 @@
 
     .es-gallery-img {
       @apply relative overflow-hidden rounded-2xl cursor-pointer;
+      aspect-ratio: 3 / 4; /* reserves space before image loads */
 
       img {
         @apply w-full h-full object-cover block will-change-transform;

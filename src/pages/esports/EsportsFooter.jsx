@@ -51,6 +51,7 @@ export default function Footer() {
       start: "top bottom",
       end: "bottom top",
       scrub: 0.4,
+      invalidateOnRefresh: true,
       onUpdate(e) {
         const yPercent = gsap.utils.interpolate(0, -250, e.progress);
         gsap.set(".footer-top-layer", { yPercent });
