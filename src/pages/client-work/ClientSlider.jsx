@@ -4,13 +4,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useRef } from "react";
 import useImageParallax from "../../hooks/useImageParallax";
+import { useMediaQuery } from "react-responsive";
 
 const slides = [
-  { id: 1, src: "/images/img1.webp" },
-  { id: 2, src: "/images/img2.webp" },
-  { id: 3, src: "/images/img3.webp" },
-  { id: 4, src: "/images/img4.webp" },
-  { id: 5, src: "/images/img5.webp" },
+  { id: 1, src: "/Clients/Thumbnails/All 10.jpg" },
+  { id: 2, src: "/Clients/Thumbnails/Amosang Thumbnail.jpg" },
+  { id: 3, src: "/Clients/Thumbnails/Back it up.jpg" },
+  { id: 4, src: "/Clients/Thumbnails/I Know.jpg" },
+  { id: 5, src: "/Clients/Thumbnails/Lars2k thumbnail (2).jpg" },
+  { id: 6, src: "/Clients/Thumbnails/Move it!.jpg" },
+  { id: 7, src: "/Clients/Thumbnails/Succubus.png" },
+  { id: 8, src: "/Clients/Thumbnails/Thumbnail for LARS.jpg" },
 ];
 
 export default function ClientSlider() {
@@ -18,6 +22,8 @@ export default function ClientSlider() {
   const slidesContainerRef = useRef(null);
   const sliderRef = useRef(null);
   const slideRefs = useRef([]);
+
+  const breakpoint = useMediaQuery({maxWidth: 1024})
 
   // custom hook
   useImageParallax(slideRefs, ".cl-img img", "(max-width: 1023.999px)");
@@ -45,7 +51,7 @@ export default function ClientSlider() {
                 scrollTrigger: {
                   trigger: slide,
                   start: "top center",
-                  toggleActions: "play none none reverse"
+                  toggleActions: "play none none reverse",
                 },
               });
             },
@@ -62,7 +68,7 @@ export default function ClientSlider() {
     const slider = sliderRef.current;
     const slideElements = slideRefs.current;
 
-    const stickyHeight = window.innerHeight * 16;
+    const stickyHeight = window.innerHeight * slides.length * 3.2;
     const totalMove = slidesContainer.offsetWidth - slider.offsetWidth;
     const slideWidth = slider.offsetWidth;
 
@@ -175,7 +181,7 @@ export default function ClientSlider() {
               <div className="cl-img">
                 <img src={slide.src} alt="" />
               </div>
-              <div className="cl-title" style={{ margin: "1.5em" }}>
+              <div className="cl-title" style={{ margin: breakpoint ? ".5em" : "1.5em" }}>
                 <h1>
                   Title Line 1 <br />
                   Title Line 2

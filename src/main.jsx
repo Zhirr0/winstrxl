@@ -39,10 +39,6 @@ gsap.registerPlugin(
   ScrollToPlugin
 );
 
-history.scrollRestoration = "manual";
-window.scrollTo(0, 0);
-ScrollTrigger.normalizeScroll(true);
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>

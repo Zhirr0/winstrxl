@@ -86,19 +86,60 @@
 
       .cl-slides {
         @apply relative flex flex-col w-full gap-3 p-3
-             md:grid md:grid-cols-2
-             lg:flex lg:flex-row lg:w-[500%] lg:h-full lg:gap-0 lg:p-0;
+       lg:flex lg:flex-row lg:w-[800%] lg:h-full lg:gap-0 lg:p-0;
+
         will-change: transform;
         transform: translateX(0);
 
+        @media (max-width: 1023.999px) {
+          display: grid;
+          padding: 12px;
+          gap: 12px;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: auto;
+        }
+
+        @media (max-width: 767.999px) {
+          display: flex;
+          flex-direction: column;
+        }
         .cl-slide {
           @apply relative w-full overflow-hidden rounded-xl
-               h-[70vw]
-               md:h-[38vw]
-               lg:flex-1 lg:h-full lg:rounded-none lg:overflow-visible;
+         h-[70vw]
+         lg:flex-1 lg:h-full lg:rounded-none lg:overflow-visible;
 
-          &:last-child {
-            @apply md:col-span-2;
+          @media (max-width: 1023.999px) {
+            height: 30vw;
+
+            &:nth-child(1) {
+              grid-column: span 3;
+              height: 45vw;
+            }
+
+            &:nth-child(2),
+            &:nth-child(3),
+            &:nth-child(4),
+            &:nth-child(5),
+            &:nth-child(6),
+            &:nth-child(7) {
+              grid-column: span 1;
+              height: auto;
+              aspect-ratio: 4 / 3;
+            }
+
+            &:nth-child(8) {
+              grid-column: span 3;
+              height: 45vw;
+            }
+          }
+
+          @media (max-width: 768px) {
+            &:nth-child(1),
+            &:nth-child(8) {
+              grid-column: span 3;
+              height: auto;
+              aspect-ratio: 4 / 3;
+            }
           }
 
           .cl-img {
@@ -116,16 +157,38 @@
             @apply relative z-[2] h-auto lg:h-[200px];
             width: max-content;
             clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            mix-blend-mode: difference;
 
             h1 {
-              @apply relative text-light-primary uppercase;
+              @apply relative text-white uppercase;
               font-weight: 900;
               letter-spacing: -2px;
               line-height: 0.9;
               will-change: transform;
-              font-size: clamp(28px, 7.5vw, 44px);
 
-              @apply md:text-[clamp(36px,4.5vw,60px)] lg:text-[85px];
+              /* lg+ (1024px+): always 60px */
+              @media (min-width: 1024px) {
+                font-size: 60px;
+              }
+
+              /* tablet (768px–1023px): 30px for slides 1 and 8 */
+              @media (min-width: 768px) and (max-width: 1023.999px) {
+                font-size: 30px;
+              }
+
+              /* mobile (<768px): clamp 20px→40px between 360px–767px */
+              @media (max-width: 767.999px) {
+                font-size: clamp(20px, 2.31px + 4.91vw, 40px);
+              }
+            }
+          }
+
+          /* tablet override for slides 2–7: smaller text */
+          &:nth-child(n + 2):nth-child(-n + 7) {
+            .cl-title h1 {
+              @media (min-width: 768px) and (max-width: 1023.999px) {
+                font-size: 20px;
+              }
             }
           }
         }

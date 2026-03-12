@@ -316,6 +316,12 @@ const PosterSlider = () => {
     });
   }, []);
 
+  useGSAP(() => {
+    gsap.from('.po-slider-section', {
+      opacity: 0, xPercent: 50, duration: 1.5, ease: 'power3.out', scrollTrigger: {trigger: '.po-slider-section',markers: true, start: "bottom 100%"}
+    })
+  }, [])
+
   // Suppress navigation if the user was dragging
   const handleLinkClick = (e) => {
     const state = s.current;
