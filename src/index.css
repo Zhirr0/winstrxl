@@ -559,7 +559,7 @@ button {
 
       .contact-center {
         @apply flex max-[768px]:flex-col max-[768px]:justify-center items-center flex-row justify-between gap-30;
-        p {
+        .text-highlight-contact-wrapper {
           @apply w-1/2 max-[768px]:w-[95%];
           font-size: 14px;
         }

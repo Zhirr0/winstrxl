@@ -8,15 +8,14 @@ import { useMediaQuery } from "react-responsive";
 import { SplitText } from "gsap/SplitText";
 import { Link } from "react-router-dom";
 import { useProjectsSectionMobile } from "../hooks/useProjectSectionMobileAnimation";
-import useCursorFreeze from '../utils/useCursorFreeze'
+import useCursorFreeze from "../utils/useCursorFreeze";
 const Projects = () => {
   const projectsSectionRef = useRef(null);
   const isNotDesktop = useMediaQuery({ maxWidth: 1024 });
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const buttonRef = useRef(null);
 
-  
-  useCursorFreeze('.projects-card')
+  useCursorFreeze(".projects-card");
   // should always be running
   // three things happening
   // the projects item appearing from opacity and ypercent
@@ -38,6 +37,7 @@ const Projects = () => {
         trigger: item,
         start: "top bottom",
         end: "top top",
+        invalidateOnRefresh: true,
         onUpdate(self) {
           const progress = self.progress;
           const yPercent = gsap.utils.interpolate(20, 0, progress);
@@ -54,6 +54,7 @@ const Projects = () => {
       trigger: ".project-item",
       start: "top bottom",
       end: "top 10%",
+      invalidateOnRefresh: true,
       onUpdate(self) {
         const progress = self.progress;
         gsap.to(".hero", {
@@ -85,6 +86,7 @@ const Projects = () => {
       trigger: ".projects",
       start: "top center",
       end: "bottom center",
+      invalidateOnRefresh: true,
 
       onEnter: () => {
         gsap.to(buttonRef.current, {
@@ -169,6 +171,8 @@ const Projects = () => {
       trigger: ".projects",
       pin: true,
       pinSpacing: false,
+      invalidateOnRefresh: true,
+
       start: "top top",
       end: () => `+=${projectsSectionRef.current.scrollHeight}px`,
       onEnter: () => {

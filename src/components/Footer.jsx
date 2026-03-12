@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CardBackground from "./CardBackground";
+import useTextHighlight from "../hooks/useTextHighlight";
 const HrSpecialDesign = ({ className, top, bottom }) => {
   return (
     <div
@@ -57,11 +58,19 @@ export default function Footer() {
     if (firstBreakPoint) return;
     const cards = gsap.utils.toArray(".footer-card-outer");
 
+    // Maps raw scroll progress to animation progress with pause zones:
+    // 0–10%: no movement, 10–60%: first half, 60–70%: pause, 70–100%: second half
+    const remapProgress = (p) => {
+      if (p < 0.3) return 0; // 0–30%: pause
+      if (p < 0.6) return ((p - 0.3) / 0.3) * 0.75; // 30–60%: first active window
+      if (p < 0.9) return 0.75; // 60–90%: pause
+      return 0.75 + ((p - 0.9) / 0.1) * 0.25; // 90–100%: second active window
+    };
     cards.forEach((c, i) => {
       if (i < cards.length - 1) {
         const cardInner = c.querySelector(".footer-card");
 
-        gsap.fromTo(
+        const tween = gsap.fromTo(
           cardInner,
           { scale: 1, y: "0%", opacity: 1 },
           {
@@ -69,18 +78,22 @@ export default function Footer() {
             opacity: 0,
             filter: "blur(10px)",
             ease: "power1.out",
-            scrollTrigger: {
-              trigger: cards[i + 1],
-              start: "top 100%",
-              end: "top -70%",
-              scrub: true,
-              pin: c,
-              pinSpacing: false,
-              anticipatePin: 1,
-              invalidateOnRefresh: true,
-            },
+            paused: true, // ← driven manually by onUpdate
           },
         );
+
+        ScrollTrigger.create({
+          trigger: cards[i + 1],
+          start: "top 100%",
+          end: "top -70%",
+          pin: c,
+          pinSpacing: false,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate(self) {
+            tween.progress(remapProgress(self.progress));
+          },
+        });
       }
     });
   }, [firstBreakPoint]);
@@ -89,7 +102,7 @@ export default function Footer() {
       trigger: "#contact",
       start: "top 50%",
       end: "top top",
-
+      invalidateOnRefresh: true,
       onUpdate(self) {
         const progress = self.progress;
         const xPercentLeft = gsap.utils.interpolate(-100, 0, progress);
@@ -121,7 +134,7 @@ export default function Footer() {
       trigger: "#clients",
       start: "top 75%",
       end: "top top",
-
+      invalidateOnRefresh: true,
       onUpdate(self) {
         const progress = self.progress;
         const xPercentLeft = gsap.utils.interpolate(-100, 0, progress);
@@ -170,9 +183,22 @@ export default function Footer() {
       });
     });
   }, []);
+
+  useTextHighlight(".client-text-span", ".clients-bottom", 0.01);
+  useTextHighlight(
+    ".text-highlight-contact",
+    ".text-highlight-contact-wrapper",
+    0.01,
+  );
+  useTextHighlight(".text-highlight-story", ".text-highlight-story-wrapper", 0.001);
+  useTextHighlight('.text-highlight-story-2', ".right-side", 0.001)
+  useTextHighlight(".story-card-header-main", ".story-header", 0.05)
+  useTextHighlight(".clients-header-main-header", ".clients-header", 0.05)
+  useTextHighlight(".contact-header-main-header", ".contact-header", 0.01)
+
   return (
     // Main footer container
-    <footer className="min-h-screen">
+    <footer className="min-h-screen font-serif">
       {/* Story section */}
 
       <div className="footer-card-outer">
@@ -194,7 +220,7 @@ export default function Footer() {
             style={{ marginBottom: firstBreakPoint ? "0px" : "100px" }}
             className="story-header"
           >
-            <h1 className="">my story</h1>
+            <h1 className="story-card-header-main">my story</h1>
             <img
               style={{ marginLeft: "auto" }}
               className=""
@@ -223,13 +249,14 @@ export default function Footer() {
             {/* Story content container - two column layout */}
             {/* Left side content - about text and services button */}
             <div style={{ marginTop: "3%" }} className="left-side top-side">
-              <p>
-                Fueled by curiosity, I blend fashion, product design, and 3D
-                technology to craft concepts that push beyond conventional
-                boundaries. For me, design is a journey of exploration — a
-                process of ideas, experimentation, and storytelling that turns
-                imagination into reality.
-              </p>
+              <div className="text-highlight-story-wrapper">
+                <p className="text-highlight-story">
+                  I began designing at 14, inspired by watching my uncle work in
+                  the creative industry. What started with simple Minecraft
+                  headers quickly evolved into a focused pursuit of visual
+                  excellence.
+                </p>
+              </div>
               <button style={{ padding: "8px" }} className="story-button">
                 <span className="">
                   <img className="w-4" src="/svg/rotating-icon.svg" alt="" />
@@ -243,20 +270,22 @@ export default function Footer() {
               style={{ marginTop: firstBreakPoint ? "0%" : "3%" }}
               className="right-side bottom-side"
             >
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo
-                in voluptate, magnam id, vero necessitatibus officiis enim
-                accusamus, illum molestiae amet quam fuga laudantium praesentium
-                omnis mollitia cupiditate ut vel! Lorem, ipsum dolor sit amet
-                consectetur adipisicing elit. Officiis minus magni molestias
-                labore similique repellat, exercitationem vitae itaque
-                excepturi, consequuntur sed ipsam cum voluptate, unde voluptatem
-                quaerat doloribus dicta atque?
+              <p className="text-highlight-story-2">
+                Being deeply involved in competitive gaming, transitioning into
+                esports design was a natural progression. That insight allows me
+                to design with purpose, creating visuals that don’t just look
+                strong, but represent ambition, performance, and identity.
+                <br /> My approach is built on discipline, communication, and
+                detail. I value clarity in collaboration and ensure that every
+                project meets a professional standard both creatively and
+                strategically.
               </p>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum
-                voluptates beatae eveniet repellat animi sit harum voluptatem
-                distinctio saepe. Ratione.
+              <p className="text-highlight-story-2">
+                Long term, my goal is to work alongside Tier 1 organisations on
+                structured partnerships and become a recognised creative within
+                the esports industry. I am committed to constant refinement,
+                stronger systems, and higher standards with every project I take
+                on.
               </p>
             </div>
           </div>
@@ -271,7 +300,7 @@ export default function Footer() {
           <CardBackground />
           <div className="clients-header">
             <HrSpecialDesign className={`w-full slidein-clients-left`} />
-            <h1>CLIENTS</h1>
+            <h1 className="clients-header-main-header">CLIENTS</h1>
             <HrSpecialDesign className={`w-full slidein-clients-right`} />
           </div>
           <div className="clients-center">
@@ -292,14 +321,42 @@ export default function Footer() {
           </div>
           <div className="clients-bottom">
             <p>
-              it has been a privilage Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Harum placeat molestias accusantium
-              necessitatibus explicabo, sunt ipsam doloribus quidem asperiores
-              quasi facilis repellat facere exercitationem impedit voluptatibus
-              eos eum delectus qui quos? Corporis totam, eum quod fuga pariatur
-              perspiciatis cupiditate fugit quisquam atque repellendus sunt
-              excepturi enim doloremque animi dolorum placeat neque minus
-              repudiandae dolores unde. Culpa ad in sed? Ex?
+              My experience includes partnerships with organisations such as [
+              <span className="client-text-span font-barlow tracking-[1px]">
+                Adept Club
+              </span>
+              ] , [
+              <span className="client-text-span font-barlow tracking-[1px]">
+                Coffein Esports
+              </span>
+              ], [
+              <span className="client-text-span font-barlow tracking-[1px]">
+                Kodex Esports
+              </span>
+              ], [
+              <span className="client-text-span font-barlow tracking-[1px]">
+                Souls Heart Esports
+              </span>
+              ], <br />[
+              <span className="client-text-span font-barlow tracking-[1px]">
+                Xravel
+              </span>
+              ], [
+              <span className="client-text-span font-barlow tracking-[1px]">
+                Lumina Gaming
+              </span>
+              ], [
+              <span className="client-text-span font-barlow tracking-[1px]">
+                Nexus77 Esports
+              </span>
+              ], and [
+              <span className="client-text-span font-barlow tracking-[1px]">
+                Syndicate Esports
+              </span>
+              ]. Working remotely with teams across different regions has
+              strengthened my workflow, communication structure, and ability to
+              execute efficiently under deadlines all essential within
+              competitive esports environments.
             </p>
           </div>
         </section>
@@ -325,18 +382,26 @@ export default function Footer() {
             className="contact-header"
           >
             <HrSpecialDesign className={`w-full slidein-contact-left`} />
-            <h1>Let's connect</h1>
+            <h1 className="contact-header-main-header">Let's connect</h1>
             <HrSpecialDesign className={"w-full slidein-contact-right"} />
           </div>
           <div className="contact-center">
-            <p>
-              every collaboration begins with an idea. if you're looking for a
-              creative partner to help bring your to life, feel free to get in
-              touch with me
-            </p>
+            <div className="text-highlight-contact-wrapper">
+              <p className="text-highlight-contact [word-spacing:5px]">
+                I’m currently available for freelance projects and long-term
+                partnerships with organisations looking to elevate their visual
+                presence.
+              </p>
+            </div>
             <div className="contact-email">
               <img src="/svg/right-arrow.svg" alt="" />
-              <a href="">info@gmail.com</a>
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=Winstrol821@gmail.com&su=create%20me%20a%20design"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Winstrol821@gmail.com
+              </a>
             </div>
           </div>
           <HrSpecialDesign className={"w-full translate-y-0"} />

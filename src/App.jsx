@@ -51,12 +51,24 @@ const App = () => {
       ease: "power3.out",
     });
   }, []);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-    if (lenisRef.current?.lenis) {
-      lenisRef.current.lenis.scrollTo(0, { immediate: true });
-    }
-  }, []);
+    const navType = performance.getEntriesByType("navigation")[0]?.type;
+    const isReload = navType === "reload";
+
+    // Skip scroll-to-top if reloading on any page OTHER than home
+    if (isReload && location.pathname !== "/") return;
+
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+      if (lenisRef.current?.lenis) {
+        lenisRef.current.lenis.scrollTo(0, { immediate: true });
+      }
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
   useEffect(() => {
     if (location.pathname === "/projects/list") {
       if (!sessionStorage.getItem("list-reloaded")) {
@@ -135,11 +147,8 @@ const App = () => {
           <Route path="/posters" element={<Posters />} />
           <Route path="/posters/all" element={<AllPosters />} />
           <Route path="/posters/viewer" element={<PosterViewer />} />
-
-
         </Routes>
       </AnimatePresence>
-
     </ReactLenis>
   );
 };
