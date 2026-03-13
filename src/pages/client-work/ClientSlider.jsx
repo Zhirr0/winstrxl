@@ -7,14 +7,14 @@ import useImageParallax from "../../hooks/useImageParallax";
 import { useMediaQuery } from "react-responsive";
 
 const slides = [
-  { id: 1, src: "/Clients/Thumbnails/All 10.jpg" },
-  { id: 2, src: "/Clients/Thumbnails/Amosang Thumbnail.jpg" },
-  { id: 3, src: "/Clients/Thumbnails/Back it up.jpg" },
-  { id: 4, src: "/Clients/Thumbnails/I Know.jpg" },
-  { id: 5, src: "/Clients/Thumbnails/Lars2k thumbnail (2).jpg" },
-  { id: 6, src: "/Clients/Thumbnails/Move it!.jpg" },
-  { id: 7, src: "/Clients/Thumbnails/Succubus.png" },
-  { id: 8, src: "/Clients/Thumbnails/Thumbnail for LARS.jpg" },
+  { id: 44, src: "/images/img44.webp" },
+  { id: 45, src: "/images/img45.webp" },
+  { id: 46, src: "/images/img46.webp" },
+  { id: 47, src: "/images/img47.webp" },
+  { id: 48, src: "/images/img48.webp" },
+  { id: 49, src: "/images/img49.webp" },
+  { id: 50, src: "/images/img50.webp" },
+  { id: 51, src: "/images/img51.webp" },
 ];
 
 export default function ClientSlider() {
@@ -23,7 +23,7 @@ export default function ClientSlider() {
   const sliderRef = useRef(null);
   const slideRefs = useRef([]);
 
-  const breakpoint = useMediaQuery({maxWidth: 1024})
+  const breakpoint = useMediaQuery({ maxWidth: 1024 });
 
   // custom hook
   useImageParallax(slideRefs, ".cl-img img", "(max-width: 1023.999px)");
@@ -181,7 +181,10 @@ export default function ClientSlider() {
               <div className="cl-img">
                 <img src={slide.src} alt="" />
               </div>
-              <div className="cl-title" style={{ margin: breakpoint ? ".5em" : "1.5em" }}>
+              <div
+                className="cl-title"
+                style={{ margin: breakpoint ? ".5em" : "1.5em" }}
+              >
                 <h1>
                   Title Line 1 <br />
                   Title Line 2
