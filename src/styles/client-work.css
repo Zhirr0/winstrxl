@@ -195,4 +195,63 @@
       }
     }
   }
+  /* apperently you have to match the width to the viewbox for the svg in mobiles to render it  */
+  .client-card-showcase-svg {
+    width: 4817px; /* matches the viewBox width exactly */
+    height: auto;
+  }
+
+  @media (max-width: 900px) {
+    .client-card-showcase-svg {
+      transform: translateX(1.25rem) translateY(0rem) scale(1.2);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .client-card-showcase-svg {
+      transform: translateX(-10.25rem) translateY(-0.5rem) scale(0.6);
+    }
+  }
+
+  @media (max-width: 740px) {
+    .client-card-showcase-svg {
+      transform: translateX(-10rem) translateY(-0.5rem) scale(0.6);
+    }
+  }
+
+  @media (max-width: 700px) {
+    .client-card-showcase-svg {
+      transform: translateX(-9.25rem) translateY(-0.5rem) scale(0.6);
+    }
+  }
+
+  @media (max-width: 650px) {
+    .client-card-showcase-svg {
+      transform: translateX(-8.75rem) translateY(-0.75rem) scale(0.6);
+    }
+  }
+
+  @media (max-width: 590px) {
+    .client-card-showcase-svg {
+      transform: translateX(-6.5rem) translateY(-1rem) scale(0.65);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .client-card-showcase-svg {
+      transform: translateX(-5.5rem) translateY(-1rem) scale(0.7);
+    }
+  }
+
+  @media (max-width: 460px) {
+    .client-card-showcase-svg {
+      transform: translateX(-4.5rem) translateY(-1rem) scale(0.75);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .client-card-showcase-svg {
+      transform: translateX(-2.5rem) translateY(-1rem) scale(0.9);
+    }
+  }
 }

@@ -3,16 +3,7 @@ import { forwardRef } from "react";
 const ShowcaseCardSvg = forwardRef(function ShowcaseCardSvg({ fill }, ref) {
   return (
     <svg
-      className={`w-auto
-        max-[900px]:scale-120 max-[900px]:translate-x-5
-        max-[768px]:scale-60 max-[768px]:-translate-y-2 max-[768px]:-translate-x-41
-        max-[740px]:-translate-x-40 max-[700px]:-translate-x-37
-        max-[650px]:-translate-x-35 max-[650px]:-translate-y-3
-        max-[590px]:-translate-x-26 max-[590px]:scale-65 max-[590px]:-translate-y-4
-        max-[520px]:-translate-x-22 max-[520px]:-translate-y-4 max-[520px]:scale-70
-        max-[460px]:scale-75 max-[460px]:-translate-x-18
-        max-[400px]:scale-90 max-[400px]:-translate-x-10
-      `}
+      className="client-card-showcase-svg"
       viewBox="0 0 4817 1584"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
