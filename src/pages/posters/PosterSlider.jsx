@@ -317,10 +317,17 @@ const PosterSlider = () => {
   }, []);
 
   useGSAP(() => {
-    gsap.from('.po-slider-section', {
-      opacity: 0, xPercent: 50, duration: 1.5, ease: 'power3.out', scrollTrigger: {trigger: '.po-slider-section',markers: true, start: "bottom 100%"}
-    })
-  }, [])
+    gsap.from(".po-slider-section", {
+      opacity: 0,
+      xPercent: 50,
+      duration: 1.5,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".po-slider-section",
+        start: "bottom 100%",
+      },
+    });
+  }, []);
 
   // Suppress navigation if the user was dragging
   const handleLinkClick = (e) => {
@@ -339,10 +346,7 @@ const PosterSlider = () => {
         <p className="header-paragraph-left">some of the posters</p>
         <p className="header-paragraph-right">n posters</p>
       </div>
-      <section
-        className="po-slider relativee"
-        ref={sliderRef}
-      >
+      <section className="po-slider relativee" ref={sliderRef}>
         <div className="po-slide-track" ref={trackRef}>
           {sliderData.map((item, i) => (
             <div

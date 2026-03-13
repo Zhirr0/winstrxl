@@ -4,7 +4,7 @@ import { SplitText } from "gsap/SplitText";
 export function drawSvgIn(target, trigger, vars = {}) {
   gsap.from(target, {
     drawSVG: "0%",
-    duration: 1.8,
+    duration: 2.8,
     ease: "power2.inOut",
     scrollTrigger: { trigger, start: "top 88%" }, // slightly earlier than title
     ...vars,
