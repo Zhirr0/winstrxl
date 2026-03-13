@@ -80,10 +80,10 @@ export function ShowcaseCard({ client, index }) {
         ].join(" ")}
         style={{ zIndex: 1 }}
       >
-        <div className="overflow-hidden" style={{ marginBottom: "1rem" }}>
+        <div  style={{ marginBottom: "1rem" }}>
           <div
             ref={typeRef}
-            className="relative items-center max-[1200px]:translate-x-2 max-[768px]:translate-x-0 max-[768px]:translate-y-0 translate-x-10 gap-2.5 font-mono text-[12px] tracking-[0px] text-light-primary uppercase"
+            className="relative items-center max-[1200px]:translate-x-2 max-[768px]:translate-x-0 max-[768px]:translate-y-3 translate-x-10 gap-2.5 font-mono text-[12px] tracking-[0px] text-light-primary uppercase"
             style={{ zIndex: 2 }}
           >
             {client.type} / {client.year}
