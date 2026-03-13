@@ -168,6 +168,34 @@ export default function ClientSlider() {
     });
   }, []);
 
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(max-width: 1023.999px)", () => {
+      const slideElements = slideRefs.current.filter(Boolean);
+
+      slideElements.forEach((slide) => {
+        const imgWrapper = slide.querySelector(".cl-img");
+        if (!imgWrapper) return;
+
+        gsap.set(imgWrapper, {
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+        });
+
+        gsap.to(imgWrapper, {
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          duration: 1.4,
+          ease: "expo.inOut",
+          scrollTrigger: {
+            trigger: slide,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      });
+    });
+  }, []);
+
   return (
     <section className="cl-sticky" ref={stickySectionRef}>
       <div className="cl-slider" ref={sliderRef}>
