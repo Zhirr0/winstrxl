@@ -27,14 +27,22 @@ export function ShowcaseCard({ client, index }) {
       duration: 1.1,
       ease: "power3.out",
       stagger: { amount: 0.35, from: "start" },
-      scrollTrigger: { trigger: card, start: "top 72%" },
+      scrollTrigger: {
+        trigger: card,
+        start: "top 72%",
+        toggleActions: "play none none reverse",
+      },
     });
     revealChars(typeRef.current, card, {
       duration: 0.7,
       ease: "power2.out",
       stagger: 0.02,
       delay: 0.3,
-      scrollTrigger: { trigger: card, start: "top 72%" },
+      scrollTrigger: {
+        trigger: card,
+        start: "top 72%",
+        toggleActions: "play none none reverse",
+      },
     });
     drawSvgIn(svgPathRef.current, card);
   }, []);
@@ -80,7 +88,7 @@ export function ShowcaseCard({ client, index }) {
         ].join(" ")}
         style={{ zIndex: 1 }}
       >
-        <div  style={{ marginBottom: "1rem" }}>
+        <div style={{ marginBottom: "1rem" }}>
           <div
             ref={typeRef}
             className="relative items-center max-[1200px]:translate-x-2 max-[768px]:translate-x-0 max-[768px]:translate-y-3 translate-x-10 gap-2.5 font-mono text-[12px] tracking-[0px] text-light-primary uppercase"
