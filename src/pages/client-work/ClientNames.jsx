@@ -3,7 +3,7 @@ import ClientNamesHeader from "../../components/ClientNamesHeader";
 
 export default function ClientNames() {
   return (
-    <section className="cl-names">
+    <section className="cl-names -translate-y-[30svh]">
       <ClientNamesHeader />
       <ClientNamesCards />
     </section>

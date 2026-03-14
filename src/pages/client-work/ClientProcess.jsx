@@ -33,36 +33,52 @@ export default function ClientProcess() {
         }
       },
     });
-
     const targets = [".cl-process-card", ".cl-page"];
 
-    const animateTo = (values) => {
-      gsap.killTweensOf(targets);
+    const bgDuration = 0.3;
+    const colorDelay = bgDuration + 0.05;
+    const colorDuration = 0.3;
+
+    const animateBg = (color, delay = 0) => {
+      gsap.killTweensOf(targets, "backgroundColor");
       gsap.to(targets, {
-        ...values,
-        duration: 0.8,
-        ease: "sine.inOut",
+        backgroundColor: color,
+        duration: bgDuration,
+        delay: delay,
+        ease: "power1.in",
       });
     };
 
-    const light = {
-      backgroundColor: "oklch(94.7% 0.024 47.1)",
-      color: "oklch(14% 0.006 173.6)",
-    };
-
-    const dark = {
-      backgroundColor: "oklch(14% 0.006 173.6)",
-      color: "oklch(100% 0.0011 271.152)",
+    const animateColor = (color, delay = 0) => {
+      gsap.killTweensOf(targets, "color");
+      gsap.to(targets, {
+        color: color,
+        duration: colorDuration,
+        delay: delay,
+        ease: "power1.in",
+      });
     };
 
     ScrollTrigger.create({
       trigger: ".cl-process",
       start: "top center",
-      end: `+=${window.innerHeight * 5}`,
-      onEnter: () => animateTo(light),
-      onEnterBack: () => animateTo(light),
-      onLeave: () => animateTo(dark),
-      onLeaveBack: () => animateTo(dark),
+      end: `+=${window.innerHeight * 4.5}`,
+      onEnter() {
+        animateBg("oklch(94.7% 0.024 47.1)"); // bg first
+        animateColor("oklch(14% 0.006 173.6)", colorDelay); // color after
+      },
+      onEnterBack() {
+        animateBg("oklch(94.7% 0.024 47.1)"); // bg first
+        animateColor("oklch(14% 0.006 173.6)", colorDelay); // color after
+      },
+      onLeave() {
+        animateColor("oklch(100% 0.00011 271.152)"); // color first
+        animateBg("oklch(14% 0.006 173.6)", colorDelay); // bg after
+      },
+      onLeaveBack() {
+        animateColor("oklch(100% 0.00011 271.152)"); // color first
+        animateBg("oklch(14% 0.006 173.6)", colorDelay); // bg after
+      },
     });
   }, []);
 

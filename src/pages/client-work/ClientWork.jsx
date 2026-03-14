@@ -15,7 +15,6 @@ const ClientWork = () => {
       <ClientShowcase />
       <div className="h-[20svh]" />
       <ClientProcess />
-      <div className="h-[20svh]" />
       <ClientNames />
       <div className="h-[20svh]" />
     </main>
