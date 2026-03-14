@@ -10,9 +10,8 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitText from "gsap/SplitText";
 import DrawSVGPlugin from "gsap/DrawSVGPlugin";
-import { Draggable, Flip } from "gsap/all";
+import { Draggable, Flip, Observer } from "gsap/all";
 import MorphSVGPlugin from "gsap/MorphSVGPlugin";
-import CustomEase from "gsap/CustomEase";
 import InertiaPlugin from "gsap/InertiaPlugin";
 import ScrollToPlugin from "gsap/ScrollToPlugin.js";
 
@@ -25,6 +24,7 @@ import './styles/poster-slider.css'
 import './styles/posters.css'
 import './styles/projects.css'
 import './styles/client-work.css'
+import './index.css'
 
 // Register ALL plugins once
 gsap.registerPlugin(
@@ -34,9 +34,9 @@ gsap.registerPlugin(
   DrawSVGPlugin,
   Flip,
   MorphSVGPlugin,
-  CustomEase,
   InertiaPlugin,
-  ScrollToPlugin
+  ScrollToPlugin,
+  Observer
 );
 
 createRoot(document.getElementById("root")).render(

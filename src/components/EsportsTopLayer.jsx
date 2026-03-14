@@ -1,5 +1,3 @@
-import "../../styles/footer-top-layer.css";
-
 export default function EsportsFooterLayer() {
   return (
     <div className="footer-top-layer">

@@ -1,4 +1,3 @@
-import "../../styles/projects.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef, useEffect } from "react";

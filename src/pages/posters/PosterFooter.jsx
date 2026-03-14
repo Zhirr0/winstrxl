@@ -1,12 +1,11 @@
 import { useMediaQuery } from "react-responsive";
 import GlitchWordmark from "../../components/GlitchWordmark";
-import "../../styles/footer.css";
 import { Link } from "react-router-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import PostersFooterLayer from "./PostersFooterLayer";
+import PostersFooterLayer from "../../components/PostersFooterLayer";
 
 const NAV_LINKS = [
   { label: "Client Designs", href: "/client-designs" },

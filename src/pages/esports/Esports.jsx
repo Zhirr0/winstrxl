@@ -1,4 +1,3 @@
-import "../../styles/esports.css";
 import EsportsHero from "./EsportsHero";
 import Transition from "../../components/Transition";
 import EsportFeaturedProject from "./EsportFeaturedProject";

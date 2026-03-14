@@ -1,5 +1,5 @@
-import SliderCards from "./SliderCards";
-import SliderHeader from "./SliderHeader";
+import SliderCards from  "../../components/SliderCards";
+import SliderHeader from "../../components/SliderHeader";
 
 export default function EsportsSlider() {
   return (

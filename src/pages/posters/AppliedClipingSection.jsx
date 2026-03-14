@@ -1,6 +1,6 @@
 import { Fragment, useRef } from "react";
-import ClippingSection from "./ClipingSections";
-import sections from "./data";
+import ClippingSection from "../../components/ClipingSections";
+import sections from "../../config/poster.config";
 import { useGSAP } from "@gsap/react";
 import { useLenis } from "lenis/react";
 import gsap from "gsap";

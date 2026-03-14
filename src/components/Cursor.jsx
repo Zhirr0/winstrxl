@@ -3,7 +3,6 @@ import gsap from "gsap";
 import { Observer } from "gsap/all";
 import { SplitText } from "gsap/SplitText";
 import { useMediaQuery } from "react-responsive";
-gsap.registerPlugin(Observer, SplitText);
 
 const size = 30;
 

@@ -1,9 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const useTextHighlight = (selector, triggerSelector, stagger = 0.01) => {
   useGSAP(() => {

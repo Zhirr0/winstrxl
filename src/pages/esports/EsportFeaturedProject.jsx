@@ -1,5 +1,5 @@
-import FeaturedProjectCards from "./FeaturedProjectCard";
-import FeaturedProjectHeader from "./FeaturedProjectHeader";
+import FeaturedProjectCards from  "../../components/FeaturedProjectCard";
+import FeaturedProjectHeader from "../../components/FeaturedProjectHeader";
 
 
 export default function EsportFeaturedProject() {

@@ -1,8 +1,7 @@
 import { useMediaQuery } from "react-responsive";
 import GlitchWordmark from "../../components/GlitchWordmark";
-import "../../styles/footer.css";
 import { Link } from "react-router-dom";
-import EsportsFooterLayer from "./EsportsTopLayer";
+import EsportsFooterLayer from "../../components/EsportsTopLayer";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

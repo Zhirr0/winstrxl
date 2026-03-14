@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import Magnetic from "../../components/Magnetic";
+import Magnetic from "./Magnetic";
 
 const games = [
   { title: "Adept Club", count: "12 projects", logo: "Adept Club.svg" },
