@@ -3,6 +3,7 @@ import ClientHero from "./ClientHero";
 import ClientNames from "./ClientNames";
 import ClientShowcase from "./ClientShowcase";
 import ClientSlider from "./ClientSlider";
+import ClientProcess from './ClientProcess'
 
 const ClientWork = () => {
   return (
@@ -12,6 +13,8 @@ const ClientWork = () => {
       <ClientSlider />
       <div className="h-[20svh]" />
       <ClientShowcase />
+      <div className="h-[20svh]" />
+      <ClientProcess />
       <div className="h-[20svh]" />
       <ClientNames />
       <div className="h-[20svh]" />

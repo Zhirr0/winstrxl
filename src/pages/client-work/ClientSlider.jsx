@@ -7,14 +7,14 @@ import useImageParallax from "../../hooks/useImageParallax";
 import { useMediaQuery } from "react-responsive";
 
 const slides = [
-  { id: 44, src: "/images/img44.webp" },
-  { id: 45, src: "/images/img45.webp" },
-  { id: 46, src: "/images/img46.webp" },
-  { id: 47, src: "/images/img47.webp" },
-  { id: 48, src: "/images/img48.webp" },
-  { id: 49, src: "/images/img49.webp" },
-  { id: 50, src: "/images/img50.webp" },
-  { id: 51, src: "/images/img51.webp" },
+  { id: 44, src: "/images/img44.webp" , position: "center center" },
+  { id: 45, src: "/images/img45.webp" , position: "center 100%" },
+  { id: 46, src: "/images/img46.webp" , position: "center center" },
+  { id: 47, src: "/images/img47.webp" , position: "center center" },
+  { id: 48, src: "/images/img48.webp" , position: "center 30%" },
+  { id: 49, src: "/images/img49.webp" , position: "center center" },
+  { id: 50, src: "/images/img50.webp" , position: "center center" },
+  { id: 51, src: "/images/img51.webp" , position: "center center" },
 ];
 
 export default function ClientSlider() {
@@ -135,7 +135,8 @@ export default function ClientSlider() {
 
       ScrollTrigger.create({
         trigger: stickySection,
-        start: "top top",
+        start: "top -0.5%",
+        markers: true,
         end: `+=${stickyHeight}px`,
         pin: true,
         pinSpacing: true,
@@ -207,7 +208,7 @@ export default function ClientSlider() {
               ref={(el) => (slideRefs.current[index] = el)}
             >
               <div className="cl-img">
-                <img src={slide.src} alt="" />
+                <img src={slide.src} style={{objectPosition: slide.position}} alt="" />
               </div>
               <div
                 className="cl-title"

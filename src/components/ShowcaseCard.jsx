@@ -64,11 +64,11 @@ export function ShowcaseCard({ client, index }) {
       <div
         ref={imgWrapRef}
         className={[
-          "w-full order-1 aspect-video sm:aspect-16/7",
+          "w-full order-1",
           "relative overflow-hidden rounded-lg",
           isReversed ? "md:order-2" : "md:order-1",
         ].join(" ")}
-        style={{ zIndex: 1 }}
+        style={{ zIndex: 1, aspectRatio: client.aspect }} // ← driven by client data
       >
         <WaveCanvas src={client.src} />
         <div

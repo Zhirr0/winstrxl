@@ -3,6 +3,7 @@
 @theme {
   --color-dark-primary: oklch(14% 0.006 173.6);
   --color-light-primary: oklch(100% 0.0011 271.152);
+  --color-card-primary: oklch(94.7% 0.024 47.1);
   --color-dark-red-primary: oklch(38% 0.336 25.1);
   --color-transition-gray: oklch(18.5% 0 360);
 
@@ -28,56 +29,6 @@
     }
   }
 
-  .cl-names {
-    .cl-names-header {
-      @apply flex items-center justify-between;
-
-      .cl-names-header-label {
-        @apply font-mono text-[10px] tracking-[3px] text-light-primary uppercase;
-      }
-
-      .cl-names-header-count {
-        @apply font-mono text-[10px] tracking-[2px] text-light-primary uppercase;
-      }
-    }
-
-    .cl-names-cards {
-      @apply flex flex-col;
-
-      .cl-names-row {
-        @apply grid items-stretch min-h-[100px];
-        grid-template-columns: 48px 64px 1fr 140px 48px;
-        border-bottom: 1px solid #303030;
-        .cl-names-row-num {
-          @apply font-mono text-[10px] text-light-primary flex items-center self-stretch;
-        }
-
-        .cl-names-row-thumb {
-          @apply w-16 bg-[#505050]  self-stretch;
-        }
-
-        .cl-names-row-info {
-          @apply flex flex-col justify-center gap-[3px] self-stretch;
-
-          .cl-names-row-name {
-            @apply font-condensed text-sm font-bold tracking-[1px] text-light-primary;
-          }
-
-          .cl-names-row-sub {
-            @apply font-mono text-[10px] tracking-[2px] text-light-primary uppercase;
-          }
-        }
-
-        .cl-names-row-type {
-          @apply font-mono text-[10px] tracking-[2px] text-light-primary uppercase flex items-center self-stretch;
-        }
-
-        .cl-names-row-arrow {
-          @apply flex items-center justify-center self-stretch text-[13px] text-light-primary;
-        }
-      }
-    }
-  }
   .cl-sticky {
     @apply relative overflow-hidden lg:h-screen;
 
@@ -147,7 +98,6 @@
 
             img {
               @apply relative w-full h-full object-cover;
-              object-position: center 25%;
               will-change: transform;
               transform: translateX(0);
             }
@@ -252,6 +202,84 @@
   @media (max-width: 400px) {
     .client-card-showcase-svg {
       transform: translateX(-2.5rem) translateY(-1rem) scale(0.9);
+    }
+  }
+
+  .cl-process {
+    @apply min-h-svh flex flex-col;
+    .cl-process-wrapper {
+      @apply h-svh overflow-visible;
+      .cl-process-card {
+        @apply text-light-primary bg-dark-primary rounded-lg h-full w-full flex flex-col gap-3;
+        .cl-card-header {
+          @apply flex h-[85px] font-display text-[100px] flex-row justify-between items-center;
+          h1:first-child {
+            @apply whitespace-nowrap;
+          }
+          h1:last-child {
+            @apply font-mono;
+          }
+        }
+        .cl-card-center {
+          @apply translate-x-0;
+        }
+        .cl-card-bottom {
+          @apply text-2xl  gap-10;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    }
+  }
+
+  .cl-names {
+    .cl-names-header {
+      @apply flex items-center justify-between;
+
+      .cl-names-header-label {
+        @apply font-mono text-[10px] tracking-[3px] text-light-primary uppercase;
+      }
+
+      .cl-names-header-count {
+        @apply font-mono text-[10px] tracking-[2px] text-light-primary uppercase;
+      }
+    }
+
+    .cl-names-cards {
+      @apply flex flex-col;
+
+      .cl-names-row {
+        @apply grid items-stretch min-h-[100px];
+        grid-template-columns: 48px 64px 1fr 140px 48px;
+        border-bottom: 1px solid #303030;
+        .cl-names-row-num {
+          @apply font-mono text-[10px] text-light-primary flex items-center self-stretch;
+        }
+
+        .cl-names-row-thumb {
+          @apply w-16 bg-[#505050]  self-stretch;
+        }
+
+        .cl-names-row-info {
+          @apply flex flex-col justify-center gap-[3px] self-stretch;
+
+          .cl-names-row-name {
+            @apply font-condensed text-sm font-bold tracking-[1px] text-light-primary;
+          }
+
+          .cl-names-row-sub {
+            @apply font-mono text-[10px] tracking-[2px] text-light-primary uppercase;
+          }
+        }
+
+        .cl-names-row-type {
+          @apply font-mono text-[10px] tracking-[2px] text-light-primary uppercase flex items-center self-stretch;
+        }
+
+        .cl-names-row-arrow {
+          @apply flex items-center justify-center self-stretch text-[13px] text-light-primary;
+        }
+      }
     }
   }
 }
