@@ -64,7 +64,8 @@
 
             &:nth-child(1) {
               grid-column: span 3;
-              height: 45vw;
+              height: auto;
+              aspect-ratio: 1920 / 1000;
             }
 
             &:nth-child(2),
@@ -80,16 +81,15 @@
 
             &:nth-child(8) {
               grid-column: span 3;
-              height: 45vw;
+              height: auto;
+              aspect-ratio: 1920 / 1000;
             }
           }
 
           @media (max-width: 768px) {
-            &:nth-child(1),
-            &:nth-child(8) {
-              grid-column: span 3;
+            &:nth-child(n) {
               height: auto;
-              aspect-ratio: 4 / 3;
+              aspect-ratio: 1920 / 1000;
             }
           }
 
@@ -97,7 +97,7 @@
             @apply absolute w-full h-full overflow-hidden max-lg:rounded-xl;
 
             img {
-              @apply relative w-full h-full object-cover;
+              @apply relative w-full h-full object-fill;
               will-change: transform;
               transform: translateX(0);
             }
