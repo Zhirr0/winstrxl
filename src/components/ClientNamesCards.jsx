@@ -111,6 +111,7 @@ export default function ClientNamesCards() {
               trigger: row,
               start: "top 88%",
               end: "top 60%",
+              toggleActions: "play none none reverse",
             },
           }
         );
