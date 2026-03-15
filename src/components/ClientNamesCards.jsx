@@ -7,9 +7,15 @@ import {
   TEXT_LIGHT,
   TEXT_SELECTORS,
 } from "../config/clientNames.config";
+import { useMediaQuery } from "react-responsive";
 
 export default function ClientNamesCards() {
   const cardsRef = useRef(null);
+
+  const breakpoint = useMediaQuery({maxWidth: 640})
+  useGSAP(() => {
+    gsap.set(".inverse", { color: TEXT_LIGHT });
+  }, []);
 
   useEffect(() => {
     if (!window.matchMedia("(min-width: 1024px)").matches) return;
@@ -125,11 +131,18 @@ export default function ClientNamesCards() {
           <div className="cl-names-row-thumb">
             <project.Logo
               className="cl-names-row-logo"
-              style={{ width: project.logoSize, height: "auto" }}
+              style={{
+                "--logo-size": `${project.logoSize}px`,
+                "--logo-size-1024": `${project.logoSize1024}px`,
+                "--logo-size-768": `${project.logoSize768}px`,
+                "--logo-size-640": `${project.logoSize640}px`,
+                "--logo-size-400": `${project.logoSize400}px`,
+                height: "auto",
+              }}
             />
           </div>
 
-          <div className="cl-names-row-info" style={{ padding: "0 18px" }}>
+          <div className="cl-names-row-info" style={{ padding:  "0 18px" }}>
             <span className="cl-names-row-name">{project.name}</span>
             <span className="cl-names-row-sub">{project.sub}</span>
           </div>
@@ -138,7 +151,7 @@ export default function ClientNamesCards() {
             {project.type}
           </div>
 
-          <div className="cl-names-row-arrow">→</div>
+          <div style={{marginLeft: breakpoint ? "auto" : '', marginRight: breakpoint ? "10px" :""}} className="cl-names-row-arrow">→</div>
         </div>
       ))}
     </div>

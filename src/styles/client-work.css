@@ -226,7 +226,7 @@
         }
         .cl-card-bottom {
           @apply gap-10  font-mono max-[768px]:gap-5;
-          font-size: clamp(15px, calc(10.65px + .8vw), 30px);
+          font-size: clamp(15px, calc(10.65px + 0.8vw), 30px);
           display: grid;
 
           grid-template-columns: 1fr 1fr;
@@ -261,6 +261,23 @@
 
         .cl-names-row-thumb {
           @apply self-stretch flex justify-center items-center text-center;
+          .cl-names-row-logo {
+            width: var(--logo-size);
+            height: auto;
+
+            @media (max-width: 1024px) {
+              width: var(--logo-size-1024);
+            }
+            @media (max-width: 768px) {
+              width: var(--logo-size-768);
+            }
+            @media (max-width: 640px) {
+              width: var(--logo-size-640);
+            }
+            @media (max-width: 400px) {
+              width: var(--logo-size-400);
+            }
+          }
         }
 
         .cl-names-row-info {
@@ -268,6 +285,7 @@
 
           .cl-names-row-name {
             @apply font-condensed text-sm font-bold tracking-[1px] text-dark-primary;
+            font-size: 13px;
           }
 
           .cl-names-row-sub {
@@ -360,5 +378,14 @@
       position: relative;
       z-index: 1;
     }
+  }
+}
+
+@media (max-width: 640px) {
+  .cl-names-row {
+    grid-template-columns: 48px 64px 250px 1fr;
+  }
+  .cl-names-row-type {
+    display: none;
   }
 }
