@@ -18,6 +18,8 @@ export default function ClientNamesCards() {
   const cardsRef = useRef(null);
 
   useEffect(() => {
+    if (!window.matchMedia("(min-width: 1024px)").matches) return;
+    
     const rows = cardsRef.current.querySelectorAll(".cl-names-row");
     const cleanup = [];
 
@@ -26,7 +28,7 @@ export default function ClientNamesCards() {
       bg.style.cssText = `
         position: absolute;
         inset: 0;
-        background: oklch(38% 0.336 25.1);
+        background: oklch(55% 0.28 25);
         z-index: -1;
         pointer-events: none;
       `;

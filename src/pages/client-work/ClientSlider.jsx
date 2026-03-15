@@ -136,7 +136,6 @@ export default function ClientSlider() {
       ScrollTrigger.create({
         trigger: stickySection,
         start: "top -0.5%",
-        markers: true,
         end: `+=${stickyHeight}px`,
         pin: true,
         pinSpacing: true,

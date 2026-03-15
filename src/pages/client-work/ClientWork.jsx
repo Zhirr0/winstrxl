@@ -3,7 +3,8 @@ import ClientHero from "./ClientHero";
 import ClientNames from "./ClientNames";
 import ClientShowcase from "./ClientShowcase";
 import ClientSlider from "./ClientSlider";
-import ClientProcess from './ClientProcess'
+import ClientProcess from "./ClientProcess";
+import ClientFooter from "./ClientFooter";
 
 const ClientWork = () => {
   return (
@@ -17,6 +18,7 @@ const ClientWork = () => {
       <ClientProcess />
       <ClientNames />
       <div className="h-[20svh]" />
+      <ClientFooter />
     </main>
   );
 };

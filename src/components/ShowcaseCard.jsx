@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
+import { useMediaQuery } from "react-responsive";
 import { WaveCanvas } from "./WaveCanvas";
 import {
   revealChars,
@@ -17,6 +18,9 @@ export function ShowcaseCard({ client, index }) {
   const lineRef = useRef(null);
   const svgPathRef = useRef(null);
   const isReversed = index % 2 === 1;
+  const isMobile = useMediaQuery({ maxWidth: 640 });
+  const isThreeToOne = client.aspect === "3/1";
+  const applyMobileExpand = isMobile && isThreeToOne;
 
   useGSAP(() => {
     const card = cardRef.current;
@@ -68,7 +72,15 @@ export function ShowcaseCard({ client, index }) {
           "relative overflow-hidden rounded-lg",
           isReversed ? "md:order-2" : "md:order-1",
         ].join(" ")}
-        style={{ zIndex: 1, aspectRatio: client.aspect }} // ← driven by client data
+        style={{
+          zIndex: 1,
+          aspectRatio: client.aspect,
+          ...(applyMobileExpand && {
+            width: "calc(100% + 3rem)",
+            marginLeft: "-1.5rem",
+            marginRight: "-1.5rem",
+          }),
+        }}
       >
         <WaveCanvas src={client.src} />
         <div
