@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const projects = [
   { num: "01", name: "Apex Streetwear — Full Brand Identity",   sub: "2024 · Branding",   type: "Branding"   },
@@ -92,6 +93,30 @@ export default function ClientNamesCards() {
 
     return () => cleanup.forEach((fn) => fn());
   }, []);
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(max-width: 1024px)", () => {
+      const rows = cardsRef.current.querySelectorAll(".cl-names-row");
+
+      rows.forEach((row) => {
+        gsap.from(
+          row,
+          {
+            opacity: 0, y: 40,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: row,
+              start: "top 88%",
+              end: "top 60%",
+            },
+          }
+        );
+      });
+    });
+  }, { scope: cardsRef });
 
   return (
     <div className="cl-names-cards" ref={cardsRef}>
