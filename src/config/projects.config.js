@@ -1,0 +1,9 @@
+export const TOTAL_ROWS = 20;
+export const IMAGES_PER_ROW = 60;
+export const TOTAL_IMAGES = TOTAL_ROWS * IMAGES_PER_ROW;
+export const IMAGE_COUNT = 40;
+export const HEIGHT_MIN = 30;
+export const HEIGHT_MAX = 40;
+export const LERP_FACTOR = 0.08;
+export const ZOOM_DIST_X = 1200;
+export const ZOOM_DIST_Y = 600;
