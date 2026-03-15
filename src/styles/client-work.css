@@ -2,8 +2,8 @@
 
 @theme {
   --color-dark-primary: oklch(14% 0.006 173.6);
-  --color-light-primary: oklch(100% 0.0011 271.152);
   --color-card-primary: oklch(94.7% 0.024 47.1);
+  --color-light-primary: oklch(100% 0.0011 271.152);
   --color-dark-red-primary: oklch(38% 0.336 25.1);
   --color-transition-gray: oklch(18.5% 0 360);
 

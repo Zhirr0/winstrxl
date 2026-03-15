@@ -14,12 +14,22 @@ const projects = [
   { num: "10", name: "Ember Goods — Product Packaging",         sub: "2022 · Packaging",  type: "Packaging"  },
 ];
 
+const TEXT_DARK  = "oklch(14% 0.006 173.6)";
+const TEXT_LIGHT = "oklch(94.7% 0.024 47.1)";
+const TEXT_SELECTORS = [
+  ".cl-names-row-num",
+  ".cl-names-row-name",
+  ".cl-names-row-sub",
+  ".cl-names-row-type",
+  ".cl-names-row-arrow",
+];
+
 export default function ClientNamesCards() {
   const cardsRef = useRef(null);
 
   useEffect(() => {
     if (!window.matchMedia("(min-width: 1024px)").matches) return;
-    
+
     const rows = cardsRef.current.querySelectorAll(".cl-names-row");
     const cleanup = [];
 
@@ -28,7 +38,7 @@ export default function ClientNamesCards() {
       bg.style.cssText = `
         position: absolute;
         inset: 0;
-        background: oklch(55% 0.28 25);
+        background: ${TEXT_DARK};
         z-index: -1;
         pointer-events: none;
       `;
@@ -38,29 +48,37 @@ export default function ClientNamesCards() {
       row.style.isolation = "isolate";
       row.insertBefore(bg, row.firstChild);
 
-      // Start offscreen
       gsap.set(bg, { y: "100%" });
+
+      // Collect all text nodes inside this row
+      const textEls = TEXT_SELECTORS.flatMap((sel) =>
+        [...row.querySelectorAll(sel)]
+      );
 
       const handleMouseEnter = (e) => {
         const rect = row.getBoundingClientRect();
-        const enterFromTop = e.clientY < rect.top + rect.height / 2;
+        const fromTop = e.clientY < rect.top + rect.height / 2;
 
         gsap.fromTo(
           bg,
-          { y: enterFromTop ? "-100%" : "100%" },
-          { y: "0%", duration: 0.4, ease: "power2.out" }
+          { y: fromTop ? "-100%" : "100%" },
+          { y: "0%", duration: 0.5, ease: "power2.out" }
         );
+
+        gsap.to(textEls, { color: TEXT_LIGHT, duration: 0.2, overwrite: true });
       };
 
       const handleMouseLeave = (e) => {
         const rect = row.getBoundingClientRect();
-        const leavingFromTop = e.clientY < rect.top + rect.height / 2;
+        const fromTop = e.clientY < rect.top + rect.height / 2;
 
         gsap.to(bg, {
-          y: leavingFromTop ? "-100%" : "100%",
-          duration: 0.4,
+          y: fromTop ? "-100%" : "100%",
+          duration: 0.5,
           ease: "power2.out",
         });
+
+        gsap.to(textEls, { color: TEXT_DARK, duration: 0.2, overwrite: true });
       };
 
       row.addEventListener("mouseenter", handleMouseEnter);
