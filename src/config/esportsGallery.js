@@ -1,8 +1,13 @@
-export const images = Array.from({ length: 36 }, (_, i) => ({
-  id: i + 1,
-  src: `/images/img${i + 1}.webp`,
-  alt: `Design ${i + 1}`,
-}));
+const excluded = [11, 12, 21, 40];
+
+export const images = Array.from({ length: 40 }, (_, i) => i + 1)
+  .filter((num) => !excluded.includes(num))
+  .slice(0, 36)
+  .map((num) => ({
+    id: num,
+    src: `/images/img${num}.webp`,
+    alt: `Design ${num}`,
+  }));
 
 export const COLUMN_CONFIGS = {
   5: { from: [20, 15, 10, 30, 25], to: [-30, -35, -30, -50, -20] },

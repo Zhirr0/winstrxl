@@ -1,15 +1,10 @@
+1-10 adept club
+13-18 kodex
+19 lumina
+20 nexus
 
-todos 
-1- redesign the view works button in the projectsSection
-2- make sure the fixed button works in the projectsSection
-3- make three more routes for each one Esports , poster, and other one i forgot 
-4- add text for each of the images in the /projects when zoomed in, and in the lists add the 00/40
-
-from   1 to 6 light red in 7 it should be dark blue not too dark it should be visible on a black background then from 8 to 10 it should go back to the same red as from 1 to 6
-at 11 it should be white at 12 it should be light blue, at 13 to 18 it should be light gold
-at 19 it should be `oklch(47% 0.22 15)` at 20 `oklch(75% 0.14 192)` at 21 cream light  at 22 to 34 it should be `oklch(55% 0.28 300)`
-at 35 and 36 it should be white and at 37 to 39 it should be `oklch(75% 0.23 135)` and at 40 it should be `oklch(78% 0.17 110)`
-
+22-34 souls heart
+35-39 syndicate gaming
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec2 uv=fragCoord/iResolution.xy;
