@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { revealChars, revealWords } from "../../utils/animationHelpers";
 import { ShowcaseCard } from "../../components/ShowcaseCard";
-import { clients } from "../../config/clients";
+import { clients } from "../../config/clinetCards.config";
 
 export default function ClientShowcase() {
   const sectionRef = useRef(null);
