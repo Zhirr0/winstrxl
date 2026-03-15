@@ -43,7 +43,7 @@ export default function PostersFooterLayer() {
               Send a brief
             </a>
             <a
-              href="/client-work"
+              href="/design-work"
               className="po-footer-btn"
               style={{ padding: "10px 22px" }}
             >

@@ -260,8 +260,7 @@
         }
 
         .cl-names-row-thumb {
-          @apply w-16 self-stretch;
-          background: oklch(14% 0.006 173.6 / 0.1);
+          @apply self-stretch flex justify-center items-center text-center;
         }
 
         .cl-names-row-info {

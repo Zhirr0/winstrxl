@@ -20,8 +20,8 @@ const Esports = () => {
       <div className="min-h-[20svh]" />
       <EsportFeaturedProject />
       <div className="min-h-[20svh]" />
-      <EsportGames />
-      <div className="min-h-[20svh]" />
+      {/* <EsportGames />
+      <div className="min-h-[20svh]" /> */}
       <EsportsSlider />
       <EsportsGallery />
       <div className="min-h-[20svh]"></div>

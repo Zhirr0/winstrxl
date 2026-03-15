@@ -31,12 +31,12 @@ export default function ClientHero() {
   return (
     <section className="cl-hero">
       <h1 ref={bgLetterRef}>
-        CW
+        DW
       </h1>
       <h3 ref={headerRef}>
-        CLIENT
+        DESIGN
         <br />
-        WORK
+        WORKS
       </h3>
     </section>
   );

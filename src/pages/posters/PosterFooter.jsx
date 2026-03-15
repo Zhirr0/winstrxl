@@ -8,7 +8,7 @@ import { useRef } from "react";
 import PostersFooterLayer from "../../components/PostersFooterLayer";
 
 const NAV_LINKS = [
-  { label: "Client Designs", href: "/client-work" },
+  { label: "Client Designs", href: "/design-work" },
   { label: "Posters", href: "/posters", active: true },
   { label: "Esports", href: "/esports" },
   { label: "Home", href: "/" },

@@ -226,7 +226,7 @@ const MenuSection = () => {
           <div className="contacts-container right-container">
             <div>
               <p>04</p>
-              <Link onClick={() => closeMenu()} to={"/client-work"}>
+              <Link onClick={() => closeMenu()} to={"/design-work"}>
                 <h3 className="menu-animated-headers">CLIENT WORK</h3>
               </Link>
             </div>

@@ -20,12 +20,12 @@ export default function ClientNamesCards() {
     rows.forEach((row) => {
       const bg = document.createElement("div");
       bg.style.cssText = `
-        position: absolute;
-        inset: 0;
-        background: ${TEXT_DARK};
-        z-index: -1;
-        pointer-events: none;
-      `;
+      position: absolute;
+      inset: 0;
+      background: ${TEXT_DARK};
+      z-index: -1;
+      pointer-events: none;
+    `;
 
       row.style.position = "relative";
       row.style.overflow = "hidden";
@@ -34,10 +34,11 @@ export default function ClientNamesCards() {
 
       gsap.set(bg, { y: "100%" });
 
-      // Collect all text nodes inside this row
       const textEls = TEXT_SELECTORS.flatMap((sel) => [
         ...row.querySelectorAll(sel),
       ]);
+      const inverseEls = [...row.querySelectorAll(".inverse")];
+      gsap.set(inverseEls, { fill: TEXT_LIGHT });
 
       const handleMouseEnter = (e) => {
         const rect = row.getBoundingClientRect();
@@ -50,6 +51,11 @@ export default function ClientNamesCards() {
         );
 
         gsap.to(textEls, { color: TEXT_LIGHT, duration: 0.2, overwrite: true });
+        gsap.to(inverseEls, {
+          fill: TEXT_DARK,
+          duration: 0.2,
+          overwrite: true,
+        });
       };
 
       const handleMouseLeave = (e) => {
@@ -63,6 +69,11 @@ export default function ClientNamesCards() {
         });
 
         gsap.to(textEls, { color: TEXT_DARK, duration: 0.2, overwrite: true });
+        gsap.to(inverseEls, {
+          fill: TEXT_LIGHT,
+          duration: 0.2,
+          overwrite: true,
+        });
       };
 
       row.addEventListener("mouseenter", handleMouseEnter);
@@ -111,7 +122,12 @@ export default function ClientNamesCards() {
             {project.num}
           </div>
 
-          <div className="cl-names-row-thumb" />
+          <div className="cl-names-row-thumb">
+            <project.Logo
+              className="cl-names-row-logo"
+              style={{ width: project.logoSize, height: "auto" }}
+            />
+          </div>
 
           <div className="cl-names-row-info" style={{ padding: "0 18px" }}>
             <span className="cl-names-row-name">{project.name}</span>

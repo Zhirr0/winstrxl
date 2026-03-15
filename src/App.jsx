@@ -137,18 +137,18 @@ const App = () => {
       </div>
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-        
           <Route index element={<Home />} />
 
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/list" element={<GalleryList />} />
 
           <Route path="/esports" element={<Esports />} />
-          <Route path="/client-work" element={<ClientWork />} />
+
+          <Route path="/design-work" element={<ClientWork />} />
+          
           <Route path="/posters" element={<Posters />} />
           <Route path="/posters/all" element={<AllPosters />} />
           <Route path="/posters/viewer" element={<PosterViewer />} />
-          
         </Routes>
       </AnimatePresence>
     </ReactLenis>
