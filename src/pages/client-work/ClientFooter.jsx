@@ -8,7 +8,7 @@ import { useRef } from "react";
 import ClientFooterLayer from "../../components/ClientFooterLayer";
 
 const NAV_LINKS = [
-  { label: "Client Designs", href: "/client-designs" },
+  { label: "Client Designs", href: "/client-work" },
   { label: "Posters", href: "/posters", active: true },
   { label: "Esports", href: "/esports" },
   { label: "Home", href: "/" },

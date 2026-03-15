@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 
 const NAV_LINKS = [
-  { label: "Client Designs", href: "/client-designs" },
+  { label: "Client Designs", href: "/client-work" },
   { label: "Posters", href: "/posters" },
   { label: "Esports", href: "/esports", active: true },
   { label: "Home", href: "/" },
